@@ -1,0 +1,78 @@
+inherit_from: .rubocop_todo.yml
+Style/StringLiterals:
+  Enabled: false
+  
+Style/EmptyMethod:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Lint/DeprecatedClassMethods:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Enabled: false
+
+Style/Next:
+  Enabled: false
+
+Style/SymbolProc:
+  Enabled: false
+
+Style/RedundantReturn:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'spec/spec_helper.rb'
+    - 'vendor/**/*'
+    - 'lib/credit_pay.rb'
