@@ -1,0 +1,26 @@
+<header class="p-3 mb-3 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <%= link_to "MyChat", root_path, class:"nav-link px-2 link-secondary" %>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li>
+            <!--<p>lll</p>-->
+          </li>
+        </ul>
+
+        <div>
+          <ul class="nav">
+            <% if user_signed_in? %>
+
+              <li class="nav-item"><%= link_to current_user.name, current_user, class:"nav-link link-dark px-2", id:"profile_link" %></li>
+              <li class="nav-item"><%= link_to "Sign out", destroy_user_session_path, class:"nav-link link-dark px-2", data: { turbo_method: :delete } %></li>
+            <% else %>
+              <li class="nav-item"><%= link_to "Log in", new_user_session_path, class:"nav-link link-dark px-2" %></li>
+              <li class="nav-item"><%= link_to "Sign up", new_user_registration_path, class:"nav-link link-dark px-2" %></li>        
+            <%end%>
+          </ul>
+        </div>        
+      </div>
+    </div>
+  </header>
