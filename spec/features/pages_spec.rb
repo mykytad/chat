@@ -16,4 +16,10 @@ RSpec.feature "static pages", type: :feature do
 
     expect(body).to have_content "About"
   end
+
+  it "visit index pages " do
+    click_link "MyChat"
+
+    expect(body).to have_content "About"
+  end
 end
