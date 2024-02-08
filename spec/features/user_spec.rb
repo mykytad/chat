@@ -1,5 +1,5 @@
 require "rails_helper"
-# require "shared_methods"
+require "shared_methods"
 
 RSpec.feature "create user", type: :feature do
   it "creates a new user" do
@@ -17,8 +17,8 @@ RSpec.feature "create user", type: :feature do
 
   it "profile show" do
     log_in(test_user)
-    click_link :profile_link
 
     expect(body).to have_link "Tomas"
+    expect(body).to have_link "Sign out"
   end
 end
