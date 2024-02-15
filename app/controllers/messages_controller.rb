@@ -1,7 +1,5 @@
 class MessagesController < ApplicationController
-  before_action do
-    @dialogue = Dialogue.find(params[:dialogue_id])
-  end
+  before_action :dialogue
 
   def index
     @messages = @dialogue.messages
@@ -13,6 +11,7 @@ class MessagesController < ApplicationController
 
   def create
     @message = @dialogue.messages.new(message_params)
+
     if @message.save
       redirect_to dialogue_messages_path(@dialogue)
     end
@@ -22,5 +21,9 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:body, :user_id, :dialogue_id)
+  end
+
+  def dialogue
+    @dialogue ||= Dialogue.find(params[:dialogue_id])
   end
 end
