@@ -3,13 +3,22 @@ class DialoguesController < ApplicationController
 
   def index
     @users = User.all
-    @dialogue = Dialogue.all
+    @dialoguess = Dialogue.all
+  end
+
+  def new
+    @dialogue = Dialogue.new
   end
 
   def create
     @dialogue = Dialogue.create(dialogue_params)
     @dialogue.sender_id = current_user.id
-    # @dialogue.recipient_id = 
+
+    # @recipient_id = params[:recipient_id]
+
+    if @dialogue.save
+      redirect_to dialogue_messages_path(@dialogue)
+    end
   end
 
   private

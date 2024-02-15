@@ -1,0 +1,6 @@
+<h2> Select users to chat </h2>
+<% @users.each do |user| %>
+  <% if user.id != current_user.id %>  
+    <%= link_to user.name, new_dialogue_path(recipient_id: user.id)%></br>
+  <%end%>
+<% end %>
