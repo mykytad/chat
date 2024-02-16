@@ -24,6 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_09_114950) do
   create_table "messages", force: :cascade do |t|
     t.string "body", default: "", null: false
     t.integer "user_id", null: false
+    t.integer "dialogue_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
