@@ -7,6 +7,15 @@ def test_user
   )
 end
 
+def user_for_chat
+  user = User.create(
+    name: "Foo",
+    email: "Foo@example.com",
+    phone: "0981234567",
+    password: "111111"
+  )
+end
+
 def log_in(user)
   visit new_user_session_path
   fill_in :user_email, with: user.email

@@ -1,6 +1,16 @@
+
+<% if current_user.id == @dialogue.sender_id %>
+  <p> <%= @dialogue.recipient.name %> </p>
+<% else %>
+   <p> <%= @dialogue.sender.name %> </p>
+<% end %>
+
+
+
+
 <% @messages.each do |message| %>
-  <p> <%= message.user.name %> </p>
-  <p> <%= message.body %> </p>
+  <p> <%= message.user.name %>: </p>
+  <p> - <%= message.body %> </p>
 <% end %>
 
 <%= render "messages/new" %>
