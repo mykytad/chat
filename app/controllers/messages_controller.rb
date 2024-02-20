@@ -6,12 +6,14 @@ class MessagesController < ApplicationController
   end
 
   def new
-    @message = @dialogue.messages.new
+    @message = dialogue.messages.new
   end
 
   def create
-    @message = @dialogue.messages.new(message_params)
+    @message = dialogue.messages.new(message_params)
+    @message.dialogue_id = @dialogue.id
     @message.user_id = current_user.id
+
     if @message.save
       redirect_to dialogue_messages_path(@dialogue)
     end
