@@ -23,4 +23,15 @@ RSpec.feature "static pages", type: :feature do
 
     expect(body).to have_content "Foo"
   end
+
+  it "send messages" do
+    click_link "All dialogues"
+    click_link "Foo"
+    click_button "Confirm"
+    fill_in :message_body, with: "Hi, Foo"
+    click_button "Send"
+    save_and_open_page
+    expect(body).to have_content "Tomas:"
+    expect(body).to have_content "- Hi, Foo"
+  end
 end
