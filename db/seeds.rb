@@ -5,3 +5,25 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+if Rails.env.development?
+  u = 0
+
+  while u < 9
+    User.create!(
+      name: Faker::JapaneseMedia::OnePiece.character,
+      email: Faker::Internet.email,
+      phone: Faker::Number.number(digits: 10),
+      password: "123456",
+      password_confirmation: "123456"
+    )
+    u += 1
+  end
+  user = User.create!(
+    name: Faker::JapaneseMedia::OnePiece.character,
+    email: "nikita@example.com",
+    phone: Faker::Number.number(digits: 10),
+    password: "123456",
+    password_confirmation: "123456"
+  )
+  puts "users create"
+end
