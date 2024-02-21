@@ -27,5 +27,3 @@ if Rails.env.development?
   )
   puts "users create"
 end
-
-# "nikita@example.com"
