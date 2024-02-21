@@ -1,0 +1,3 @@
+Style/Lambda:
+  Exclude:
+    - 'app/models/dialogue.rb'

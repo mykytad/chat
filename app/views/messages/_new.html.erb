@@ -1,0 +1,9 @@
+<%= form_for :message do |form| %>
+  <div class="mb-3">
+    <%= form.text_field :body, required: true %>
+  </div>
+
+  <div>
+    <%= form.submit "Send", class: "btn btn-primary" %>
+  </div>
+<% end %>
