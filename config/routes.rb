@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: [:index, :show]
 
-  root "pages#index"
+  # root "pages#index"
+  root "dialogues#index"
   
   get "about" => "pages#about"
   get "contacts" => "pages#contacts"
