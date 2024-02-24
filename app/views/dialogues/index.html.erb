@@ -1,44 +1,5 @@
 <div class="col-12 d-flex justify-content-between">
-  <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-    <a href=" <%= root_path %>" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none nav-link link-secondary">
-      <span class="fs-4">MyChat</span>
-    </a>
-    <hr>
-    <small> All chat </small>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <% @dialogues.each do |dialogue| %>
-        <% if dialogue.sender_id == current_user.id || dialogue.recipient_id == current_user.id %>
-
-          <% if dialogue.sender_id == current_user.id %>
-            <% recipient = User.find(dialogue.recipient_id) %>
-          <% else %>
-            <% recipient = User.find(dialogue.sender_id) %>
-          <% end %>
-
-          <li class="nav-item user_list_item">
-            <%= link_to recipient.name, dialogue_messages_path(dialogue), class:"nav-link link-secondary" %> <!--active-->
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-    <hr>
-    <div class="dropdown">
-      <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle text-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-        <strong>
-          <%= current_user.name%>
-        </strong>
-      </a>
-      <ul class="dropdown-menu text-small shadow">
-        <% if user_signed_in? %>
-          <li class=""><%= link_to "Profile", current_user, class:"dropdown-item"%></li>
-          <li class=""><%= link_to "Settings", edit_user_registration_path, class:"dropdown-item"%></li>
-          <li class="nav-item"><%= link_to "All dialogues", dialogues_path, class:"dropdown-item"%></li>
-          <li><hr class="dropdown-divider"></li>
-          <li class="nav-item"><%= link_to "Sign out", destroy_user_session_path, class:"dropdown-item", data: { turbo_method: :delete } %></li>      
-        <% end %>
-      </ul>
-    </div>
-  </div>
+  <%= render "dialogues/sidebar" %>
 
   <div class="col-9">
     <div class="chat_with">
@@ -54,4 +15,5 @@
       </ul>
     </div>
   </div>
+  
 </div>
