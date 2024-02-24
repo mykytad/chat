@@ -1,21 +1,25 @@
-<div class="d-flex row">
-  <nav class="navbar navbar-expand-lg bg-body-tertiary messages_recipient">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <% if current_user.id == @dialogue.sender_id %>
-          <p> <%= @dialogue.recipient.name %> </p>
-        <% else %>
-          <p> <%= @dialogue.sender.name %> </p>
-        <% end %>
-      </a>
-    </div>
-  </nav>
+<div class="col-12 d-flex justify-content-between">
+  <%= render "dialogues/sidebar" %>
 
-  <div class="messages_text">
-    <% @messages.each do |message| %>
-      <p> <%= message.user.name %>: </p>
-      <p> - <%= message.body %> </p>
-    <% end %>
+  <div class="d-flex row col-9">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary messages_recipient">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <% if current_user.id == @dialogue.sender_id %>
+            <p> <%= @dialogue.recipient.name %> </p>
+          <% else %>
+            <p> <%= @dialogue.sender.name %> </p>
+          <% end %>
+        </a>
+      </div>
+    </nav>
+
+    <div class="messages_text">
+      <% @messages.each do |message| %>
+        <p> <%= message.user.name %>: </p>
+        <p> - <%= message.body %> </p>
+      <% end %>
+    </div>
+    <%= render "messages/new" %>
   </div>
-  <%= render "messages/new" %>
 </div>
