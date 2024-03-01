@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+ .pencil_icon{
+  margin-left: 10px;
+ }
+ .profile_icon{
+  text-decoration: none;
+  color: black;
+ }
