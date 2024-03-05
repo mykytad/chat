@@ -14,6 +14,7 @@
  *= require_self
  */
 
+/* user show */
  .pencil_icon{
   margin-left: 10px;
  }
@@ -21,3 +22,20 @@
   text-decoration: none;
   color: black;
  }
+
+ /* messages index */
+
+ .arrow{
+  color: green;
+ }
+
+.message_body_wrap{
+  min-width: auto;
+  max-width: 50%;
+}
+.content-inner{
+  min-width: 0;
+}
+.message_content{
+  padding: 5px 15px;
+}

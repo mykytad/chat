@@ -16,15 +16,22 @@
 
     <div class="messages_text h-75 overflow-scroll">
       <% @messages.each do |message| %>
+
         <p> <%= message.user.name %>: </p>
+        <div class="message_body_wrap bg-success rounded text-bg-success">
+          <div class="content-inner"> 
+            <% if current_user.id == message.user_id %>
+            <div class="message_content">
+              <%= message.body %>
+            </div>
+            <% else %>
+              <p class="bg-secondary rounded-pill px-4 text-bg-success">
+                <%= message.body %>
+              </p>
+            <% end %>
+          </div>
+        </div>
 
-        <% if current_user.id == message.user_id %>
-          <p class="btn btn-success rounded-pill px-3"> <%= message.body %> </p>
-        <% else %>
-          <p class="btn btn-secondary rounded-pill px-3"> <%= message.body %> </p>
-        <% end %>
-
-        
       <% end %>
     </div>
     <%= render "messages/new" %>
