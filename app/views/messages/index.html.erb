@@ -2,35 +2,35 @@
   <%= render "dialogues/sidebar" %>
 
   <div class="d-flex row col-9" >
-    <nav class="navbar navbar-expand-lg fixed bg-body-tertiary messages_recipient ">
+    <nav class="navbar navbar-expand-lg fixed bg-body-tertiary messages_recipient">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <span class="navbar-brand" href="#">
           <% if current_user.id == @dialogue.sender_id %>
             <p> <%= @dialogue.recipient.name %> </p>
           <% else %>
             <p> <%= @dialogue.sender.name %> </p>
           <% end %>
-        </a>
+        </span>
       </div>
     </nav>
-
-    <div class="messages_text h-75 overflow-scroll">
+    <hr>
+    <div class="messages_text h-75 overflow-scroll d-flex flex-column ">
       <% @messages.each do |message| %>
-
-        <p> <%= message.user.name %>: </p>
-        <div class="message_body_wrap bg-success rounded text-bg-success">
-          <div class="content-inner"> 
-            <% if current_user.id == message.user_id %>
-            <div class="message_content">
-              <%= message.body %>
-            </div>
-            <% else %>
-              <p class="bg-secondary rounded-pill px-4 text-bg-success">
+        
+          <% if current_user.id == message.user_id %>
+            <div class="message_body_wrap bg-success rounded text-bg-success align-self-end mb-1">
+              <div class="message_content">
                 <%= message.body %>
-              </p>
-            <% end %>
-          </div>
-        </div>
+              </div>
+            </div>
+          <% else %>
+            <div class="message_body_wrap bg-secondary rounded text-bg-success align-self-start mb-1">
+              <div class="message_content">
+                <%= message.body %>
+              </div>
+            </div>
+          <% end %>
+        
 
       <% end %>
     </div>

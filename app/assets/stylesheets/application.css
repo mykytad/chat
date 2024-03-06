@@ -30,11 +30,8 @@
  }
 
 .message_body_wrap{
-  min-width: auto;
+  display: inline-block;
   max-width: 50%;
-}
-.content-inner{
-  min-width: 0;
 }
 .message_content{
   padding: 5px 15px;
