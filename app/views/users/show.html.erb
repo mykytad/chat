@@ -1,4 +1,4 @@
-<div class="col-12 d-flex justify-content-between" style="height: 700px">
+<div class="col-12 d-flex justify-content-start" style="height: 700px">
 
   <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
     <a href=" <%= root_path %>" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none nav-link link-secondary">
@@ -7,7 +7,13 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item user_list_item">
-        <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class:"nav-link link-dark px-2" %>
+        <%=link_to "Contact", contacts_path, class:"nav-link text-muted", id:"page_contact" %>
+      </li>
+      <li class="nav-item user_list_item">
+        <%=link_to "About", about_path, class:"nav-link text-muted", id:"page_about" %>
+      </li>
+      <li class="nav-item user_list_item">
+        <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class:"nav-link text-danger" %>
       </li>
     </ul>
 
@@ -44,7 +50,7 @@
 
   </div>
 
-  <div  style="height: 700px">
+  <div class="ms-5" style="height: 700px">
     <div class="row">
       <div class="d-flex align-items-start"> 
         <h2> <%= @user.name%> </h2>
