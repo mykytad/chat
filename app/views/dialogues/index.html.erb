@@ -1,20 +1,19 @@
-<h2>All dialogue:</h2>
-<% @dialogues.each do |dialogue| %>
-  <% if dialogue.sender_id == current_user.id || dialogue.recipient_id == current_user.id %>
+<div class="col-12 d-flex justify-content-between">
+  <%= render "dialogues/sidebar" %>
 
-    <% if dialogue.sender_id == current_user.id %>
-      <% recipient = User.find(dialogue.recipient_id) %>
-    <% else %>
-      <% recipient = User.find(dialogue.sender_id) %>
-    <% end %>
+  <div class="col-9">
+    <div class="chat_with">
+      <h3> Chat with: </h3>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <% @users.each do |user| %>
+          <% if user.id != current_user.id %>
+            <li class="nav-item user_list_item">
+              <%= link_to user.name, new_dialogue_path(recipient_id: user.id) %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 
-    <h4><%= link_to recipient.name, dialogue_messages_path(dialogue)%></h4>
-  <% end %>
-<% end %>
-
-<h2> Select users to chat </h2>
-<% @users.each do |user| %>
-  <% if user.id != current_user.id %>  
-    <%= link_to user.name, new_dialogue_path(recipient_id: user.id)%></br>
-  <%end%>
-<% end %>
+</div>

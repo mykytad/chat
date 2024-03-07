@@ -2,6 +2,7 @@ class MessagesController < ApplicationController
   before_action :dialogue
 
   def index
+    @dialogues = Dialogue.all
     @messages = @dialogue.messages
   end
 

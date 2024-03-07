@@ -1,9 +1,9 @@
-<%= form_for :message do |form| %>
-  <div class="mb-3">
-    <%= form.text_field :body, required: true %>
+<%= form_for :message, class:"row g-3 col-12 align-items-center col-10" do |form| %>
+  <div class="col-auto mb-3 col-11">
+    <%= form.text_field :body, autofocus: true, required: true, class: "form-control form-control-lg message_area" %>
   </div>
-
-  <div>
-    <%= form.submit "Send", class: "btn btn-primary" %>
+  
+  <div class="col-auto col-1">
+    <%= form.submit "Send", class: "btn btn-primary mb-3" %>
   </div>
 <% end %>

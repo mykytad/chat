@@ -2,8 +2,12 @@ class DialoguesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.all
-    @dialogues = Dialogue.all
+    if :authenticate_user!
+      @users = User.all
+      @dialogues = Dialogue.all
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def new

@@ -13,3 +13,35 @@
  *= require_tree .
  *= require_self
  */
+
+/* user show */
+ .pencil_icon{
+  margin-left: 10px;
+ }
+ .profile_icon{
+  text-decoration: none;
+  color: black;
+ }
+
+ /* messages index */
+
+ .arrow{
+  color: green;
+ }
+
+.message_body_wrap{
+  display: inline-block;
+  max-width: 45%;
+}
+.message_content{
+  padding: 5px 15px;
+}
+/* message new */
+
+/* sidebar */
+
+.sidebar_icon{
+  color: #6c757d;
+  width: 30px;
+  height: 30px;
+}
