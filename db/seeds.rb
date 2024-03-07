@@ -8,7 +8,15 @@
 if Rails.env.development?
   u = 0
 
-  while u < 9
+  my_user = User.create!(
+    name: Faker::JapaneseMedia::OnePiece.character,
+    email: "nikita@example.com",
+    phone: Faker::Number.number(digits: 10),
+    password: "123456",
+    password_confirmation: "123456"
+  )
+
+  while u < 50
     User.create!(
       name: Faker::JapaneseMedia::OnePiece.character,
       email: Faker::Internet.email,
@@ -18,12 +26,33 @@ if Rails.env.development?
     )
     u += 1
   end
-  user = User.create!(
-    name: Faker::JapaneseMedia::OnePiece.character,
-    email: "nikita@example.com",
-    phone: Faker::Number.number(digits: 10),
-    password: "123456",
-    password_confirmation: "123456"
-  )
-  puts "users create"
+
+  puts "Users create"
+  user_ids = []
+  users = User.first(26)
+  users.each do |user|
+    user_ids << user.id
+  end
+  user_ids.shift
+
+  d = 0
+  user_ids.each do |id|
+    Dialogue.create!(
+      sender_id: my_user.id,
+      recipient_id: id
+    )
+  end
+  puts "Dialogues create"
+
+  m = 0
+  while m < 500
+    Message.create!(
+      body: Faker::Quote.matz,
+      user_id: rand(1..25),
+      dialogue_id: rand(1..10)
+    )
+    m += 1
+  end
+
+  puts "Messages create"
 end
