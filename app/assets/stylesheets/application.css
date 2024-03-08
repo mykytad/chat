@@ -44,6 +44,9 @@
 /* message new */
 
 /* sidebar */
+.sidebar_icons_menu{
+  background: #ced4da;
+}
 
 .sidebar_icon{
   color: #6c757d;
