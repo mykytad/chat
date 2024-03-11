@@ -8,8 +8,8 @@ RSpec.feature "static pages", type: :feature do
   end
 
   it "visit contacs pages" do
-    save_and_open_page
     click_link :page_contact
+
     expect(body).to have_content "Contacts"
   end
 
