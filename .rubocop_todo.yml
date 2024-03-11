@@ -1,3 +1,7 @@
 Style/Lambda:
   Exclude:
     - 'app/models/dialogue.rb'
+
+Lint/LiteralAsCondition:
+  Exclude:
+  - 'app/controllers/dialogues_controller.rb'
