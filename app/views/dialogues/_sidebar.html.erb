@@ -1,7 +1,9 @@
 <div class="d-flex flex-column overflow-scroll flex-shrink-0 bg-body-tertiary" style="width: 280px; height:909px">
-  <a href=" <%= root_path %>" class="d-flex sticky-top px-3 align-items-center mb-md-0 me-md-auto link-body-emphasis text-decoration-none nav-link link-secondary">
-    <span class="fs-4">MyChat</span>
-  </a>
+  <div class="sticky-top mb-2 sidebar_icons_menu">
+    <a href="<%= root_path %>" class="d-flex  px-3 align-items-center mb-md-0 me-md-auto link-body-emphasis text-decoration-none nav-link link-secondary">
+      <span class="fs-4">MyChat</span>
+    </a>
+  </div>
   <small class="px-3"> All chat </small>
   <ul class="nav nav-pills flex-column mb-auto">
     <% @dialogues.each do |dialogue| %>
