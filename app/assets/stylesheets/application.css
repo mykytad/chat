@@ -14,7 +14,6 @@
  *= require_self
  */
 
-
  .body_height{
   height: 930px;
   margin-top: 10px;
@@ -45,6 +44,13 @@
 /* message new */
 
 /* sidebar */
+.sidebar{
+  width: 280px;
+  height: 909px;
+}
+.sidebar_icons_menu{
+  background: #ced4da;
+}
 
 .sidebar_icon{
   color: #6c757d;
