@@ -1,13 +1,15 @@
 require "rails_helper"
+require "shared_methods"
 
 RSpec.feature "static pages", type: :feature do
   before do
-    visit root_path
+    log_in(test_user)
+    click_link :profile_link
   end
 
   it "visit contacs pages" do
+    save_and_open_page
     click_link :page_contact
-
     expect(body).to have_content "Contacts"
   end
 
@@ -20,6 +22,6 @@ RSpec.feature "static pages", type: :feature do
   it "visit index pages " do
     click_link "MyChat"
 
-    expect(body).to have_content "About"
+    expect(body).to have_content "Chat with:"
   end
 end

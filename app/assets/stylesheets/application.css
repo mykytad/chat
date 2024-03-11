@@ -44,6 +44,10 @@
 /* message new */
 
 /* sidebar */
+.sidebar{
+  width: 280px;
+  height: 909px;
+}
 .sidebar_icons_menu{
   background: #ced4da;
 }
