@@ -12,7 +12,7 @@ jobs:
         ports:
           - "5432:5432"
         env:
-          POSTGRES_DB: alishop_test
+          POSTGRES_DB: chat_test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: ""
     env:
