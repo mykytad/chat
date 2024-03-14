@@ -12,6 +12,8 @@ jobs:
         ports:
           - "5432:5432"
         env:
+          POSTGRES_PORT: 5432
+          POSTGRES_HOST: postgres
           POSTGRES_DB: chat_test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: ""
