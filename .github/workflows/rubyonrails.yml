@@ -15,6 +15,7 @@ jobs:
           POSTGRES_PORT: 5432
           POSTGRES_HOST: postgres
           POSTGRES_DB: chat_test
+          POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: ""
     env:
@@ -29,7 +30,7 @@ jobs:
         with:
           bundler-cache: true
       - name: Set up database schema
-        run: bundle exec rake db:create
+        run: bin/rails db:create
 
       # - name: run rspec
       #   run: bundle exec rspec spec
