@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:11-alpine
+        image: postgres:13-alpine
         ports:
           - "5432:5432"
         env:
@@ -26,14 +26,16 @@ jobs:
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
         with:
           bundler-cache: true
+      - name: Set up database schema
+        run: bundle exec rake db:create
+
       # - name: run rspec
       #   run: bundle exec rspec spec
       - name: run rubocop
         run: bundle exec rubocop
 
       # Add or replace database setup steps here
-      - name: Set up database schema
-        run: bundle exec rake db:create
+
         # run: bin/rails db:schema:load
       # Add or replace test runners here
       # - name: Run tests
