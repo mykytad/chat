@@ -39,5 +39,6 @@
 </div>
 
 <script>
-  $('.messages_text').scrollTop($('.messages_text')[0].scrollHeight);
+  var objDiv = document.getElementById("messageBody");
+  objDiv.scrollTop = objDiv.scrollHeight;
 </script>
