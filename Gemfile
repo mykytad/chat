@@ -47,6 +47,8 @@ gem "haml"
 gem "sidekiq"
 gem "redis"
 gem "faker"
+gem "redis"
+# gem "sidekiq"
 
 # Use Sass to process CSS
 # gem "sassc-rails"
