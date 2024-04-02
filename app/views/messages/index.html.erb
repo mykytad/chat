@@ -14,9 +14,10 @@
       </div>
     </nav>
     <hr>
+    
     <div class="messages_text h-75 overflow-scroll d-flex flex-column" id="messageBody">
       <% @messages.each do |message| %>
-        
+
           <% if current_user.id == message.user_id %>
             <div class="message_body_wrap bg-success rounded-4 text-bg-success align-self-end mb-1">
               <div class="message_content">
@@ -30,10 +31,10 @@
               </div>
             </div>
           <% end %>
-        
 
       <% end %>
     </div>
+
     <%= render "messages/new" %>
   </div>
 </div>
