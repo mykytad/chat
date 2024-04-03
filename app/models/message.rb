@@ -7,4 +7,5 @@ class Message < ApplicationRecord
   validates :user_id, presence: true
 
   # after_create_commit { broadcast_prepend_to "messages", partial: "messages/new", locals: { messages: self }, target: "messages" }
+  # after_create_commit { broadcast_append_to self.room }
 end
