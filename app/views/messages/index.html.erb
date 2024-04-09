@@ -16,7 +16,7 @@
     <hr>
 
     <%= turbo_stream_from @dialogue %>
-    <div class="messages_text h-75 overflow-scroll d-flex flex-column" id="messageBody">
+    <div class="messages_text h-75 overflow-scroll d-flex flex-column" id="messages">
       <%= render "messages/message" %>
     </div>
 
@@ -25,6 +25,6 @@
 </div>
 
 <script>
-  var objDiv = document.getElementById("messageBody");
+  var objDiv = document.getElementById("messages");
   objDiv.scrollTop = objDiv.scrollHeight;
 </script>
