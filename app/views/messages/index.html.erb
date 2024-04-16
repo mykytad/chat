@@ -15,10 +15,8 @@
     </nav>
     <hr>
 
-    <%= turbo_stream_from @dialogue %>
-    <div class="messages_text h-75 overflow-scroll d-flex flex-column" id="messages">
-      <%= render "messages/message" %>
-    </div>
+    <%= turbo_stream_from @message %>
+    <%= render "messages/message" %>
 
     <%= render "messages/new" %>
   </div>
