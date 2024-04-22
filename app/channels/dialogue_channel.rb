@@ -2,13 +2,12 @@ class DialogueChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
 
-    # Find the chat based on the chat_id parameter
+    # Find the dialogue based on the dialogue_id parameter
     dialogue = Dialogue.find(params[:id])
-    # Stream for the found chat
-    stream_for dialogue
-    rescue ActiveRecord::RecordNotFound
-    # If the chat is not found, reject the subscription
-    reject
+    messages = dialogue.messages
+    # Stream for the found dialogue
+    stream_for messages
+
   end
 
   def unsubscribed
