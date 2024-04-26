@@ -17,7 +17,6 @@ class MessagesController < ApplicationController
 
     if @message.save
       redirect_to dialogue_messages_path(@dialogue)
-      # turbo_stream.prepend 'messages', partial: 'messages/message', locals: { message: @message }
     end
   end
 

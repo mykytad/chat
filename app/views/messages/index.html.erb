@@ -15,7 +15,11 @@
     </nav>
     <hr>
 
-    <%= render "messages/message" %>
+    <%= turbo_stream_from @dialogue %>
+    <div id="messages">
+      <%= render @messages %>
+    </div>
+    
 
     <%= render "messages/new" %>
   </div>
