@@ -16,10 +16,9 @@
     <hr>
 
     <%= turbo_stream_from @dialogue %>
-    <div id="messages">
+    <div class="h-75 overflow-scroll d-flex flex-column" id="messages">
       <%= render @messages %>
     </div>
-    
 
     <%= render "messages/new" %>
   </div>
