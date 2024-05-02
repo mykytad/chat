@@ -28,8 +28,9 @@ if Rails.env.development?
   end
 
   puts "Users create"
+
   user_ids = []
-  users = User.first(26)
+  users = User.first(11)
   users.each do |user|
     user_ids << user.id
   end
@@ -45,7 +46,7 @@ if Rails.env.development?
   puts "Dialogues create"
 
   m = 0
-  while m < 500
+  while m < 15
     Message.create!(
       body: Faker::Quote.matz,
       user_id: rand(1..25),

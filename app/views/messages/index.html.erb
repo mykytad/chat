@@ -1,7 +1,7 @@
 <div class="col-12 d-flex justify-content-around"  style="height: 935px;">
   <%= render "dialogues/sidebar" %>
 
-  <div class="d-flex row col-9">
+  <div class=" row col-9">
     <nav class="navbar navbar-expand-lg fixed bg-body-tertiary py-0 messages_recipient">
       <div class="container-fluid">
         <span class="navbar-brand p-0" href="#">
@@ -14,31 +14,17 @@
       </div>
     </nav>
     <hr>
-    <div class="messages_text h-75 overflow-scroll d-flex flex-column" id="messageBody">
-      <% @messages.each do |message| %>
-        
-          <% if current_user.id == message.user_id %>
-            <div class="message_body_wrap bg-success rounded-4 text-bg-success align-self-end mb-1">
-              <div class="message_content">
-                <%= message.body %>
-              </div>
-            </div>
-          <% else %>
-            <div class="message_body_wrap bg-secondary rounded-4 text-bg-success align-self-start mb-1">
-              <div class="message_content">
-                <%= message.body %>
-              </div>
-            </div>
-          <% end %>
-        
 
-      <% end %>
+    <%= turbo_stream_from @dialogue %>
+    <div class="h-75 overflow-scroll d-flex flex-column" id="messages">
+      <%= render @messages %>
     </div>
+
     <%= render "messages/new" %>
   </div>
 </div>
 
 <script>
-  var objDiv = document.getElementById("messageBody");
+  var objDiv = document.getElementById("messages");
   objDiv.scrollTop = objDiv.scrollHeight;
 </script>

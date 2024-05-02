@@ -68,6 +68,9 @@ Metrics/ClassLength:
 Style/NumericPredicate:
   Enabled: false
 
+Style/RedundantSelf:
+  Enabled: false
+
 AllCops:
   Exclude:
     - 'config/**/*'
