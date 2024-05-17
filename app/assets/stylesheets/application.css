@@ -29,9 +29,9 @@
  }
 
  /* messages index */
-
- .arrow{
-  color: green;
+ .messages_recipient{
+  height: 36px;
+  background: #ced4da;
  }
 
 .message_body_wrap{
