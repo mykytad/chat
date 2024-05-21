@@ -4,20 +4,24 @@
       <span class="fs-4">MyChat</span>
     </a>
   </div>
-  <small class="px-3"> All chat </small>
+  <small class="px-3 mb-1"> All chat </small>
   <ul class="nav nav-pills flex-column mb-auto">
     <% @dialogues.each do |dialogue| %>
+      
       <% if dialogue.sender_id == current_user.id || dialogue.recipient_id == current_user.id %>
-
         <% if dialogue.sender_id == current_user.id %>
           <% recipient = User.find(dialogue.recipient_id) %>
         <% else %>
           <% recipient = User.find(dialogue.sender_id) %>
         <% end %>
 
-        <li class="nav-item user_list_item">
-          <%= link_to recipient.name, dialogue_messages_path(dialogue), class:"nav-link link-secondary" %> <!--active-->
+        <li class="nav-item user_list_item"> <!--.active_dialogue_item - realized in CSS file -->
+          <%= link_to dialogue_messages_path(dialogue), class:"nav-link link-secondary" do %> <!-- .active_dialogue_link - realized in CSS file -->
+            <%=recipient.name%>
+            <br>
+          <%end%>
         </li>
+        <hr class="m-0 p-0">
       <% end %>
     <% end %>
   </ul>
