@@ -15,8 +15,8 @@
           <% recipient = User.find(dialogue.sender_id) %>
         <% end %>
 
-        <li class="nav-item user_list_item"> <!--.active_dialogue_item - realized in CSS file -->
-          <%= link_to dialogue_messages_path(dialogue), class:"nav-link link-secondary" do %> <!-- .active_dialogue_link - realized in CSS file -->
+        <li class="nav-item user_list_item"> <!--.bg-success -->
+          <%= link_to dialogue_messages_path(dialogue), class:"nav-link link-secondary " do %> <!-- .text-white -->
             <%=recipient.name%>
             <br>
           <%end%>
