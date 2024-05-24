@@ -49,6 +49,10 @@
   width: 280px;
   height: 909px;
 }
+.sidebar_recipient_max-height{
+  max-height: 55px;
+  overflow: hidden;
+}
 .sidebar_icons_menu{
   background: #ced4da;
 }
