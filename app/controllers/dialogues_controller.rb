@@ -15,11 +15,15 @@ class DialoguesController < ApplicationController
   end
 
   def create
-    @dialogue = Dialogue.create(dialogue_params)
+    @dialogue = Dialogue.new
     @dialogue.sender_id = current_user.id
+    @dialogue.recipient_id = params[:recipient_id]
+    @dialogue.save
 
     if @dialogue.save
       redirect_to dialogue_messages_path(@dialogue)
+    else
+      redirect_to dialogues_path, alert: "some went wrong"
     end
   end
 
