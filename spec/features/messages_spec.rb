@@ -25,7 +25,7 @@ RSpec.feature "messages pages", type: :feature do
     click_button "Start dialogue"
 
     expect(body).to have_content "Foo"
-    
+
     fill_in :message_body, with: "Hi, Foo"
     click_button "Send"
 
