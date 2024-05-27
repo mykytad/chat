@@ -10,20 +10,22 @@ RSpec.feature "messages pages", type: :feature do
   end
 
   it "visit dialogues page" do
-    expect(body).to have_content "Chat with:"
+    expect(body).to have_content "Chat with"
+    expect(body).to have_content "All users"
     expect(body).to have_content "Foo"
   end
 
   it "start dialogue" do
-    click_link "Foo"
-    click_button "Confirm"
+    click_button "Start dialogue"
 
     expect(body).to have_content "Foo"
   end
 
   it "send messages" do
-    click_link "Foo"
-    click_button "Confirm"
+    click_button "Start dialogue"
+
+    expect(body).to have_content "Foo"
+    
     fill_in :message_body, with: "Hi, Foo"
     click_button "Send"
 
