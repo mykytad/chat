@@ -32,6 +32,7 @@
  .messages_recipient{
   height: 36px;
   background: #ced4da;
+  color:#6c757d
  }
 
 .message_body_wrap{
@@ -48,6 +49,10 @@
   width: 280px;
   height: 909px;
 }
+.sidebar_recipient_max-height{
+  max-height: 55px;
+  overflow: hidden;
+}
 .sidebar_icons_menu{
   background: #ced4da;
 }
@@ -56,4 +61,9 @@
   color: #6c757d;
   width: 30px;
   height: 30px;
+}
+
+/* dialogues */
+.users_list_wrap{
+  height: 92%;
 }

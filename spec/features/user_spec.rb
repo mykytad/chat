@@ -19,6 +19,6 @@ RSpec.feature "create user", type: :feature do
     log_in(test_user)
 
     expect(body).to have_link :profile_link
-    expect(body).to have_content "Chat with:"
+    expect(body).to have_content "Chat with"
   end
 end

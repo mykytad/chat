@@ -1,18 +1,18 @@
-<div class="col-12 d-flex justify-content-between">
+<div class="col-12 d-flex justify-content-evenly" style="height: 935px;">
   <%= render "dialogues/sidebar" %>
 
-  <div class="col-9">
-    <div class="chat_with">
-      <h3> Chat with: </h3>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <% @users.each do |user| %>
-          <% if user.id != current_user.id %>
-            <li class="nav-item user_list_item">
-              <%= link_to user.name, new_dialogue_path(recipient_id: user.id) %>
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
+  <div class="col-9 overflow-hidden">
+    <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient mb-2">
+      <div class="container-fluid ">
+        <span class="navbar-brand p-0 d-flex align-items-center text-dark-emphasis">
+          Chat with
+        </span>
+      </div>
+    </nav>
+
+    <div class="overflow-scroll d-flex flex-column users_list_wrap">
+      <small class="px-3 mb-1"> All users </small>
+      <%= render "dialogues/dialogue_new"%>
     </div>
   </div>
 
