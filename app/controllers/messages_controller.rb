@@ -20,6 +20,25 @@ class MessagesController < ApplicationController
     end
   end
 
+  def edit
+    @message = dialogue.messages.find(params[:id])
+  end
+
+  def update
+    @message = dialogue.messages.find(params[:id])
+    if @message.update(message_params)
+      redirect_to ialogue_messages_path(@dialogue)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @message = dialogue.messages.find(params[:id])
+    @message.destroy
+    redirect_to dialogue_messages_path(@dialogue)
+  end
+
   private
 
   def message_params
