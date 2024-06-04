@@ -41,6 +41,19 @@
 }
 .message_content{
   padding: 5px 15px;
+  margin-bottom: 0;
+}
+.msg_btn_link{
+  text-decoration: none;
+}
+.msg_btn{
+  color: #ffffff6b;
+  height: 13px;
+}
+.msg_time{
+  font-size: 8px;
+  /* color: #ffffff6b; */
+  margin-left: 5px;
 }
 /* message new */
 
