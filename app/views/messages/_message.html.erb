@@ -1,10 +1,10 @@
 <div class="message_body_wrap msg-text-<%=message.user_id%> bg-secondary text-white rounded-4 align-self-start mb-1">
   <div class="message_content">
     <%= message.body %>
+    <br>
     <small class="msg_time">
       <%= message.created_at.strftime(" %H:%M")%>
     </small>
-    <br>
     <% if current_user.id == message.user_id %>
       <%= link_to "#", class:"msg_btn_link col-1" do %>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="msg_btn bi bi-pencil" viewBox="0 0 16 16">

@@ -49,11 +49,12 @@
 .msg_btn{
   color: #ffffff6b;
   height: 13px;
+  margin-left: 5px;
 }
 .msg_time{
   font-size: 8px;
   /* color: #ffffff6b; */
-  margin-left: 5px;
+  margin-right: 5px;
 }
 /* message new */
 
