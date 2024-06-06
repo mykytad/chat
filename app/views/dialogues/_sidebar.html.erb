@@ -18,8 +18,9 @@
         <li class="nav-item user_list_item"> <!--.bg-success -->
           <%= link_to dialogue_messages_path(dialogue), class:"nav-link link-secondary sidebar_recipient_max-height" do %> <!-- .text-white -->
             <%= recipient.name %>
-            <br>
           <%end%>
+          <%= link_to "del", dialogue_path(dialogue), data:{turbo_method: :delete} %>
+          <br>
         </li>
         <hr class="my-1 p-0">
       <% end %>

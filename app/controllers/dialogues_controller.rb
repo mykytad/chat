@@ -27,6 +27,15 @@ class DialoguesController < ApplicationController
     end
   end
 
+  def destroy
+    @dialogue = Dialogue.find(params[:id])
+
+    if current_user.id == @dialogue.sender_id || current_user.id == @dialogue.recipient_id
+      @dialogue.destroy
+      redirect_to dialogues_path
+    end
+  end
+
   private
 
   def dialogue_params
