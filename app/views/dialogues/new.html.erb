@@ -1,9 +1,0 @@
-<%= form_with model: @dialogue do |form| %>
-  <div class="mb-3">
-    <%= form.hidden_field :recipient_id, value: params[:recipient_id] %>
-  </div>
-
-  <div>
-    <%= form.submit "Confirm", class: "btn btn-primary" %>
-  </div>
-<% end %>
