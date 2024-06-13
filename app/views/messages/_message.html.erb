@@ -5,6 +5,7 @@
     <small class="msg_time">
       <%= message.created_at.strftime("%d.%m.%y, %H:%M")%>
     </small>
+
     <% if current_user.id == message.user_id %>
       <%= link_to edit_dialogue_message_path(params[:dialogue_id], message.id), class:"msg_btn_link col-1" do %>
         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="msg_btn_edit bi bi-pencil" viewBox="0 0 16 16">
