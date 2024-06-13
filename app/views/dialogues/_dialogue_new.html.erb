@@ -1,8 +1,10 @@
 <ul class="nav nav-pills flex-column mb-auto">
   <% @users.each do |user| %>
+
     <% if user.id != current_user.id %>
       <li class="nav-item d-flex justify-content-between user_list_item">
-        <span class="nav-link link-secondary"> <%= user.name%> </span> 
+        <span class="nav-link link-secondary"> <%= user.name%> </span>
+
         <%= form_with url: dialogues_path do |form| %>
           <%= form.hidden_field(:recipient_id, :value => user.id) %>
           <%= form.submit "Start dialogue", class:"btn btn-primary "%>
