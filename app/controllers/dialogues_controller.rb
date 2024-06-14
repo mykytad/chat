@@ -10,6 +10,11 @@ class DialoguesController < ApplicationController
     end
   end
 
+  def show
+    @dialogues = Dialogue.all
+    @dialogue = Dialogue.find(params[:id])
+  end
+
   def create
     @dialogue = Dialogue.new
     @dialogue.sender_id = current_user.id
