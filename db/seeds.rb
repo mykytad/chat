@@ -29,31 +29,31 @@ if Rails.env.development?
 
   puts "Users create"
 
-  user_ids = []
-  users = User.first(11)
-  users.each do |user|
-    user_ids << user.id
-  end
-  user_ids.shift
+  # user_ids = []
+  # users = User.first(11)
+  # users.each do |user|
+  #   user_ids << user.id
+  # end
+  # user_ids.shift
 
-  d = 0
-  user_ids.each do |id|
-    Dialogue.create!(
-      sender_id: my_user.id,
-      recipient_id: id
-    )
-  end
-  puts "Dialogues create"
+  # d = 0
+  # user_ids.each do |id|
+  #   Dialogue.create!(
+  #     sender_id: my_user.id,
+  #     recipient_id: id
+  #   )
+  # end
+  # puts "Dialogues create"
 
-  m = 0
-  while m < 15
-    Message.create!(
-      body: Faker::Quote.matz,
-      user_id: rand(1..25),
-      dialogue_id: rand(1..10)
-    )
-    m += 1
-  end
+  # m = 0
+  # while m < 15
+  #   Message.create!(
+  #     body: Faker::Quote.matz,
+  #     user_id: rand(1..25),
+  #     dialogue_id: rand(1..10)
+  #   )
+  #   m += 1
+  # end
 
-  puts "Messages create"
+  # puts "Messages create"
 end
