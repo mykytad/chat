@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   before_action :dialogue
 
   def index
-    @dialogues = Dialogue.all
+    @dialogues = Dialogue.all.order(:updated_at => :DESC)
     @messages = @dialogue.messages
   end
 
@@ -16,6 +16,7 @@ class MessagesController < ApplicationController
     @message.user_id = current_user.id
 
     if @message.save
+      @dialogue.update(updated_at: Time.now )
       redirect_to dialogue_messages_path(@dialogue)
     end
   end

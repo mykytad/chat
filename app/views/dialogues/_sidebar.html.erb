@@ -17,10 +17,10 @@
         <% end %>
 
         <li class="nav-item user_list_item d-flex align-items-center justify-content-between"> <!--.bg-success -->
-          <%= link_to dialogue_messages_path(dialogue), class:"nav-link link-secondary sidebar_recipient_max-height col-10" do %> <!-- .text-white -->
-            <%= recipient.name %>
-          <%end%>
+          <%= link_to recipient.name, dialogue_messages_path(dialogue), class:"nav-link link-secondary sidebar_recipient_max-height col-10" %> <!-- .text-white -->
+
           <div class="vr col-1 mx-1"></div>
+
           <%= link_to dialogue_path(dialogue), data:{turbo_method: :delete}, class:"link-danger opacity-75 col-1 " do %>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
               <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
