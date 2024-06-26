@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
     @message.user_id = current_user.id
 
     if @message.save
-      @dialogue.update(updated_at: Time.now)
+      @dialogue.update(last_message: @message.body, updated_at: Time.now)
       redirect_to dialogue_messages_path(@dialogue)
     end
   end

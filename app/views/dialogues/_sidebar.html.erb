@@ -17,8 +17,10 @@
         <% end %>
 
         <li class="nav-item user_list_item d-flex align-items-center justify-content-between"> <!--.bg-success -->
-          <%= link_to recipient.name, dialogue_messages_path(dialogue), class:"nav-link link-secondary sidebar_recipient_max-height col-10" %> <!-- .text-white -->
-
+          <%= link_to dialogue_messages_path(dialogue), class:"nav-link link-secondary sidebar_recipient_max-height col-10" do %> <!-- .text-white -->
+            <%= recipient.name %>
+            <small> <%= dialogue.last_message %> </small>
+          <% end %>
           <div class="vr col-1 mx-1"></div>
 
           <%= link_to dialogue_path(dialogue), data:{turbo_method: :delete}, class:"link-danger opacity-75 col-1 " do %>
