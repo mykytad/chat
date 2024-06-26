@@ -12,6 +12,7 @@ class Dialogue < ApplicationRecord
 
   # def last_message
   #   self.messages.last.body
+  #   save
   # end
 
   # after_update do
