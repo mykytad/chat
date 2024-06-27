@@ -4,10 +4,15 @@ class DialoguesController < ApplicationController
   def index
     if :authenticate_user!
       @users = User.all
-      @dialogues = Dialogue.all
+      @dialogues = Dialogue.all.order(:updated_at => :DESC)
     else
       redirect_to new_user_session_path
     end
+  end
+
+  def show
+    @dialogues = Dialogue.all
+    @dialogue = Dialogue.find(params[:id])
   end
 
   def create
