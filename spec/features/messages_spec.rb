@@ -21,14 +21,14 @@ RSpec.feature "messages pages", type: :feature do
     expect(body).to have_content "Foo"
   end
 
-  # it "send messages" do
-  #   click_button "Start dialogue"
+  it "send messages" do
+    click_button "Start dialogue"
 
-  #   expect(body).to have_content "Foo"
+    expect(body).to have_content "Foo"
 
-  #   fill_in :message_body, with: "Hi, Foo"
-  #   click_button "Send"
+    fill_in :message_body, with: "Hi, Foo"
+    click_button "Send"
 
-  #   expect(body).to have_content "Hi, Foo"
-  # end
+    expect(body).to have_content "Hi, Foo"
+  end
 end
