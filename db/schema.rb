@@ -42,7 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_27_105444) do
     t.datetime "updated_at", null: false
     t.string "nikname"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["nikname"], name: "index_users_on_nikname", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
