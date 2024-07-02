@@ -1,7 +1,7 @@
 <main class="form-signin  m-auto d-flex justify-content-center col-12">
   <div class="col-4"> 
     <div class="d-flex justify-content-center">
-      <h2 class = "h3 mb-3 fw-norma">Sign up devise registerations</h2>
+      <h2 class = "h3 mb-3 fw-norma">Sign up users registerations</h2>
     </div>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
@@ -9,28 +9,28 @@
         <div class="row mb-3">
           <div class="field col-sm-8 w-100">
             <%= f.label :name, class:"col-sm-2 col-form-label" %>
-            <%= f.text_field :name, placeholder:"Your name", class:"form-control" %>
+            <%= f.text_field :name, required: true, placeholder:"Your name", class:"form-control" %>
           </div>
         </div>
 
         <div class="row mb-3">
           <div class = "field col-sm-8 w-100">
             <%= f.label :phone, class:"col-sm-2 col-form-label" %>
-            <%= f.text_field :phone, placeholder:"Your phone", class:"form-control" %>
+            <%= f.text_field :phone, required: true, placeholder:"Your phone", class:"form-control" %>
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="field col-sm-8 w-100">
             <%= f.label :email, class:"col-sm-2 col-form-label" %>
-            <%= f.email_field :email, placeholder:"Your email", autocomplete: "email", class:"form-control" %>
+            <%= f.email_field :email, required: true, placeholder:"Your email", autocomplete: "email", class:"form-control" %>
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="field col-sm-8 w-100">
             <%= f.label :password, class:"col-sm-2 col-form-label" %>
-            <%= f.password_field :password, placeholder:"Enter password", autocomplete: "new-password", class:"form-control" %>
+            <%= f.password_field :password, required: true, placeholder:"Enter password", autocomplete: "new-password", class:"form-control" %>
           </div>
         </div>
 
@@ -40,7 +40,7 @@
             <% if @minimum_password_length %>
               <small class = "text-body-secondary">(<%= @minimum_password_length %> characters minimum)</small>
             <% end %><br />
-            <%= f.password_field :password_confirmation, placeholder:"Repeat password", autocomplete: "new-password", class:"form-control" %>
+            <%= f.password_field :password_confirmation, required: true, placeholder:"Repeat password", autocomplete: "new-password", class:"form-control" %>
           </div>
         </div>
 
