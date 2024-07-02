@@ -13,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super
     if @user.save
-      @user.nickname = "@" + @user.name.downcase + rand(100..999).to_s
+      @user.nickname = "@ #{+ @user.name.downcase + rand(100..999).to_s}"
       @user.save
     end
   end
