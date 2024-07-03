@@ -12,18 +12,23 @@ if Rails.env.development?
     name: Faker::JapaneseMedia::OnePiece.character,
     email: "nikita@example.com",
     phone: Faker::Number.number(digits: 10),
+    # nickname: "@#{+ my_user.name.downcase + rand(100..999).to_s}",
     password: "123456",
     password_confirmation: "123456"
   )
+  my_user.update(nickname: "@#{+ my_user.name.downcase + rand(100..999).to_s}".gsub(/\s+/, ""))
 
   while u < 50
-    User.create!(
+    user = User.create!(
       name: Faker::JapaneseMedia::OnePiece.character,
       email: Faker::Internet.email,
       phone: Faker::Number.number(digits: 10),
+      # nickname: "@#{+ user.name.downcase + rand(100..999).to_s}",
       password: "123456",
       password_confirmation: "123456"
     )
+    user.update(nickname: "@#{+ user.name.downcase + rand(100..999).to_s}".gsub(/\s+/, ""))
+
     u += 1
   end
 
