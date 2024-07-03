@@ -8,6 +8,12 @@
           Chat with
         </span>
       </div>
+      <%= form_with method: :get do |form|%>
+      <div class="d-flex">
+        <%= form.text_field :search, class:"form-control me-2" %>
+        <%= form.submit "Search", class:"btn btn-outline-secondary" %>
+      </div> 
+    <% end %>
     </nav>
 
     <div class="overflow-scroll d-flex flex-column users_list_wrap">
