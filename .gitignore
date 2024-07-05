@@ -27,6 +27,10 @@
 
 /public/assets
 
+/public/images/*
+!/public/images/
+!/public/images/.keep
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 

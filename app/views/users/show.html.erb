@@ -1,11 +1,21 @@
-<div class="col-12 d-flex justify-content-start" style="height: 700px">
+<div class="col-12 d-flex justify-content-start " style="height: 700px">
 
   <%= render "users/sidebar" %>
 
-  <div class="ms-5" style="height: 700px">
+  <div class="ms-5 " style="height: 700px">
     <div class="row">
-      <div class="d-flex align-items-start" style="margin-top: 15px;"> 
-        <h2> <%= @user.name%> </h2>
+      <div class="d-flex align-items-start align-items-center" style="margin-top: 15px;"> 
+
+        <h2> 
+          <img src="/images/<%= @avatar %>.png" alt="<%=@user.name%>" class="rounded-circle"> 
+          <%= @user.name%>
+          <span class="fs-6 fw-lighter fst-italic">
+            <%= @user.nickname %>
+          </span>
+        </h2>
+
+        
+
         <span class="pencil_icon">
           <%=link_to edit_user_registration_path, class:"profile_icon h-25" do%>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -13,7 +23,6 @@
             </svg>
           <% end %>
         </span>
-
       </div>      
     </div>
   </div>
