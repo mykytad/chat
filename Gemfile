@@ -48,6 +48,9 @@ gem "sidekiq"
 gem "redis"
 gem "faker"
 gem 'warden'
+gem "carrierwave"
+gem "mini_magick"
+gem "avatarly"
 
 # Use Sass to process CSS
 # gem "sassc-rails"

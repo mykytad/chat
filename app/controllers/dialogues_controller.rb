@@ -5,6 +5,10 @@ class DialoguesController < ApplicationController
     if :authenticate_user!
       @users = User.all
       @dialogues = Dialogue.all.order(:updated_at => :DESC)
+
+      if params[:search].present?
+        @users = @users.where("lower(nickname) like ?", "%#{params[:search].downcase}%")
+      end
     else
       redirect_to new_user_session_path
     end
