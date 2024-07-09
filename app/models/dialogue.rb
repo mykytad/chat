@@ -9,13 +9,4 @@ class Dialogue < ApplicationRecord
     where("(dialogues.sender_id = ? AND dialogues.recipient_id =?) OR
     (dialogues.sender_id = ? AND dialogues.recipient_id =?)", sender_id, recipient_id, recipient_id, sender_id)
   end
-
-  # def last_message
-  #   self.messages.last.body
-  #   save
-  # end
-
-  # after_update do
-  #   last_message
-  # end
 end
