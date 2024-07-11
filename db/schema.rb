@@ -30,13 +30,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_11_094322) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pin_dialogue", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "dialogue_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "pin_dialogues", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "dialogue_id", null: false
