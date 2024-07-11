@@ -1,4 +1,4 @@
 class PinDialogue < ApplicationRecord
-  bilongs_to :dialogue
-  bilongs_to :user
+  belongs_to :dialogue
+  belongs_to :user
 end
