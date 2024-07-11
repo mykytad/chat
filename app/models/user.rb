@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :messages
   has_many :dialogues
+  # has_many :dialogues, through: :pin_dialogues
+  # has_many :pin_dialogues
 
   # validates :nikname, uniqueness: true
   # Include default devise modules. Others available are:
