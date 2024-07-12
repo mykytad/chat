@@ -1,0 +1,2 @@
+module PinDialogueHelper
+end
