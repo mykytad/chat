@@ -9,9 +9,11 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show]
 
-  resources :dialogues do
+  resources :dialogues, only: [:index, :create, :destroy] do
     resources :messages
   end
+
+  resources :pin_dialogue, only: [:create, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
