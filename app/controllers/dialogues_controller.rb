@@ -14,11 +14,6 @@ class DialoguesController < ApplicationController
     end
   end
 
-  def show
-    @dialogues = Dialogue.all
-    @dialogue = Dialogue.find(params[:id])
-  end
-
   def create
     @dialogue = Dialogue.new
     @dialogue.sender_id = current_user.id
@@ -46,13 +41,4 @@ class DialoguesController < ApplicationController
   def dialogue_params
     params.require(:dialogue).permit(:sender_id, :recipient_id)
   end
-
-  # def pined?
-  #   @dialogue = Dialogue.find(params[:id])
-  #   if @dialogue.pin_dialogue.dialogue_id == @dialogue.id && @dialogue.pin_dialogue.user_id == current_user.id
-  #     true
-  #   else
-  #     false
-  #   end
-  # end
 end
