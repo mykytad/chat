@@ -2,21 +2,12 @@ class DialoguesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    if :authenticate_user!
-      @users = User.all
-      @dialogues = Dialogue.all.order(:updated_at => :DESC)
+    @users = User.all
+    @dialogues = Dialogue.all.order(:updated_at => :DESC)
 
-      if params[:search].present?
-        @users = @users.where("lower(nickname) like ?", "%#{params[:search].downcase}%")
-      end
-    else
-      redirect_to new_user_session_path
+    if params[:search].present?
+      @users = @users.where("lower(nickname) like ?", "%#{params[:search].downcase}%")
     end
-  end
-
-  def show
-    @dialogues = Dialogue.all
-    @dialogue = Dialogue.find(params[:id])
   end
 
   def create
