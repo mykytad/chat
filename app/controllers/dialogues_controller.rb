@@ -23,6 +23,19 @@ class DialoguesController < ApplicationController
     end
   end
 
+  def update
+    @dialogue = Dialogue.find(params[:id])
+    if @dialogue.pin_dialogue
+      @dialogue.pin_dialogue = false
+    else
+      @dialogue.pin_dialogue = true
+    end
+
+    if @dialogue.save
+      redirect_to dialogue_messages_path(@dialogue)
+    end
+  end
+
   def destroy
     @dialogue = Dialogue.find(params[:id])
 
