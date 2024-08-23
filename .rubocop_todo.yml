@@ -5,7 +5,3 @@ Style/Lambda:
 Lint/LiteralAsCondition:
   Exclude:
   - 'app/controllers/dialogues_controller.rb'
-
-Style/ConditionalAssignment:
-  Exclude:
-  - 'app/controllers/dialogues_controller.rb'

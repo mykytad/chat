@@ -54,7 +54,7 @@ class MessagesController < ApplicationController
 
   def user_dialogues
     @dialogues = Dialogue.all
-    @user_dialogues =[]
+    @user_dialogues = []
     @dialogues.each do |dialogue|
       if dialogue.sender_id == current_user.id || dialogue.recipient_id == current_user.id
         @user_dialogues << dialogue
