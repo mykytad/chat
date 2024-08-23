@@ -20,6 +20,8 @@ class MessagesController < ApplicationController
     if @message.save
       @dialogue.update(last_message: @message.body, updated_at: Time.now)
       redirect_to dialogue_messages_path(@dialogue)
+    else
+      render :new, alert: 'Failed to send message.'
     end
   end
 
@@ -32,7 +34,7 @@ class MessagesController < ApplicationController
     if @message.update(message_params)
       redirect_to dialogue_messages_path(@dialogue)
     else
-      render :edit
+      render :edit, alert: 'Failed to update message.', notice: 'Message deleted successfully.'
     end
   end
 
