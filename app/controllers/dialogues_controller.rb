@@ -1,5 +1,7 @@
 class DialoguesController < ApplicationController
   before_action :authenticate_user!
+  before_action :user_dialogues
+  before_action :recipient
 
   def index
     @users = User.all
@@ -49,5 +51,25 @@ class DialoguesController < ApplicationController
 
   def dialogue_params
     params.require(:dialogue).permit(:sender_id, :recipient_id)
+  end
+
+  def user_dialogues
+    @dialogues = Dialogue.all
+    @user_dialogues = []
+    @dialogues.each do |dialogue|
+      if dialogue.sender_id == current_user.id || dialogue.recipient_id == current_user.id
+        @user_dialogues << dialogue
+      end
+    end
+  end
+
+  def recipient
+    @user_dialogues.each do |dialogue|
+      if dialogue.sender_id == current_user.id
+        @recipient = User.find(dialogue.recipient_id)
+      else
+        @recipient = User.find(dialogue.sender_id)
+      end
+    end
   end
 end
