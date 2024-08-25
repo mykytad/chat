@@ -5,11 +5,16 @@
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
       <div class="container-fluid ">
         <span class="navbar-brand p-0 d-flex align-items-center text-dark-emphasis">
-
           <% if current_user.id == @dialogue.sender_id %>
             <%= @dialogue.recipient.name %>
           <% else %>
             <%= @dialogue.sender.name %>
+          <% end %>
+
+          <% if @dialogue.pin_dialogue %>
+            <%= link_to 'Unpin', dialogue_unpin_path(@dialogue), data:{turbo_method: :patch}, class: 'btn btn-secondary' %>
+          <% else %>
+            <%= link_to 'Pin', dialogue_pin_path(@dialogue), data:{turbo_method: :patch}, class: 'btn btn-primary' %>
           <% end %>
         </span>
 

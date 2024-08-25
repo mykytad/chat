@@ -71,6 +71,9 @@ Style/NumericPredicate:
 Style/RedundantSelf:
   Enabled: false
 
+Style/ConditionalAssignment:
+  Enabled: false
+
 AllCops:
   Exclude:
     - 'config/**/*'
