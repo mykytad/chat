@@ -1,10 +1,8 @@
 class MessagesController < ApplicationController
   before_action :dialogue
   before_action :user_dialogues
-  before_action :recipient
 
   def index
-    @dialogues = Dialogue.all.order(:updated_at => :DESC)
     @messages = @dialogue.messages
   end
 
@@ -55,21 +53,11 @@ class MessagesController < ApplicationController
   end
 
   def user_dialogues
-    @dialogues = Dialogue.all
+    @dialogues = Dialogue.all.order(pin_dialogue: :DESC, :updated_at => :DESC)
     @user_dialogues = []
     @dialogues.each do |dialogue|
       if dialogue.sender_id == current_user.id || dialogue.recipient_id == current_user.id
         @user_dialogues << dialogue
-      end
-    end
-  end
-
-  def recipient
-    @user_dialogues.each do |dialogue|
-      if dialogue.sender_id == current_user.id
-        @recipient = User.find(dialogue.recipient_id)
-      else
-        @recipient = User.find(dialogue.sender_id)
       end
     end
   end

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show]
 
   resources :dialogues, only: [:index, :create, :update, :destroy] do
+    patch :pin
+    patch :unpin
     resources :messages
   end
 

@@ -1,12 +1,9 @@
 class DialoguesController < ApplicationController
   before_action :authenticate_user!
   before_action :user_dialogues
-  before_action :recipient
 
   def index
     @users = User.all
-    @dialogues = Dialogue.all.order(:updated_at => :DESC)
-
     if params[:search].present?
       @users = @users.where("lower(nickname) like ?", "%#{params[:search].downcase}%")
     end
@@ -47,6 +44,23 @@ class DialoguesController < ApplicationController
     end
   end
 
+  def pin
+    @dialogue = Dialogue.find(params[:dialogue_id])
+    @dialogue.update(pin_dialogue: true)
+    if @dialogue.save
+      redirect_to dialogue_messages_path(@dialogue), notice: 'Dialogue pinned successfully.'
+    end
+  end
+
+  def unpin
+    @dialogue = Dialogue.find(params[:dialogue_id])
+    @dialogue.update(pin_dialogue: false)
+
+    if @dialogue.save
+      redirect_to dialogue_messages_path(@dialogue), notice: 'Dialogue unpinned successfully.'
+    end
+  end
+
   private
 
   def dialogue_params
@@ -54,21 +68,11 @@ class DialoguesController < ApplicationController
   end
 
   def user_dialogues
-    @dialogues = Dialogue.all
+    @dialogues = Dialogue.all.order(pin_dialogue: :DESC, :updated_at => :DESC)
     @user_dialogues = []
     @dialogues.each do |dialogue|
       if dialogue.sender_id == current_user.id || dialogue.recipient_id == current_user.id
         @user_dialogues << dialogue
-      end
-    end
-  end
-
-  def recipient
-    @user_dialogues.each do |dialogue|
-      if dialogue.sender_id == current_user.id
-        @recipient = User.find(dialogue.recipient_id)
-      else
-        @recipient = User.find(dialogue.sender_id)
       end
     end
   end
