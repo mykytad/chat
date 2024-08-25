@@ -45,10 +45,21 @@ class DialoguesController < ApplicationController
   end
 
   def pin
-    @dialogue = Dialogue.find(params[:dialogue_id])
-    @dialogue.update(pin_dialogue: true)
-    if @dialogue.save
-      redirect_to dialogue_messages_path(@dialogue), notice: 'Dialogue pinned successfully.'
+    pinned_count = Dialogue.where(sender_id: current_user.id, pin_dialogue: true)
+                           .or(Dialogue.where(recipient_id: current_user.id, pin_dialogue: true))
+                           .count
+    if pinned_count >= 10
+      # Если закреплено уже 10, не даем закрепить новый диалог
+      redirect_to dialogues_path, alert: 'You cannot pin more than 10 dialogues.'
+    else
+      @dialogue = Dialogue.find(params[:dialogue_id])
+      @dialogue.update(pin_dialogue: true)
+
+      if @dialogue.save
+        redirect_to dialogue_messages_path(@dialogue), notice: 'Dialogue pinned successfully.'
+      else
+        redirect_to dialogues_path, alert: 'Failed to pin the dialogue.'
+      end
     end
   end
 
