@@ -111,6 +111,11 @@ GEM
     diff-lcs (1.5.1)
     docile (1.4.1)
     erubi (1.12.0)
+    factory_bot (6.4.6)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     faker (3.2.3)
       i18n (>= 1.8.11, < 2)
     ffi (1.17.0)
@@ -270,6 +275,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    shoulda-matchers (6.4.0)
+      activesupport (>= 5.2.0)
     sidekiq (7.2.1)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
@@ -336,6 +343,7 @@ DEPENDENCIES
   carrierwave
   debug
   devise
+  factory_bot_rails
   faker
   haml
   importmap-rails
@@ -349,6 +357,7 @@ DEPENDENCIES
   rspec-rails
   rubocop-rails
   selenium-webdriver
+  shoulda-matchers
   sidekiq
   simplecov
   simplecov-cobertura
