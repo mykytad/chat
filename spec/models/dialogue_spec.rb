@@ -8,7 +8,7 @@ RSpec.describe Dialogue, type: :model do
   end
 
   describe 'validations' do
-    subject { create(:dialogue) }  # Создаем объект для тестирования валидации уникальности
+    subject { create(:dialogue) }
     it { is_expected.to validate_uniqueness_of(:sender_id).scoped_to(:recipient_id) }
   end
 
