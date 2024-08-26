@@ -49,7 +49,6 @@ class DialoguesController < ApplicationController
                            .or(Dialogue.where(recipient_id: current_user.id, pin_dialogue: true))
                            .count
     if pinned_count >= 10
-      # Если закреплено уже 10, не даем закрепить новый диалог
       redirect_to dialogues_path, alert: 'You cannot pin more than 10 dialogues.'
     else
       @dialogue = Dialogue.find(params[:dialogue_id])
