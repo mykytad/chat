@@ -69,6 +69,13 @@ RSpec.describe DialoguesController, type: :request do
       expect(dialogue.pin_dialogue).to be_truthy
       expect(response).to redirect_to(dialogue_messages_path(dialogue))
     end
+
+    it "does not pin the dialogue if the user has 10 or more pinned dialogues" do
+      10.times { create(:dialogue, sender: user, pin_dialogue: true) }
+      patch dialogue_pin_path(dialogue)
+      expect(response).to redirect_to(dialogues_path)
+      expect(flash[:alert]).to eq('You cannot pin more than 10 dialogues.')
+    end
   end
 
   describe "PATCH /unpin" do
