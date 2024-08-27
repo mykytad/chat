@@ -1,6 +1,8 @@
 require 'simplecov'
 require 'simplecov-cobertura'
+require 'rails-controller-testing'
 
+Rails::Controller::Testing.install
 SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 SimpleCov.start 'rails' do
   add_filter '/bin/'
