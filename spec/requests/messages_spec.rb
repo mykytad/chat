@@ -34,10 +34,10 @@ RSpec.describe MessagesController, type: :request do
         expect {
           post dialogue_messages_path(dialogue), params: { message: { body: "" } }
         }.to_not change(Message, :count)
-    
+
         expect(response).to redirect_to(dialogue_messages_path(dialogue))
         follow_redirect!
-    
+
         expect(flash[:alert]).to eq('Failed to send message.')
       end
     end

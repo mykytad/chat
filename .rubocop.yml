@@ -74,6 +74,12 @@ Style/RedundantSelf:
 Style/ConditionalAssignment:
   Enabled: false
 
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/IdenticalConditionalBranches:
+  Enabled: false
+
 AllCops:
   Exclude:
     - 'config/**/*'
