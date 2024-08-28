@@ -12,7 +12,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'generates an avatar if it does not exist' do
-        File.delete(avatar_path) if File.exist?(avatar_path) # Удаляем аватар, если он существует
+        File.delete(avatar_path) if File.exist?(avatar_path)
         expect(File).not_to exist(avatar_path)
 
         get :show, params: { id: user.id }
@@ -21,7 +21,6 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'does not generate an avatar if it already exists' do
-        # Создаем аватар для теста
         img = Avatarly.generate_avatar(user.name, size: 40)
         File.open(avatar_path, 'wb') { |f| f.write(img) }
 
@@ -29,7 +28,6 @@ RSpec.describe UsersController, type: :controller do
 
         get :show, params: { id: user.id }
 
-        # Проверяем, что не было создано новых файлов
         expect(File).to exist(avatar_path)
       end
     end
