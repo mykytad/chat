@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   # Create a valid user to use in the tests
-  subject { 
+  subject {
     described_class.new(
       phone: "1234567890",
       name: "John Doe",
