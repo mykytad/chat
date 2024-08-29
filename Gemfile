@@ -64,6 +64,8 @@ group :development, :test do
   gem "rubocop-rails", require: false
   gem "rspec-rails"
   gem "pry-rails"
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -82,4 +84,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem 'simplecov'
+  gem 'simplecov-cobertura'
+  gem 'shoulda-matchers'
 end

@@ -6,9 +6,9 @@ class MessagesController < ApplicationController
     @messages = @dialogue.messages
   end
 
-  def new
-    @message = dialogue.messages.new
-  end
+  # def new
+  #   @message = dialogue.messages.new
+  # end
 
   def create
     @message = dialogue.messages.new(message_params)
@@ -19,20 +19,24 @@ class MessagesController < ApplicationController
       @dialogue.update(last_message: @message.body, updated_at: Time.now)
       redirect_to dialogue_messages_path(@dialogue)
     else
-      render :new, alert: 'Failed to send message.'
+      flash[:alert] = 'Failed to send message.'
+      redirect_to dialogue_messages_path(@dialogue)
     end
   end
 
-  def edit
-    @message = dialogue.messages.find(params[:id])
-  end
+  # def edit
+  #   @message = dialogue.messages.find(params[:id])
+  # end
 
   def update
     @message = dialogue.messages.find(params[:id])
     if @message.update(message_params)
-      redirect_to dialogue_messages_path(@dialogue)
+      # redirect_to dialogue_messages_path(@dialogue)
+      redirect_to dialogue_messages_path(@dialogue), notice: 'Message updated successfully.'
     else
-      render :edit, alert: 'Failed to update message.', notice: 'Message deleted successfully.'
+      # render :edit, alert: 'Failed to update message.', notice: 'Message deleted successfully.'
+      redirect_to dialogue_messages_path(@dialogue), alert: 'Failed to update message.'
+
     end
   end
 
