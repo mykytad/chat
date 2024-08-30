@@ -1,14 +1,11 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!
   before_action :dialogue
   before_action :user_dialogues
 
   def index
     @messages = @dialogue.messages
   end
-
-  # def new
-  #   @message = dialogue.messages.new
-  # end
 
   def create
     @message = dialogue.messages.new(message_params)
@@ -24,17 +21,11 @@ class MessagesController < ApplicationController
     end
   end
 
-  # def edit
-  #   @message = dialogue.messages.find(params[:id])
-  # end
-
   def update
     @message = dialogue.messages.find(params[:id])
     if @message.update(message_params)
-      # redirect_to dialogue_messages_path(@dialogue)
       redirect_to dialogue_messages_path(@dialogue), notice: 'Message updated successfully.'
     else
-      # render :edit, alert: 'Failed to update message.', notice: 'Message deleted successfully.'
       redirect_to dialogue_messages_path(@dialogue), alert: 'Failed to update message.'
 
     end
@@ -42,8 +33,10 @@ class MessagesController < ApplicationController
 
   def destroy
     @message = dialogue.messages.find(params[:id])
-    @message.destroy
-    redirect_to dialogue_messages_path(@dialogue)
+    if @dialogue.sender_id == current_user.id || @dialogue.recipient_id == current_user.id
+      @message.destroy
+      redirect_to dialogue_messages_path(@dialogue)
+    end
   end
 
   private
