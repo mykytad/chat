@@ -27,7 +27,6 @@ class MessagesController < ApplicationController
       redirect_to dialogue_messages_path(@dialogue), notice: 'Message updated successfully.'
     else
       redirect_to dialogue_messages_path(@dialogue), alert: 'Failed to update message.'
-
     end
   end
 
