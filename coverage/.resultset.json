@@ -6,6 +6,7 @@
           1,
           1,
           1,
+          1,
           null,
           null,
           null,
@@ -311,9 +312,9 @@
           6,
           null,
           6,
-          5,
-          5,
-          5,
+          3,
+          3,
+          3,
           null,
           null,
           null,
@@ -422,8 +423,46 @@
         ],
         "branches": {
         }
+      },
+      "/Users/nikita/my_ruby/chat/app/notifiers/application_notifier.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/nikita/my_ruby/chat/app/notifiers/new_message_notifier.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0
+        ],
+        "branches": {
+        }
       }
     },
-    "timestamp": 1724847768
+    "timestamp": 1725531943
   }
 }

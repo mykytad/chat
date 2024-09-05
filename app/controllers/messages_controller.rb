@@ -22,7 +22,6 @@ class MessagesController < ApplicationController
       flash[:alert] = 'Failed to send message.'
       redirect_to dialogue_messages_path(@dialogue)
     end
-    notify_recipient
   end
 
   # def edit
