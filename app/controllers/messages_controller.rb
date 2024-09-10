@@ -17,6 +17,13 @@ class MessagesController < ApplicationController
 
     if @message.save
       @dialogue.update(last_message: @message.body, updated_at: Time.now)
+
+      # Identify the recipient of the notification
+      recipient_id = @dialogue.sender_id == current_user.id ? @dialogue.recipient_id : @dialogue.sender_id
+
+      # Trigger the notification for the recipient
+      NewMessageNotificationNotifier.with(message: @message).deliver_later(User.find(recipient_id))
+
       redirect_to dialogue_messages_path(@dialogue)
     else
       flash[:alert] = 'Failed to send message.'
