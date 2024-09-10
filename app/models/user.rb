@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :messages
   has_many :dialogues
+  has_many :notifications, as: :recipient
 
   # validates :nickname, uniqueness: true
   # Include default devise modules. Others available are:
