@@ -29,6 +29,17 @@
  }
 
  /* messages index */
+ .list_active_item{
+  background:#198754;
+  color: #fff;
+ }
+ .list_active_item a{
+  color: #e2e4e3;
+ }
+ .list_active_item a:hover{
+  color: #e2e4e3;
+ }
+
  .messages_recipient{
   height: 36px;
   background: #ced4da;
@@ -69,6 +80,9 @@
 /* message new */
 
 /* sidebar */
+.sidebar_menu_header{
+  height: 36px;
+}
 .sidebar{
   width: 280px;
   height: 909px;
@@ -79,7 +93,6 @@
 }
 .sidebar_icons_menu{
   background: #ced4da;
-  height: 36px;
 }
 
 .sidebar_icon{
@@ -91,4 +104,7 @@
 /* dialogues */
 .users_list_wrap{
   height: 92%;
+}
+#back-arrow{
+  cursor: pointer;
 }
