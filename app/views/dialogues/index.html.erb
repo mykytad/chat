@@ -8,16 +8,16 @@
           Chat with
         </span>
       </div>
-      <%= form_with method: :get, class:"me-2" do |form|%>
-      <div class="input-group me-2">
-        <%= form.text_field :search, placeholder:"search user", class:"form-control ps-2 pe-0 pt-0 pb-0" %>
-        <%= form.submit "Search", class:"btn btn-outline-secondary p-0" %>
-      </div> 
-    <% end %>
     </nav>
 
     <div class="overflow-scroll d-flex flex-column users_list_wrap">
-      <small class="px-3 mb-1"> All users </small>
+      <small class="px-1 mb-1"> All users </small>
+      <%= form_with method: :get do |form|%>
+        <div class="mb-3 d-flex justify-content-between align-items-center">
+          <%= form.text_field :search, placeholder:"search user", class:"form-control me-2" %>
+          <%= form.submit "Search", class:"btn btn-primary" %>
+        </div> 
+      <% end %>
       <%= render "dialogues/dialogue_new"%>
     </div>
   </div>
