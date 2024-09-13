@@ -29,8 +29,6 @@
 <script>
   document.getElementById('back-arrow').addEventListener('click', function() {
     var sidebar = document.querySelector('.sidebar');
-    if (sidebar.classList.contains('d-none')) {
-        sidebar.classList.remove('d-none');
-    }
-  });
+    sidebar.classList.toggle('d-none');
+});
 </script>
