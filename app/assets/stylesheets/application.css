@@ -116,8 +116,6 @@
   .sidebar{
     width: 75%;
   }
-  .msg-display{
-  }
 }
 @media (min-width: 768px) {
   .message_body_wrap {
