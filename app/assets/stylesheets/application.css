@@ -58,7 +58,6 @@
 }
 .msg_btn_edit{
   color: #fff;
-  /* height: 13px; */
   margin-left: 5px;
   opacity: 75%;
 }
@@ -73,7 +72,6 @@
 }
 .msg_time{
   font-size: 8px;
-  /* color: #ffffff6b; */
   margin-right: 5px;
 }
 /* message new */
@@ -87,8 +85,7 @@
   height: 36px;
 }
 .sidebar{
-  width: 280px;
-  height: 97vh;
+  width: 75%;
 }
 .sidebar_recipient_max-height{
   max-height: 55px;
@@ -117,19 +114,14 @@
     max-width: 75%;
   }
   .sidebar{
-    z-index: 10;
-    width: 50vh;
+    width: 75%;
   }
   .msg-display{
-    width: 50vh;
   }
 }
 @media (min-width: 768px) {
   .message_body_wrap {
     max-width: 50%;
-  }
-  .sidebar{
-    /* width: 100vh; */
   }
 }
 @media (min-width: 992px) {
