@@ -1,17 +1,21 @@
 <div class="col-12 d-flex justify-content-evenly vh-100">
   <%= render "dialogues/sidebar" %>
 
-  <div class="col-9 overflow-hidden">
+  <div class="dialogues-display col-9 overflow-hidden">
+    
     <nav class="d-flex navbar navbar-expand-lg fixed py-0 messages_recipient mb-2">
-      <span id="back-arrow" class="d-inline  d-md-none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-        </svg>
-      </span>
-      <span class="navbar-brand p-0 d-flex align-items-center text-dark-emphasis">
-        Chat with
-      </span>
+      <div class="container-fluid"> 
+        <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+          </svg>
+        </span>
+        <span class="navbar-brand p-0 d-flex align-items-center text-dark-emphasis">
+          Chat with
+        </span>
+      </div>
     </nav>
+    
 
     <div class="overflow-scroll d-flex flex-column users_list_wrap">
       <small class="px-1 mb-1"> All users </small>
@@ -27,8 +31,30 @@
 </div>
 
 <script>
-  document.getElementById('back-arrow').addEventListener('click', function() {
+  function showSidebar() {
+    var backArrow = document.getElementById('back-arrow');
     var sidebar = document.querySelector('.sidebar');
-    sidebar.classList.toggle('d-none');
-});
+    var sidebarCross = document.getElementById('sidebar-cross');
+    var dialoguesDisplay = document.querySelector('.dialogues-display');
+
+    backArrow.classList.add('d-none');
+    dialoguesDisplay.classList.add('d-none');
+    sidebar.classList.remove('d-none');
+    sidebarCross.classList.remove('d-none');
+}
+
+function hideSidebar() {
+    var backArrow = document.getElementById('back-arrow');
+    var sidebar = document.querySelector('.sidebar');
+    var sidebarCross = document.getElementById('sidebar-cross');
+    var dialoguesDisplay = document.querySelector('.dialogues-display');
+
+    backArrow.classList.remove('d-none');
+    dialoguesDisplay.classList.remove('d-none');
+    sidebar.classList.add('d-none');
+    sidebarCross.classList.add('d-none');
+}
+
+document.getElementById('back-arrow').addEventListener('click', showSidebar);
+document.getElementById('sidebar-cross').addEventListener('click', hideSidebar);
 </script>

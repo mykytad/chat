@@ -3,7 +3,7 @@
 
   <div class="msg-display row col-9">
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
-      <div class="container-fluid ">
+      <div class="container-fluid">
         <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
@@ -59,7 +59,6 @@
     var sidebarCross = document.getElementById('sidebar-cross');
     var msgDisplay = document.querySelector('.msg-display');
 
-    // Скрыть #back-arrow и .msg-display, показать .sidebar и #sidebar-cross
     backArrow.classList.add('d-none');
     msgDisplay.classList.add('d-none');
     sidebar.classList.remove('d-none');
@@ -72,14 +71,12 @@ function hideSidebar() {
     var sidebarCross = document.getElementById('sidebar-cross');
     var msgDisplay = document.querySelector('.msg-display');
 
-    // Показать #back-arrow и .msg-display, скрыть .sidebar и #sidebar-cross
     backArrow.classList.remove('d-none');
     msgDisplay.classList.remove('d-none');
     sidebar.classList.add('d-none');
     sidebarCross.classList.add('d-none');
 }
 
-// Обработчики событий для элементов
 document.getElementById('back-arrow').addEventListener('click', showSidebar);
 document.getElementById('sidebar-cross').addEventListener('click', hideSidebar);
 </script>
