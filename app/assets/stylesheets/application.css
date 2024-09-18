@@ -29,6 +29,17 @@
  }
 
  /* messages index */
+ .list_active_item{
+  background:#198754;
+  color: #fff;
+ }
+ .list_active_item a{
+  color: #e2e4e3;
+ }
+ .list_active_item a:hover{
+  color: #e2e4e3;
+ }
+
  .messages_recipient{
   height: 36px;
   background: #ced4da;
@@ -37,7 +48,6 @@
 
 .message_body_wrap{
   display: inline-block;
-  max-width: 45%;
 }
 .message_content{
   padding: 5px 15px;
@@ -48,7 +58,6 @@
 }
 .msg_btn_edit{
   color: #fff;
-  /* height: 13px; */
   margin-left: 5px;
   opacity: 75%;
 }
@@ -63,15 +72,20 @@
 }
 .msg_time{
   font-size: 8px;
-  /* color: #ffffff6b; */
   margin-right: 5px;
 }
 /* message new */
+.msg_form{
+  margin-top: 0 !important;
+}
 
 /* sidebar */
+.sidebar_menu_header{
+  background: #ced4da;
+  height: 36px;
+}
 .sidebar{
-  width: 280px;
-  height: 909px;
+  width: 75%;
 }
 .sidebar_recipient_max-height{
   max-height: 55px;
@@ -90,4 +104,26 @@
 /* dialogues */
 .users_list_wrap{
   height: 92%;
+}
+#back-arrow{
+  cursor: pointer;
+}
+
+@media (min-width: 576px) {
+  .message_body_wrap {
+    max-width: 75%;
+  }
+  .sidebar{
+    width: 75%;
+  }
+}
+@media (min-width: 768px) {
+  .message_body_wrap {
+    max-width: 50%;
+  }
+}
+@media (min-width: 992px) {
+  .sidebar{
+    width: 280px;
+  }
 }

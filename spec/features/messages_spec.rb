@@ -9,7 +9,7 @@ RSpec.feature "messages pages", type: :feature do
   end
 
   it "send messages" do
-    click_button "Start dialogue"
+    click_button "Start"
 
     expect(body).to have_content "Foo"
 

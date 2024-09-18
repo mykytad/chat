@@ -6,8 +6,8 @@
       <%recipient = User.find(dialogue.sender_id)%>
     <%end%>
 
-    <li class="nav-item user_list_item d-flex align-items-center justify-content-between <%= 'sidebar_icons_menu' if params[:dialogue_id] == dialogue.id.to_s %>">
-      <%= link_to dialogue_messages_path(dialogue), class:"nav-link link-secondary sidebar_recipient_max-height col-10 fw-semibold" do %>
+    <li class="nav-item user_list_item d-flex align-items-center justify-content-between <%= 'list_active_item' if params[:dialogue_id] == dialogue.id.to_s %>">
+      <%= link_to dialogue_messages_path(dialogue), class:"nav-link sidebar_recipient_max-height col-10 fw-semibold #{'link-secondary' if params[:dialogue_id] != dialogue.id.to_s}" do %>
         <span> 
           <%= recipient.name %>
           <% if dialogue.pin_dialogue %>
