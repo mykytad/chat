@@ -1,8 +1,13 @@
-<div class="sidebar d-none d-md-flex flex-column overflow-scroll flex-shrink-0 bg-body-tertiary">
-  <div class="sticky-top mb-2 sidebar_menu_header">
-    <a href="<%= root_path %>" class="d-flex px-3 align-items-center mb-md-0 me-md-auto link-body-emphasis text-decoration-none nav-link text-dark-emphasis">
+<div class="sidebar d-none d-lg-flex flex-column overflow-scroll flex-shrink-0 bg-body-tertiary">
+  <div class="sticky-top mb-2 sidebar_menu_header d-flex align-items-center justify-content-between">
+    <a href="<%= root_path %>" class="px-3 align-items-center mb-md-0 me-md-auto text-decoration-none text-dark-emphasis">
       <span class="fs-4">MyChat</span>
     </a>
+    <span id="sidebar-cross" class="d-inline d-lg-none text-dark-emphasis">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+      </svg>
+    </span>
   </div>
 
   <small class="px-3 mb-1 mt-0"> All chats </small>

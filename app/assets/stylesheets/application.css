@@ -48,7 +48,6 @@
 
 .message_body_wrap{
   display: inline-block;
-  /* max-width: 40%; */
 }
 .message_content{
   padding: 5px 15px;
@@ -117,9 +116,23 @@
   .message_body_wrap {
     max-width: 75%;
   }
+  .sidebar{
+    z-index: 10;
+    /* width: 100vh; */
+  }
 }
 @media (min-width: 768px) {
   .message_body_wrap {
     max-width: 50%;
   }
+  .sidebar{
+    z-index: 10;
+    /* width: 100vh; */
+  }
+}
+@media (min-width: 992px) {
+  /* .sidebar{
+    z-index: 10;
+    width: 300px;
+  } */
 }
