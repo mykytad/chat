@@ -1,9 +1,19 @@
-<div class="message_body_wrap msg-text-<%=message.user_id%> bg-secondary text-white rounded-4 align-self-start mb-1">
+<div class="message_body_wrap msg-text-<%= message.user_id %> bg-secondary text-white rounded-4 align-self-start mb-1">
   <div class="message_content">
     <%= message.body %>
     <br>
     <small class="msg_time">
-      <%= message.created_at.strftime("%d.%m.%y, %H:%M")%>
+      <%= message.created_at.strftime("%d.%m.%y, %H:%M") %>
     </small>
+
+    <% if message.replied_to.present? %>
+      <div class="reply">
+        <small class="text-muted">
+          Reply: <%= message.replied_to.body %>
+        </small>
+      </div>
+    <% end %>
+    <%# <a class="btn btn-link" href="/dialogues/17/messages?replied_to_id=250" data-turbo-frame="new_message">Reply</a> %>
+    <%= link_to 'Reply', '#', class: "btn btn-link", data: { turbo_frame: "new_message" } %>
   </div>
 </div>
