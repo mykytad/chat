@@ -13,6 +13,6 @@
     <small class="msg_time">
       <%= message.created_at.strftime("%d.%m.%y, %H:%M") %>
     </small>
-    <%= link_to 'Reply', dialogue_messages_path(message.dialogue_id, replied_to_id: message.id), class: "btn btn-link", data: { turbo_frame: "new_message" } %>
+    <%= link_to 'Reply', dialogue_messages_path(message.dialogue_id, replied_to_id: message.id), class: "reply-link text-decoration-none text-dark", data: { turbo_frame: "new_message" } %>
   </div>
 </div>

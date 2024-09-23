@@ -54,6 +54,9 @@
   border-left: 3px solid #fff;
   background: #115e3a;
 }
+.reply-link{
+  font-size: 13px;
+}
 .message_content{
   padding: 5px 15px;
   margin-bottom: 0;
