@@ -49,6 +49,11 @@
 .message_body_wrap{
   display: inline-block;
 }
+.reply{
+  border-radius: 3px;
+  border-left: 3px solid #fff;
+  background: #115e3a;
+}
 .message_content{
   padding: 5px 15px;
   margin-bottom: 0;
