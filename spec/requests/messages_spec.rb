@@ -41,6 +41,21 @@ RSpec.describe MessagesController, type: :request do
         expect(flash[:alert]).to eq('Failed to send message.')
       end
     end
+
+    context "with valid attributes" do
+      it "creates a reply message when replied_to_id is present" do
+        original_message = create(:message, user: user, dialogue: dialogue)  # Создаем исходное сообщение
+        post dialogue_messages_path(dialogue), params: {
+          message: {
+            body: "Reply",
+            replied_to_id: original_message.id
+          }
+        }
+  
+        reply_message = Message.last  # Последнее созданное сообщение — это ответ
+        expect(reply_message.replied_to_id).to eq(original_message.id)  # Проверяем, что replied_to_id установлен правильно
+      end
+    end
   end
 
   describe "PATCH #update" do
