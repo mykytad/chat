@@ -1,9 +1,18 @@
-<div class="message_body_wrap msg-text-<%=message.user_id%> bg-secondary text-white rounded-4 align-self-start mb-1">
+<div class="message_body_wrap msg-text-<%= message.user_id %> bg-secondary text-white rounded-4 align-self-start mb-1">
+  <% if message.replied_to.present? %>
+    <div class="reply message_content rounded-end1 m-2">
+      <small>
+        <%= message.replied_to.body %>
+      </small>
+    </div>
+  <% end %>
+
   <div class="message_content">
     <%= message.body %>
     <br>
     <small class="msg_time">
-      <%= message.created_at.strftime("%d.%m.%y, %H:%M")%>
+      <%= message.created_at.strftime("%d.%m.%y, %H:%M") %>
     </small>
+    <%= link_to 'Reply', dialogue_messages_path(message.dialogue_id, replied_to_id: message.id), class: "reply-link text-decoration-none text-dark", data: { turbo_frame: "new_message" } %>
   </div>
 </div>
