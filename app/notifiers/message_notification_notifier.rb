@@ -3,6 +3,11 @@
 # MessageNotificationNotifier.with(record: @post, message: "New post").deliver(User.all)
 
 class MessageNotificationNotifier < ApplicationNotifier
+  # deliver_by :action_cable do |config|
+  #   config.channel = "Noticed::NotificationsChannel"
+  #   config.stream = ->{ recipient }
+  #   config.message = ->{ params.merge( user_id: recipient.id) }
+  # end
   # Add your delivery methods
   #
   # deliver_by :email do |config|
@@ -21,4 +26,7 @@ class MessageNotificationNotifier < ApplicationNotifier
   # Add required params
   #
   # required_param :message
+  def message
+    "message: #{params[:message]}"
+  end
 end

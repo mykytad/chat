@@ -3,7 +3,7 @@
 <ul> 
   <%= @notifications.each do |notification| %>
     <li>
-      <%= notification %>
+      <%= notification.event.message %>
     </li>
   <% end %>
 </ul>
