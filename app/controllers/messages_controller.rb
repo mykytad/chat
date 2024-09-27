@@ -4,6 +4,7 @@ class MessagesController < ApplicationController
 
   def index
     @messages = @dialogue.messages
+    @messages.where(read: false).where.not(user_id: current_user.id).update_all(read: true)
   end
 
   # def new
