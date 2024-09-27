@@ -26,7 +26,9 @@ class MessageNotificationNotifier < ApplicationNotifier
   # Add required params
   #
   # required_param :message
-  def message
-    "message: #{params[:message]}"
+  notification_methods do
+    def message
+      "message: #{params[:message]}"
+    end
   end
 end

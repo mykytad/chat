@@ -1,9 +1,5 @@
 <h2> Notifications </h2>
+<%= render "notifications/notifications"%>
 
-<ul> 
-  <%= @notifications.each do |notification| %>
-    <li>
-      <%= notification.event.message %>
-    </li>
-  <% end %>
-</ul>
+<h2> Last </h2>
+<%= render "notifications/last_notification"%>
