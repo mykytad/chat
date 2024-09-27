@@ -7,10 +7,6 @@ class MessagesController < ApplicationController
     @messages.where(read: false).where.not(user_id: current_user.id).update_all(read: true)
   end
 
-  # def new
-  #   @message = dialogue.messages.new
-  # end
-
   def create
     @message = @dialogue.messages.new(message_params)
     @message.user_id = current_user.id
@@ -25,19 +21,12 @@ class MessagesController < ApplicationController
     end
   end
 
-  # def edit
-  #   @message = dialogue.messages.find(params[:id])
-  # end
-
   def update
     @message = dialogue.messages.find(params[:id])
     if @message.update(message_params)
-      # redirect_to dialogue_messages_path(@dialogue)
       redirect_to dialogue_messages_path(@dialogue), notice: 'Message updated successfully.'
     else
-      # render :edit, alert: 'Failed to update message.', notice: 'Message deleted successfully.'
       redirect_to dialogue_messages_path(@dialogue), alert: 'Failed to update message.'
-
     end
   end
 
