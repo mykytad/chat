@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
   resources :users, only: [:index, :show]
+  resources :notifications, only: [:index]
 
   resources :dialogues, only: [:index, :create, :update, :destroy] do
     patch :pin

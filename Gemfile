@@ -88,3 +88,5 @@ group :test do
   gem 'simplecov-cobertura'
   gem 'shoulda-matchers'
 end
+
+gem "noticed", "~> 2.4"
