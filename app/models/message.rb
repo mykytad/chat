@@ -10,8 +10,4 @@ class Message < ApplicationRecord
   validates :user_id, presence: true
 
   after_create_commit { broadcast_append_to self.dialogue }
-
-  def mark_as_read
-    update(read: true)
-  end
 end
