@@ -9,4 +9,8 @@ class Dialogue < ApplicationRecord
     where("(dialogues.sender_id = ? AND dialogues.recipient_id =?) OR
     (dialogues.sender_id = ? AND dialogues.recipient_id =?)", sender_id, recipient_id, recipient_id, sender_id)
   end
+
+  def unread_messages_count_for(user)
+    messages.where(read: false).where.not(user_id: user.id).count
+  end
 end
