@@ -31,4 +31,15 @@ RSpec.describe Message, type: :model do
 
     expect(reply_message.replied_to_id).to eq(original_message.id)
   end
+
+  describe 'read/unread status' do
+    it 'is marked as unread by default' do
+      expect(message.read).to eq(false)
+    end
+
+    it 'can be marked as read' do
+      message.update(read: true)
+      expect(message.read).to eq(true)
+    end
+  end
 end

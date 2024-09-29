@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_20_121023) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_27_092900) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,8 +29,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_20_121023) do
     t.integer "dialogue_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "forwarded_message_id"
     t.integer "replied_to_id"
+    t.boolean "read", default: false
   end
 
   create_table "noticed_events", force: :cascade do |t|
@@ -58,13 +58,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_20_121023) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.string "recipient_type", null: false
-    t.bigint "recipient_id", null: false
-    t.jsonb "params"
-    t.datetime "read_at"
+    t.bigint "user_id", null: false
+    t.bigint "message_id", null: false
+    t.bigint "dialogue_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+    t.index ["dialogue_id"], name: "index_notifications_on_dialogue_id"
+    t.index ["message_id"], name: "index_notifications_on_message_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,5 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_20_121023) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "messages", "messages", column: "forwarded_message_id"
+  add_foreign_key "notifications", "dialogues"
+  add_foreign_key "notifications", "messages"
+  add_foreign_key "notifications", "users"
 end
