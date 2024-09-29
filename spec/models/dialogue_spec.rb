@@ -46,21 +46,21 @@ RSpec.describe Dialogue, type: :model do
     it 'returns 0 when all messages are read' do
       create(:message, dialogue: dialogue, user: sender, read: true)
       create(:message, dialogue: dialogue, user: recipient, read: true)
-      
+
       expect(dialogue.unread_messages_count_for(recipient)).to eq(0)
     end
 
     it 'counts only unread messages not sent by the given user' do
-      create(:message, dialogue: dialogue, user: sender, read: false)  # Unread, sent by sender
-      create(:message, dialogue: dialogue, user: sender, read: true)   # Read, sent by sender
+      create(:message, dialogue: dialogue, user: sender, read: false) # Unread, sent by sender
+      create(:message, dialogue: dialogue, user: sender, read: true) # Read, sent by sender
       create(:message, dialogue: dialogue, user: recipient, read: false) # Unread, sent by recipient
 
       expect(dialogue.unread_messages_count_for(recipient)).to eq(1)
     end
 
     it 'does not count messages sent by the given user' do
-      create(:message, dialogue: dialogue, user: recipient, read: false)  # Unread, sent by recipient
-      create(:message, dialogue: dialogue, user: sender, read: false)    # Unread, sent by sender
+      create(:message, dialogue: dialogue, user: recipient, read: false) # Unread, sent by recipient
+      create(:message, dialogue: dialogue, user: sender, read: false) # Unread, sent by sender
 
       expect(dialogue.unread_messages_count_for(recipient)).to eq(1)
     end
