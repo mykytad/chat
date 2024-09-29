@@ -34,12 +34,12 @@ RSpec.describe Message, type: :model do
 
   describe 'read/unread status' do
     it 'is marked as unread by default' do
-      expect(message.read).to eq(false)  # Перевіряємо, що за замовчуванням read == false
+      expect(message.read).to eq(false)
     end
 
     it 'can be marked as read' do
-      message.update(read: true)  # Оновлюємо статус на "прочитано"
-      expect(message.read).to eq(true)  # Перевіряємо, що read == true
+      message.update(read: true)
+      expect(message.read).to eq(true)
     end
   end
 end
