@@ -5,7 +5,6 @@ class MessagesController < ApplicationController
   def index
     @messages = @dialogue.messages
     @messages.where(read: false).where.not(user_id: current_user.id).update_all(read: true)
-    @unread_count = @dialogue.unread_messages_count_for(current_user)
   end
 
   def create
