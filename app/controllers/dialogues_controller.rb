@@ -79,7 +79,7 @@ class DialoguesController < ApplicationController
   end
 
   def user_dialogues
-    @dialogues = Dialogue.all.order(pin_dialogue: :DESC, :updated_at => :DESC)
+    @dialogues = Dialogue.all.order(pin_dialogue: :DESC, pined_at: :DESC, :updated_at => :DESC)
     @user_dialogues = []
     @dialogues.each do |dialogue|
       if dialogue.sender_id == current_user.id || dialogue.recipient_id == current_user.id
