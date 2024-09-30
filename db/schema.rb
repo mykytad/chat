@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_27_092900) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_30_102010) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_092900) do
     t.datetime "updated_at", null: false
     t.string "last_message"
     t.boolean "pin_dialogue", default: false, null: false
+    t.datetime "pined_at"
   end
 
   create_table "messages", force: :cascade do |t|
