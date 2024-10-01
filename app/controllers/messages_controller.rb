@@ -22,7 +22,7 @@ class MessagesController < ApplicationController
   end
 
   def update
-    @message = dialogue.messages.find(params[:id])
+    @message = @dialogue.messages.find(params[:id])
     if @message.update(message_params)
       redirect_to dialogue_messages_path(@dialogue), notice: 'Message updated successfully.'
     else
@@ -50,11 +50,7 @@ class MessagesController < ApplicationController
 
   def user_dialogues
     @dialogues = Dialogue.all.order(pin_dialogue: :DESC, :updated_at => :DESC)
-    @user_dialogues = []
-    @dialogues.each do |dialogue|
-      if dialogue.sender_id == current_user.id || dialogue.recipient_id == current_user.id
-        @user_dialogues << dialogue
-      end
-    end
+    @user_dialogues = Dialogue.where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id)
+                              .order(pin_dialogue: :desc, updated_at: :desc)
   end
 end
