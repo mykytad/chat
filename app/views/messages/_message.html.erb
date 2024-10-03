@@ -1,14 +1,20 @@
 <div class="message_body_wrap msg-text-<%=message.user_id%> bg-secondary text-white rounded-4 align-self-start mb-1">
   <div class="message_content">
    <% if params[:edit_message_id].to_i == message.id %>
-    <%= form_for [@dialogue, message] do |f| %>
-      <%= f.text_area :body, rows: 2 %>
-      <%= f.submit 'Save' %>
-      <%= link_to 'Cancel', dialogue_messages_path(@dialogue) %>
+    <%= form_for [@dialogue, message], class:"" do |f| %>
+      <%= f.text_field :body, class:"form-control form-control-sm mb-1" %>
+      <%= f.submit 'Save', class:"btn btn-primary" %>
+      <%= link_to 'Cancel', dialogue_messages_path(@dialogue), class:"btn btn-secondary" %>
     <% end %>
    <% else %>
       <%= message.body %>
       <br>
+    <% end %>
+    <small class="msg_time">
+        <% if message.created_at != message.updated_at %>
+          edited
+        <% end %>
+      </small>
       <small class="msg_time">
         <%= message.created_at.strftime("%d.%m.%y, %H:%M")%>
       </small>
@@ -24,6 +30,5 @@
           <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
         </svg>
       <% end %>
-    <% end %>
   </div>
 </div>
