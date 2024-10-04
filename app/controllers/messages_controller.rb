@@ -5,6 +5,7 @@ class MessagesController < ApplicationController
 
   def index
     @messages = @dialogue.messages
+    @messages = @messages.order(created_at: :asc)
   end
 
   def create
