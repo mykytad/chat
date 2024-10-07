@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :dialogues, only: [:index, :create, :update, :destroy] do
     patch :pin
     patch :unpin
-    resources :messages
+    resources :messages, only: [:index, :create, :update, :destroy]
   end
 
   resources :pin_dialogue, only: [:create, :destroy]
