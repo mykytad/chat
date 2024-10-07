@@ -5,13 +5,14 @@ class MessagesController < ApplicationController
 
   def index
     @messages = @dialogue.messages
+    @messages.where(read: false).where.not(user_id: current_user.id).update_all(read: true)
     @messages = @messages.order(created_at: :asc)
   end
 
   def create
-    @message = dialogue.messages.new(message_params)
-    @message.dialogue_id = @dialogue.id
+    @message = @dialogue.messages.new(message_params)
     @message.user_id = current_user.id
+    @message.replied_to_id = params[:message][:replied_to_id] if params[:message][:replied_to_id].present?
 
     if @message.save
       @dialogue.update(last_message: @message.body, updated_at: Time.now)

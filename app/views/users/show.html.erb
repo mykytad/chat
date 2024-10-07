@@ -1,9 +1,14 @@
-<div class="col-12 d-flex justify-content-evenly " style="height: 935px">
+<div class="col-12 d-flex justify-content-evenly" style="height: 935px">
 
   <%= render "users/sidebar" %>
 
-  <div class="col-9 overflow-hidden">
+  <div class="user-display col-9 overflow-hidden">
     <div class="row">
+    <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+          </svg>
+        </span><br>
       <div class="d-flex align-items-start align-items-center" style="margin-top: 15px;"> 
 
         <h2 class="text-secondary"> 
@@ -25,3 +30,32 @@
     </div>
   </div>
 </div>
+
+<script>
+  function showSidebar() {
+    var backArrow = document.getElementById('back-arrow');
+    var sidebar = document.querySelector('.sidebar');
+    var sidebarCross = document.getElementById('sidebar-cross');
+    var userDisplay = document.querySelector('.user-display');
+
+    backArrow.classList.add('d-none');
+    userDisplay.classList.add('d-none');
+    sidebar.classList.remove('d-none');
+    sidebarCross.classList.remove('d-none');
+  }
+
+function hideSidebar() {
+    var backArrow = document.getElementById('back-arrow');
+    var sidebar = document.querySelector('.sidebar');
+    var sidebarCross = document.getElementById('sidebar-cross');
+    var userDisplay = document.querySelector('.user-display');
+
+    backArrow.classList.remove('d-none');
+    userDisplay.classList.remove('d-none');
+    sidebar.classList.add('d-none');
+    sidebarCross.classList.add('d-none');
+  }
+
+  document.getElementById('back-arrow').addEventListener('click', showSidebar);
+  document.getElementById('sidebar-cross').addEventListener('click', hideSidebar);
+</script>

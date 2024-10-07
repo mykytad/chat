@@ -16,13 +16,13 @@ RSpec.feature "dialogues pages", type: :feature do
 
   describe "start and delete dialogue" do
     it "start dialogue" do
-      click_button "Start dialogue"
+      click_button "Start"
 
       expect(body).to have_content "Foo"
     end
 
     it "delete dialogue" do
-      click_button "Start dialogue"
+      click_button "Start"
       click_link :dialogue_delete_link
 
       expect(body).to have_content "Chat with"
@@ -32,7 +32,7 @@ RSpec.feature "dialogues pages", type: :feature do
 
   describe "pin and unpin dialogue" do
     it "pin dialogue" do
-      click_button "Start dialogue"
+      click_button "Start"
 
       expect(body).to have_content "Foo"
       expect(body).to have_link :pin_link
@@ -42,7 +42,7 @@ RSpec.feature "dialogues pages", type: :feature do
     end
 
     it "unpin dialogue" do
-      click_button "Start dialogue"
+      click_button "Start"
       click_link :pin_link
       click_link :unpin_link
 
