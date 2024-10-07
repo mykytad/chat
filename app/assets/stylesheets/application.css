@@ -72,11 +72,19 @@
 .msg_btn_delete_link{
   margin-left: 10px;
 }
+.msg_btn_edit{
+  color:#ffd900;
+}
+.message_body_wrap:hover .msg_btn_edit{
+  /* display: inline-block !important; */
+}
 .msg_btn_delete{
-  color: red;
-  /* height: 13px; */
+  color: #df1919;
   margin-left: 5px;
   opacity: 75%;
+}
+.message_body_wrap:hover .msg_btn_delete{
+  display: inline-block !important;
 }
 .msg_time{
   font-size: 8px;

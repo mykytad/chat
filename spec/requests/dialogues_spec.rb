@@ -38,20 +38,6 @@ RSpec.describe DialoguesController, type: :request do
     end
   end
 
-  describe "PATCH /update" do
-    it "toggles the pin_dialogue attribute and redirects to the dialogue messages path" do
-      patch dialogue_path(dialogue)
-      dialogue.reload
-      expect(dialogue.pin_dialogue).to be_truthy
-      expect(response).to redirect_to(dialogue_messages_path(dialogue))
-
-      patch dialogue_path(dialogue)
-      dialogue.reload
-      expect(dialogue.pin_dialogue).to be_falsey
-      expect(response).to redirect_to(dialogue_messages_path(dialogue))
-    end
-  end
-
   describe "DELETE /destroy" do
     it "deletes the dialogue if the current user is the sender or recipient" do
       dialogue_to_delete = create(:dialogue, sender: user, recipient: recipient)

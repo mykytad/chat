@@ -17,6 +17,9 @@
         background: #198754 !important;
         color: #fff;
       }
+      <%= ".msg-text-#{current_user&.id}:hover" %> .msg_btn_edit{
+        display: inline-block !important;
+      }
       <%= ".read-#{current_user&.id}" %>{
         display: inline-block !important;
         align-self: end !important;
