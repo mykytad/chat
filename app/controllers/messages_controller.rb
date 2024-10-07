@@ -25,10 +25,14 @@ class MessagesController < ApplicationController
   def update
     @message = @dialogue.messages.find(params[:id])
 
-    if @message.update(message_params)
-      redirect_to dialogue_messages_path(@dialogue), notice: 'Message updated successfully.'
+    if current_user.id == @message.user_id
+      if @message.update(message_params)
+        redirect_to dialogue_messages_path(@dialogue)
+      else
+        redirect_to dialogue_messages_path(@dialogue), alert: 'Failed to update message.'
+      end
     else
-      redirect_to dialogue_messages_path(@dialogue), alert: 'Failed to update message.'
+      redirect_to dialogue_messages_path(@dialogue)
     end
   end
 
