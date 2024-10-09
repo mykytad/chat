@@ -10,4 +10,5 @@ class Message < ApplicationRecord
   validates :user_id, presence: true
 
   after_create_commit { broadcast_append_to self.dialogue }
+  after_update_commit { broadcast_replace_to self.dialogue }
 end
