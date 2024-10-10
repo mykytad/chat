@@ -15,7 +15,7 @@ class MessagesController < ApplicationController
     @message.replied_to_id = params[:message][:replied_to_id] if params[:message][:replied_to_id].present?
 
     if @message.save
-      @dialogue.update(last_message: @message.body, updated_at: Time.now)
+      @dialogue.update(last_message: @message.body, updated_at: @message.created_at)
       redirect_to dialogue_messages_path(@dialogue)
     else
       flash[:alert] = 'Failed to send message.'
@@ -28,6 +28,7 @@ class MessagesController < ApplicationController
 
     if current_user.id == @message.user_id
       if @message.update(message_params)
+        @dialogue.update(last_message: @message.body, updated_at: @message.created_at)
         redirect_to dialogue_messages_path(@dialogue)
       else
         redirect_to dialogue_messages_path(@dialogue), alert: 'Failed to update message.'
