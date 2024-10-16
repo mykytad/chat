@@ -11,11 +11,7 @@
   </div>
 
   <small class="px-3 mb-1 mt-0"> All chats </small>
-
-    <%= turbo_stream_from @dialogue %>
-    <span id="dialogue">
-      <%= render @dialogues %>
-    </span>
+  <%= render "dialogues/dialogue" %>
 
   <%= render "dialogues/dialogue_icon" %>
 </div>
