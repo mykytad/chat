@@ -1,15 +1,20 @@
 import consumer from "channels/consumer"
 
-consumer.subscriptions.create("DialogueChannel", {
-  connected() {
-    // Called when the subscription is ready for use on the server
-  },
+document.addEventListener("turbo:load", () => {
+  const userId = document.body.getAttribute('data-user-id');
+  
+  consumer.subscriptions.create({ channel: "DialogueChannel", user_id: userId }, {
+    connected() {
+      console.log(`Connected to WebSocket as user: ${userId}`);
+    },
 
-  disconnected() {
-    // Called when the subscription has been terminated by the server
-  },
+    disconnected() {
+      console.log(`Disconnected from WebSocket`);
+    },
 
-  received(data) {
-    // Called when there's incoming data on the websocket for this channel
-  }
+    received(data) {
+      console.log("Received:", data);
+      // Обработка данных
+    }
+  });
 });
