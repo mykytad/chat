@@ -1,4 +1,3 @@
-<ul class="nav nav-pills flex-column mb-auto">
   <% @user_dialogues.each do |dialogue| %>
     <%if dialogue.sender_id == current_user.id%>
       <% recipient = User.find(dialogue.recipient_id)%>
@@ -6,9 +5,14 @@
       <%recipient = User.find(dialogue.sender_id)%>
     <%end%>
 
-    <li class="nav-item user_list_item d-flex align-items-center justify-content-between <%= 'list_active_item' if params[:dialogue_id] == dialogue.id.to_s %>">
+    <li id="dialogue" data-sender-id ="<%=dialogue.sender_id%>"
+        data-recipient-id="<%=dialogue.recipient_id%>"
+        data-sender-name="<%=User.find(dialogue.sender_id).name%>"
+        data-recipient-name="<%=User.find(dialogue.recipient_id).name%>"
+        class="nav-item user_list_item d-flex align-items-center justify-content-between <%= 'list_active_item' if params[:dialogue_id] == dialogue.id.to_s %>">
       <%= link_to dialogue_messages_path(dialogue), class:"nav-link sidebar_recipient_max-height col-10 fw-semibold #{'link-secondary' if params[:dialogue_id] != dialogue.id.to_s}" do %>
-        <span> 
+        <span>
+          <span class="dialogue-recipient-name"></span>|
           <%= recipient.name %>
           <% if dialogue.pin_dialogue %>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pin-fill" viewBox="0 0 16 16">
@@ -37,4 +41,7 @@
     </li>
     <hr class="my-1 p-0">
   <% end %>
-</ul>
+
+<script>
+  
+</script>
