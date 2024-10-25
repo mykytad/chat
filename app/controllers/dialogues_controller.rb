@@ -66,8 +66,7 @@ class DialoguesController < ApplicationController
   end
 
   def user_dialogues
-    @dialogues = Dialogue.all.order(pin_dialogue: :DESC,pined_at: :DESC, :updated_at => :DESC)
-    @user_dialogues = Dialogue.where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id)
+    @dialogues = Dialogue.where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id)
                               .order(pin_dialogue: :desc, pined_at: :desc, updated_at: :desc)
   end
 end

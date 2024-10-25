@@ -14,8 +14,7 @@
 
   <ul id="current-user" data-current-user-id="<%=current_user.id%>" class="nav nav-pills flex-column mb-auto">
     <%= turbo_stream_from @dialogue %>
-    <%= render @dialogue %>
-    <%= render "dialogues/dialogue" %>
+    <%= render @dialogues %>
   </ul>
 
   <%= render "dialogues/dialogue_icon" %>
