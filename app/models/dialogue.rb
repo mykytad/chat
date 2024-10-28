@@ -5,7 +5,7 @@ class Dialogue < ApplicationRecord
 
   validates_uniqueness_of :sender_id, scope: :recipient_id
 
-  # after_create_commit { broadcast_append_to self }
+  after_create_commit { broadcast_append_to self }
   after_update_commit { broadcast_replace_to self }
 
   scope :between, ->(sender_id, recipient_id) do
@@ -13,7 +13,7 @@ class Dialogue < ApplicationRecord
     (dialogues.sender_id = ? AND dialogues.recipient_id =?)", sender_id, recipient_id, recipient_id, sender_id)
   end
 
-  def unread_messages_count_for(user)
-    messages.where(read: false).where.not(user_id: user.id).count
+  def unread_messages_count_for(user_id)
+    messages.where(read: false).where.not(user_id: user_id).count
   end
 end

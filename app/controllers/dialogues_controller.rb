@@ -7,6 +7,7 @@ class DialoguesController < ApplicationController
     if params[:search].present?
       @users = @users.where("lower(nickname) like ?", "%#{params[:search].downcase}%")
     end
+    @current_user_id = current_user.id
   end
 
   def create

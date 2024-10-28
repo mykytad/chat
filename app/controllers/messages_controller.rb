@@ -7,6 +7,7 @@ class MessagesController < ApplicationController
     @messages = @dialogue.messages
     @messages.where(read: false).where.not(user_id: current_user.id).update_all(read: true)
     @messages = @messages.order(created_at: :asc)
+    @current_user_id = current_user.id
   end
 
   def create
