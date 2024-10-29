@@ -63,6 +63,6 @@ class MessagesController < ApplicationController
 
   def user_dialogues
     @dialogues = Dialogue.where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id)
-                              .order(pin_dialogue: :desc,pined_at: :desc, updated_at: :desc)
+                              .order(pin_dialogue: :desc, pined_at: :desc, updated_at: :desc)
   end
 end
