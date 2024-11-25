@@ -80,6 +80,9 @@ Style/BlockDelimiters:
 Style/IdenticalConditionalBranches:
   Enabled: false
 
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
 AllCops:
   Exclude:
     - 'config/**/*'

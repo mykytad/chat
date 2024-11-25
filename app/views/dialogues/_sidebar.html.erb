@@ -11,7 +11,13 @@
   </div>
 
   <small class="px-3 mb-1 mt-0"> All chats </small>
-  <%= render "dialogues/sidebar_dialogues" %>
+
+  <%= turbo_stream_from "dialogues" %>
+  <span id="dialogues">
+    <ul id="current-user" data-current-user-id="<%=current_user.id%>" class="nav nav-pills flex-column mb-auto">
+      <%= render @dialogues %>
+    </ul>
+  </span>
 
   <%= render "dialogues/dialogue_icon" %>
 </div>
