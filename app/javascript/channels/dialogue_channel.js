@@ -1,15 +1,15 @@
-import consumer from "./consumer"
+import consumer from "channels/consumer"
 
 consumer.subscriptions.create("DialogueChannel", {
   connected() {
-    console.log("connected to DialogueChannel");
-  },
-
-  received(data) {
-    console.log("received data from DialogueChannel:", data);
+    // Called when the subscription is ready for use on the server
   },
 
   disconnected() {
-    console.log("disconnected from DialogueChannel");
+    // Called when the subscription has been terminated by the server
+  },
+
+  received(data) {
+    // Called when there's incoming data on the websocket for this channel
   }
-})
+});
