@@ -40,7 +40,7 @@
       </div>
     </nav>
 
-    <%= turbo_stream_from @dialogue %>
+    <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
     <div class="h-75 overflow-scroll d-flex flex-column" id="messages">
       <%= render @messages %>
     </div>
@@ -65,7 +65,7 @@
     sidebarCross.classList.remove('d-none');
   }
 
-function hideSidebar() {
+  function hideSidebar() {
     var backArrow = document.getElementById('back-arrow');
     var sidebar = document.querySelector('.sidebar');
     var sidebarCross = document.getElementById('sidebar-cross');
