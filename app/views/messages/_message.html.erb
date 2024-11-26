@@ -16,7 +16,7 @@
         <%= link_to 'Cancel', dialogue_messages_path(@dialogue), class:"btn btn-secondary" %>
       <% end %>
     <% else %>
-      <%= message.body %> 
+      <%= message.body %>
       <br>
     <% end %>
     <small class="d-none read-<%= message.user_id %>">
