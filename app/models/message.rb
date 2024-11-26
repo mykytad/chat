@@ -9,8 +9,8 @@ class Message < ApplicationRecord
   validates :dialogue_id, presence: true
   validates :user_id, presence: true
 
-  scope :unread_by, ->(user) { where(read: false).where.not(user_id: user.id) }
+  scope :unread_by, ->(user) { where(read: false).where.not(user_id: user.id) } 
 
-  after_create_commit { broadcast_append_to "dialogue_#{dialogue.id}_messages" }
-  after_update_commit { broadcast_replace_to "dialogue_#{dialogue.id}_messages" }
+  after_create_commit { broadcast_append_to "dialogue_#{dialogue.id}_messages" } 
+  after_update_commit { broadcast_replace_to "dialogue_#{dialogue.id}_messages" } 
 end

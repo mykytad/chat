@@ -13,6 +13,6 @@ class Dialogue < ApplicationRecord
   end
 
   def unread_messages_count_for(user_id)
-    messages.where(read: false).where.not(user_id: user_id).count
+    messages.where(read: false).where.not(user_id: user_id).count 
   end
 end
