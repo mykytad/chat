@@ -52,6 +52,22 @@ class MessagesController < ApplicationController
     end
   end
 
+  # def read
+  #   @message = Message.find(params[:id])
+  #   if @message.update(read: true)
+  #     render json: { success: true }
+  #   else
+  #     render json: { success: false, error: 'Failed to update' }, status: :unprocessable_entity
+  #   end
+  # end
+
+  def read
+    @message = Message.find(params[:id])
+    @message.update(read: true)
+  
+    head :ok # Возвращает 200 OK без тела ответа
+  end
+
   private
 
   def message_params
