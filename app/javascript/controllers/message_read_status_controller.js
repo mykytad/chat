@@ -4,8 +4,6 @@ export default class extends Controller {
   static targets = ["message"];
 
   connect() {
-    console.log("Message Read Status Controller connected");
-
     // Create a new IntersectionObserver
     this.observer = new IntersectionObserver(this.handleIntersection.bind(this), {
       threshold: 0.5 // The element will be considered visible when 50% of it is in the viewport
@@ -27,7 +25,6 @@ export default class extends Controller {
 
         // Check if it has the 'read' class
         if (!messageElement.classList.contains("read")) {
-          console.log("Message is in view, updating status:", messageId, dialogueId);
           this.markAsRead(messageId, dialogueId);
         }
       }
@@ -47,9 +44,7 @@ export default class extends Controller {
       }),
     })
     .then(response => {
-      if (response.ok) {
-        console.log('Message status updated');
-      } else {
+      if (!response.ok) {
         console.error('Error updating message status');
       }
     })
