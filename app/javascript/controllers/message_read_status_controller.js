@@ -6,12 +6,12 @@ export default class extends Controller {
   connect() {
     console.log("Message Read Status Controller connected");
 
-    // Создаем новый IntersectionObserver
+    // Create a new IntersectionObserver
     this.observer = new IntersectionObserver(this.handleIntersection.bind(this), {
-      threshold: 0.5 // Элемент будет считаться видимым, когда 50% его области попадает в зону видимости
+      threshold: 0.5 // The element will be considered visible when 50% of it is in the viewport
     });
 
-    // Наблюдаем за элементом
+    // Observe message elements
     this.messageTargets.forEach(message => {
       this.observer.observe(message);
     });
@@ -20,13 +20,16 @@ export default class extends Controller {
   handleIntersection(entries) {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Когда элемент стал видимым, обновляем его статус
-        const messageId = entry.target.dataset.messageId;
-        const dialogueId = entry.target.dataset.dialogueId;
+        // When the element is in view, check if it has the 'read' class
+        const messageElement = entry.target;
+        const messageId = messageElement.dataset.messageId;
+        const dialogueId = messageElement.dataset.dialogueId;
 
-        console.log("Message is in view, updating status:", messageId, dialogueId);
-
-        this.markAsRead(messageId, dialogueId);
+        // Check if it has the 'read' class
+        if (!messageElement.classList.contains("read")) {
+          console.log("Message is in view, updating status:", messageId, dialogueId);
+          this.markAsRead(messageId, dialogueId);
+        }
       }
     });
   }
@@ -45,18 +48,18 @@ export default class extends Controller {
     })
     .then(response => {
       if (response.ok) {
-        console.log('Статус сообщения обновлен');
+        console.log('Message status updated');
       } else {
-        console.error('Ошибка при обновлении статуса');
+        console.error('Error updating message status');
       }
     })
     .catch(error => {
-      console.error('Ошибка сети:', error);
+      console.error('Network error:', error);
     });
   }
 
   disconnect() {
-    // Останавливаем наблюдение за элементами, когда контроллер отключается
+    // Stop observing the elements when the controller is disconnected
     this.observer.disconnect();
   }
 }

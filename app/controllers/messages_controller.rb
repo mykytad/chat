@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   def index
     @messages = @dialogue.messages
     # @messages.where(read: false).where.not(user_id: current_user.id).update_all(read: true)
-    @messages.unread_by(current_user).each { |message| message.update(read: true) }
+    # @messages.unread_by(current_user).each { |message| message.update(read: true) }
     @messages = @messages.order(created_at: :asc)
     @current_user_id = current_user.id
   end
@@ -52,20 +52,12 @@ class MessagesController < ApplicationController
     end
   end
 
-  # def read
-  #   @message = Message.find(params[:id])
-  #   if @message.update(read: true)
-  #     render json: { success: true }
-  #   else
-  #     render json: { success: false, error: 'Failed to update' }, status: :unprocessable_entity
-  #   end
-  # end
-
   def read
     @message = Message.find(params[:id])
-    @message.update(read: true)
+    @messages = @dialogue.messages
+    @messages.unread_by(current_user).each { |message| message.update(read: true) }
   
-    head :ok # Возвращает 200 OK без тела ответа
+    head :ok
   end
 
   private

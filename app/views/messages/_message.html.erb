@@ -7,7 +7,7 @@
     </div>
   <% end %>
 
-  <div class="message_content"
+  <div class="message_content <%= 'read' if message.read %>"
       data-controller="message-read-status" 
      data-message-read-status-target="message" 
       data-message-id="<%= message.id %>"
