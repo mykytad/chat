@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   def index
     @messages = @dialogue.messages
     # @messages.where(read: false).where.not(user_id: current_user.id).update_all(read: true)
-    @messages.unread_by(current_user).each { |message| message.update(read: true) }
+    # @messages.unread_by(current_user).each { |message| message.update(read: true) }
     @messages = @messages.order(created_at: :asc)
     @current_user_id = current_user.id
   end
@@ -50,6 +50,13 @@ class MessagesController < ApplicationController
       @message.destroy
       redirect_to dialogue_messages_path(@dialogue)
     end
+  end
+
+  def read
+    @message = Message.find(params[:id])
+    @messages = @dialogue.messages
+    @messages.unread_by(current_user).each { |message| message.update(read: true) }
+    head :ok
   end
 
   private
