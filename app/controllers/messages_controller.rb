@@ -54,7 +54,7 @@ class MessagesController < ApplicationController
 
   def destroy
     @message = dialogue.messages.find(params[:id])
-  
+
     if @dialogue.sender_id == current_user.id || @dialogue.recipient_id == current_user.id
       @message.destroy
       redirect_to dialogue_messages_path(@dialogue)
