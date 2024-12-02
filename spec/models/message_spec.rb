@@ -42,4 +42,29 @@ RSpec.describe Message, type: :model do
       expect(message.read).to eq(true)
     end
   end
+
+  describe 'scopes' do
+    let(:recipient) { create(:user) }
+    let(:unread_message) { create(:message, dialogue: dialogue, user: recipient, read: false) }
+    let(:read_message) { create(:message, dialogue: dialogue, user: recipient, read: true) }
+  
+    it 'returns unread messages for a specific user' do
+      expect(Message.unread_by(user)).to include(unread_message)
+      expect(Message.unread_by(user)).not_to include(read_message)
+    end
+  end
+  
+  describe 'callbacks' do
+    it 'broadcasts after creation' do
+      expect { create(:message, user: user, dialogue: dialogue) }
+        .to have_broadcasted_to("dialogue_#{dialogue.id}_messages")
+    end
+  
+    it 'broadcasts after update' do
+      message.update(body: 'Updated body')
+      expect { message.save }
+        .to have_broadcasted_to("dialogue_#{dialogue.id}_messages")
+    end
+  end
+  
 end
