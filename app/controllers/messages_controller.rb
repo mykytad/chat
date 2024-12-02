@@ -16,6 +16,9 @@ class MessagesController < ApplicationController
       @message = @dialogue.messages.new(message_params)
       @message.user_id = current_user.id
       @message.replied_to_id = params[:message][:replied_to_id] if params[:message][:replied_to_id].present?
+      @message.created_at = Time.now.strftime("%c")
+      @message.updated_at = Time.now.strftime("%c")
+      @message.edited_at = Time.now.strftime("%c")
 
       if @message.save
         @dialogue.update(last_message: @message.body, updated_at: @message.created_at)
@@ -34,6 +37,11 @@ class MessagesController < ApplicationController
 
     if current_user.id == @message.user_id
       if @message.update(message_params)
+        if @message.save
+          @message.update(edited_at: Time.now.strftime("%c"), updated_at: Time.now.strftime("%c"))
+          @message.updated_at = Time.now.strftime("%c")
+        end
+
         @dialogue.update(last_message: @message.body, updated_at: @message.created_at)
         redirect_to dialogue_messages_path(@dialogue)
       else
