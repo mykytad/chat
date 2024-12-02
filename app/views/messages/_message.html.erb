@@ -36,7 +36,7 @@
     </small>
     <small class="msg_time">
 
-      <% if message.created_at != message.updated_at %>
+      <% if message.created_at != message.edited_at %>
         edited
       <% end %>
       <%= message.created_at.strftime("%d.%m.%y, %H:%M")%>

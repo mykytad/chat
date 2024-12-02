@@ -5,3 +5,7 @@ Style/Lambda:
 Lint/LiteralAsCondition:
   Exclude:
   - 'app/controllers/dialogues_controller.rb'
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+  - 'spec/models/message_spec.rb'
