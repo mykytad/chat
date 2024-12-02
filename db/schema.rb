@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_02_091614) do
     t.datetime "updated_at", null: false
     t.integer "replied_to_id"
     t.boolean "read", default: false
-    t.datetime "editeded_at", null: false
+    t.datetime "editeded_at", default: "2024-12-02 09:48:57", null: false
   end
 
   create_table "users", force: :cascade do |t|
