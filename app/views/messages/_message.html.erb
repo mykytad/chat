@@ -1,10 +1,12 @@
 <div id="message_<%= message.id %>" class="message message_body_wrap msg-text-<%= message.user_id %> bg-secondary text-white rounded-4 align-self-start mb-1">
   <% if message.replied_to.present? %>
-    <div class="reply message_content rounded-end1 m-2">
-      <small>
-        <%= message.replied_to.body %>
-      </small>
-    </div>
+    <a href="#message_<%= message.replied_to.id %>" class="text-white text-decoration-none reply-link">
+      <div class="reply message_content rounded-end1 m-2">
+        <small>
+          <%= message.replied_to.body %>
+        </small>
+      </div>
+    </a>
   <% end %>
 
   <div class="message_content <%= 'read' if message.read %>"
