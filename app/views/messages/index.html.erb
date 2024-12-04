@@ -79,34 +79,4 @@
 
   document.getElementById('back-arrow').addEventListener('click', showSidebar);
   document.getElementById('sidebar-cross').addEventListener('click', hideSidebar);
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const applyHighlight = (element) => {
-      element.classList.add("highlight");
-
-      setTimeout(() => {
-        element.classList.remove("highlight");
-      }, 1000);
-    };
-
-    const hash = window.location.hash;
-    if (hash) {
-      const targetElement = document.querySelector(hash);
-      if (targetElement) {
-        applyHighlight(targetElement);
-      }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", (event) => {
-        const hash = anchor.getAttribute("href");
-        const targetElement = document.querySelector(hash);
-        if (targetElement) {
-          setTimeout(() => applyHighlight(targetElement), 100);
-        }
-      });
-    });
-  });
-
-
 </script>
