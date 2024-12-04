@@ -12,11 +12,6 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>-->
     <%= javascript_importmap_tags %>
     <style>
-      <%= ".msg-text-#{current_user&.id}" %>{
-        align-self: end !important;
-        background: #198754 !important;
-        color: #fff;
-      }
       <%= ".msg-text-#{current_user&.id}:hover" %> .msg_btn_edit{
         display: inline-block !important;
       }
