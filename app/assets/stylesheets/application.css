@@ -62,7 +62,7 @@
   margin-bottom: 0;
 }
 .highlight {
-  color: #978181 !important;
+  box-shadow: 0 0 10px #0dcaf0;
 }
 .msg_btn_link{
   text-decoration: none;
