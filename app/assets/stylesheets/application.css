@@ -97,7 +97,7 @@
 /* sidebar */
 .sidebar_menu_header{
   background: #ced4da;
-  height: 36px;
+  /* height: 36px; */
 }
 .sidebar{
   width: 75%;
@@ -106,10 +106,6 @@
   max-height: 55px;
   overflow: hidden;
 }
-.sidebar_icons_menu{
-  background: #ced4da;
-}
-
 .sidebar_icon{
   color: #6c757d;
   width: 30px;
