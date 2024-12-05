@@ -41,7 +41,7 @@
     </nav>
 
     <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-    <div class="h-75 overflow-scroll d-flex flex-column" id="messages">
+    <div class="message_window overflow-scroll d-flex flex-column" id="messages">
       <%= render @messages %>
     </div>
 

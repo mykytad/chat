@@ -122,6 +122,10 @@
 #sidebar-cross{
   cursor: pointer;
 }
+.message_window{
+  height: 815px;
+}
+
 @media (min-width: 576px) {
   .message_body_wrap {
     max-width: 75%;
