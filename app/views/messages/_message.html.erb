@@ -2,6 +2,9 @@
   <% if message.replied_to.present? %>
     <a href="#message_<%= message.replied_to.id %>" class="text-white text-decoration-none reply-link">
       <div class="reply message_content rounded-end1 m-2">
+        <small class="fw-semibold">
+          <%= message.replied_to.user.name %>
+        </small><br>
         <small>
           <%= message.replied_to.body %>
         </small>
