@@ -47,7 +47,10 @@
  }
 
 .message_body_wrap{
-  display: inline-block;
+  display: flex;
+}
+.message_body{
+  display: flex;
 }
 .reply{
   border-radius: 3px;
@@ -68,18 +71,16 @@
   text-decoration: none;
 }
 .msg_btn_edit{
-  color:#ffd900;
-  margin-left: 5px;
-  opacity: 75%;
+  color:#ffc107;
+  margin-left: 10px;
+  opacity: 80%;
   display: none;
-}
-.message_body_wrap:hover .msg_btn_edit{
-  display: inline-block !important;
 }
 .msg_btn_delete{
   color: #df1919;
-  margin-left: 5px;
-  opacity: 75%;
+  margin-left: 10px;
+  margin-right: 5px;
+  opacity: 80%;
   display: none;
 }
 .message_body_wrap:hover .msg_btn_action{
@@ -127,16 +128,19 @@
 }
 
 @media (min-width: 576px) {
-  .message_body_wrap {
-    max-width: 75%;
+  .message_body{
+    min-width: 75%;
   }
   .sidebar{
     width: 75%;
   }
 }
 @media (min-width: 768px) {
+  .message_body{
+    min-width: 55%;
+  }
   .message_body_wrap {
-    max-width: 50%;
+    max-width: 60%;
   }
 }
 @media (min-width: 992px) {
