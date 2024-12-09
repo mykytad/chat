@@ -3,3 +3,6 @@ import "@hotwired/turbo-rails"
 // import "controllers"
 import "channels"
 import "./controllers";
+import "./message_highlight";
+import "./sidebar_message";
+import "./sidebar_dialogue";
