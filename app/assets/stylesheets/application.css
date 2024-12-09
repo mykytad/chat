@@ -57,6 +57,11 @@
   border-left: 3px solid #fff;
   background: #115e3a;
 }
+.reply_new{
+  border-radius: 3px;
+  border-left: 3px solid #bef264;
+  background: #15803d;
+}
 .reply-link{
   font-size: 13px;
 }
