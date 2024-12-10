@@ -1,10 +1,15 @@
-<div id="message_<%= message.id %>" class="message message_body_wrap <%= @current_user_id == message.user_id ? 'bg-success align-self-end' : 'bg-secondary align-self-start' %> text-white rounded-4 align-self-start mb-1">
+<div id="message_<%= message.id %>" class="message flex-column message_body_wrap <%= @current_user_id == message.user_id ? 'bg-success align-self-end' : 'bg-secondary align-self-start' %> text-white rounded-4 align-self-start mb-1">
   <% if message.replied_to.present? %>
-    <div class="reply message_content rounded-end m-2">
-      <small>
-        <%= message.replied_to.body %>
-      </small>
-    </div>
+    <a href="#message_<%= message.replied_to.id %>" class="text-white text-decoration-none reply-link">
+      <div class="reply message_content rounded-end1 m-2">
+        <small class="fw-semibold">
+          <%= message.replied_to.user.name %>
+        </small><br>
+        <small>
+          <%= message.replied_to.body %>
+        </small>
+      </div>
+    </a>
   <% end %>
 
   <div class="message_content <%= 'read' if message.read %>"
