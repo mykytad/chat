@@ -45,6 +45,19 @@
       <%= render @messages %>
     </div>
 
+    <%if params[:replied_to_id].present?%>
+      <div class="reply_new message_content rounded-end1 m-2 text-white d-flex justify-content-between">
+        <small>
+          <%= @replied_message %>
+        </small>
+        <%= link_to "#", id:"clear-reply", class:"text-white" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+          </svg>
+        <% end %>
+      </div>
+    <% end %>
+
     <%= render "messages/new" %>
   </div>
 </div>
@@ -52,4 +65,25 @@
 <script>
   var objDiv = document.getElementById("messages");
   objDiv.scrollTop = objDiv.scrollHeight;
+
+  document.addEventListener("turbo:load", () => {
+    const replyClearButton = document.querySelector("#clear-reply");
+    if (replyClearButton) {
+      replyClearButton.addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent the default link behavior
+
+        // Remove the replied_to_id parameter from the URL
+        const url = new URL(window.location.href);
+        url.searchParams.delete('replied_to_id'); // Delete the parameter from the query string
+        history.replaceState(null, null, url.toString()); // Update the URL without reloading the page
+
+        // Additionally, clear the reply block and input field
+        const replyBlock = document.querySelector(".reply_new");
+        const repliedToInput = document.querySelector("input[name='message[replied_to_id]']");
+        
+        if (replyBlock) replyBlock.remove();
+        if (repliedToInput) repliedToInput.value = "";
+      });
+    }
+  });
 </script>
