@@ -132,7 +132,7 @@
   cursor: pointer;
 }
 .message_window{
-  height: 815px;
+  height: 805px;
 }
 
 @media (min-width: 576px) {
