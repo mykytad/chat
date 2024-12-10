@@ -58,6 +58,10 @@
   background: #115e3a;
 }
 .reply_new{
+  max-height: 50px;
+  margin-bottom: 0 !important;
+  width: 800px;
+  opacity: 95%;
   border-radius: 3px;
   border-left: 3px solid #bef264;
   background: #15803d;
@@ -67,7 +71,6 @@
 }
 .message_content{
   padding: 5px 15px;
-  margin-bottom: 0;
 }
 .highlight {
   box-shadow: 0 0 10px #0dcaf0;
