@@ -14,7 +14,7 @@
 
   <%= turbo_stream_from "dialogues" %>
   <span id="dialogues" class="mb-auto">
-    <ul id="current-user" data-current-user-id="<%=current_user.id%>" class="nav nav-pills flex-column">
+    <ul id="current-user" data-current-user-id="<%= current_user.id %>" class="nav nav-pills flex-column">
       <%= render @dialogues %>
     </ul>
   </span>
