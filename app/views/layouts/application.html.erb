@@ -12,6 +12,11 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>-->
     <%= javascript_importmap_tags %>
     <style>
+    <%= ".msg-text-#{current_user&.id}" %>{
+        align-self: end !important;
+        background: #198754 !important;
+        color: #fff;
+      }
       <%= ".read-#{current_user&.id}" %>{
         display: inline-block !important;
         align-self: end !important;
