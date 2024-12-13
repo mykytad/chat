@@ -1,9 +1,9 @@
-<li id="dialogue_<%=dialogue.id%>" class="border-bottom rounded-0 nav-item user_list_item d-flex align-items-center justify-content-between">
-  <%if dialogue.sender_id == @current_user_id%>
-    <% recipient = User.find(dialogue.recipient_id)%>
-  <% else%>
-    <%recipient = User.find(dialogue.sender_id)%>
-  <%end%>
+<li id="dialogue_<%= dialogue.id %>" class="border-bottom rounded-0 nav-item user_list_item d-flex align-items-center justify-content-between">
+  <% if dialogue.sender_id == @current_user_id %>
+    <% recipient = User.find(dialogue.recipient_id) %>
+  <% else %>
+    <% recipient = User.find(dialogue.sender_id) %>
+  <% end %>
 
   <%= link_to dialogue_messages_path(dialogue), class:"nav-link sidebar_recipient_max-height col-10 fw-semibold #{'link-secondary' if params[:dialogue_id] != dialogue.id.to_s}" do %>
     <span>
