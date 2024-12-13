@@ -1,4 +1,6 @@
-<li id="dialogue_<%= dialogue.id %>" class="border-bottom rounded-0 nav-item user_list_item d-flex align-items-center justify-content-between">
+<li id="dialogue_<%= dialogue.id %>" class="border-bottom rounded-0 nav-item user_list_item d-flex align-items-center justify-content-between <%= 'list_active_item' if params[:dialogue_id].to_i == dialogue.id %>"
+    data-dialogue-id="<%= dialogue.id %>"
+        data-unread-messages="<%= dialogue.unread_messages_count_for(current_user.id) %>">
   <% if dialogue.sender_id == @current_user_id %>
     <% recipient = User.find(dialogue.recipient_id) %>
   <% else %>

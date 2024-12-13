@@ -1,4 +1,4 @@
-<div class="sidebar d-none d-lg-flex flex-column overflow-scroll mb-4 bg-body-tertiary">
+<div class="sidebar d-none d-lg-flex flex-column overflow-scroll mb-4 bg-body-tertiary" data-controller="restore-class">
   <div class="sticky-top mb-2 sidebar_menu_header d-flex align-items-center justify-content-between">
     <a href="<%= root_path %>" class="px-3 align-items-center mb-md-0 me-md-auto text-decoration-none text-dark-emphasis">
       <span class="fs-4">MyChat</span>
@@ -12,12 +12,18 @@
 
   <small class="px-3 mb-1 mt-0"> All chats </small>
 
-  <%= turbo_stream_from "dialogues" %>
-  <span id="dialogues" class="mb-auto">
-    <ul id="current-user" data-current-user-id="<%= current_user.id %>" class="nav nav-pills flex-column">
-      <%= render @dialogues %>
-    </ul>
-  </span>
+  <div class="sidebar d-none d-lg-flex flex-column overflow-scroll mb-4 bg-body-tertiary" 
+      data-controller="restore-class">
+
+    <turbo-frame id="current-user" class="nav nav-pills flex-column"
+          data-current-user-id="<%= current_user.id %>"
+          data-params-dialogue-id="<%= params[:dialogue_id].to_i %>">
+
+      <ul class="nav nav-pills flex-column" data-controller="restore-class" data-params-dialogue-id="<%= params[:dialogue_id].to_i %>">
+        <%= render @dialogues %>
+      </ul>
+    </turbo-frame>
+  </div>
 
   <%= render "dialogues/dialogue_icon" %>
 </div>
