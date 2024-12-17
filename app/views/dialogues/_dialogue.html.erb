@@ -17,7 +17,7 @@
       <% end %>
     </span>
 
-    <span class="badge rounded-pill bg-danger">
+    <span id="badge" class="badge rounded-pill bg-danger <%= 'd-none' if dialogue.unread_messages_count_for(@current_user_id) == 0 %>">
       <%= dialogue.unread_messages_count_for(@current_user_id) %>
     </span><br>
 

@@ -2,7 +2,6 @@
 
 import { application } from "controllers/application"
 import MessageReadStatusController from "controllers/message_read_status_controller";
-import RestoreClassController from "./controllers/restore_class_controller"
 
 // Eager load all controllers defined in the import map under controllers/**/*_controller
 import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
@@ -13,4 +12,3 @@ eagerLoadControllersFrom("controllers", application)
 // lazyLoadControllersFrom("controllers", application)
 
 application.register("message-read-status", MessageReadStatusController);
-application.register("restore-class", RestoreClassController);
