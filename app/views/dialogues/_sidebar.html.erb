@@ -12,12 +12,14 @@
 
   <small class="px-3 mb-1 mt-0"> All chats </small>
 
-  <%= turbo_stream_from "dialogues" %>
-  <span id="dialogues" class="mb-auto">
-    <ul id="current-user" data-current-user-id="<%= current_user.id %>" class="nav nav-pills flex-column">
+  <turbo-frame id="current-user" class="nav nav-pills flex-column">
+    <ul class="nav nav-pills flex-column"
+        data-controller="restore-class"
+        data-params-dialogue-id="<%= params[:dialogue_id].to_i %>"
+        data-current-user-id="<%= current_user.id %>">
       <%= render @dialogues %>
     </ul>
-  </span>
+  </turbo-frame>
 
   <%= render "dialogues/dialogue_icon" %>
 </div>
