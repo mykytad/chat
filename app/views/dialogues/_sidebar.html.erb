@@ -12,14 +12,10 @@
 
   <small class="px-3 mb-1 mt-0"> All chats </small>
 
-  <turbo-frame id="current-user" class="nav nav-pills flex-column">
-    <ul class="nav nav-pills flex-column"
-        data-controller="restore-class"
-        data-params-dialogue-id="<%= params[:dialogue_id].to_i %>"
-        data-current-user-id="<%= current_user.id %>">
+  <%= turbo_stream_from "dialogues" %>
+    <ul class="nav nav-pills flex-column">
       <%= render @dialogues %>
     </ul>
-  </turbo-frame>
 
   <%= render "dialogues/dialogue_icon" %>
 </div>
