@@ -13,9 +13,9 @@
   <small class="px-3 mb-1 mt-0"> All chats </small>
 
   <%= turbo_stream_from "dialogues" %>
-    <ul class="nav nav-pills flex-column">
-      <%= render @dialogues %>
-    </ul>
+  <ul class="nav nav-pills flex-column">
+    <%= render @dialogues %>
+  </ul>
 
   <%= render "dialogues/dialogue_icon" %>
 </div>

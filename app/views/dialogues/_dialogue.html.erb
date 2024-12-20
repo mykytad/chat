@@ -5,7 +5,7 @@
     <% recipient = User.find(dialogue.sender_id) %>
   <% end %>
 
-  <%= link_to dialogue_messages_path(dialogue), class:"nav-link sidebar_recipient_max-height col-10 fw-semibold #{'link-secondary' if params[:dialogue_id] != dialogue.id.to_s}" do %>
+  <%= link_to dialogue_messages_path(dialogue), class:"nav-link sidebar_recipient_max-height col-10 fw-semibold #{'link-secondary' if params[:dialogue_id].to_i != dialogue.id}" do %>
     <span>
       <%= recipient.name %>
       <% if dialogue.pin_dialogue %>
