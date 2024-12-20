@@ -5,7 +5,7 @@ class Dialogue < ApplicationRecord
 
   validates_uniqueness_of :sender_id, scope: :recipient_id
 
-  after_update_commit { broadcast_replace_to 'dialogues' }
+  after_update_commit { broadcast_replace_to "dialogues" }
 
   scope :between, ->(sender_id, recipient_id) do
     where("(dialogues.sender_id = ? AND dialogues.recipient_id =?) OR
