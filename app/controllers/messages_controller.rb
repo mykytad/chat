@@ -72,6 +72,7 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
     @messages = @dialogue.messages
     @messages.unread_by(current_user).each { |message| message.update(read: true) }
+    @message.dialogue.touch
     head :ok
   end
 
