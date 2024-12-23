@@ -33,13 +33,16 @@
   background:#198754;
   color: #fff;
  }
- .list_active_item a{
-  color: #e2e4e3;
+ .list_active_item .user_list_link{
+  color: #fff !important;
  }
- .list_active_item a:hover{
-  color: #e2e4e3;
+ 
+.user_list_link{
+  color: #6c757d;
+}
+.user_list_link:hover{
+  color: #495057;
  }
-
  .messages_recipient{
   height: 35px;
   background: #ced4da;
