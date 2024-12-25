@@ -101,6 +101,28 @@
   font-size: 8px;
   margin-right: 5px;
 }
+/* #15803d */
+.scrol-down-arrow {
+  display: none;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 50px;
+  height: 50px;
+  background-color: #15803d;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-size: 24px;
+  /* transition: opacity 0.3s ease, visibility 0.3s ease; */
+}
+
+
+
 /* message new */
 .msg_form{
   margin-top: 0 !important;

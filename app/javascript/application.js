@@ -6,3 +6,4 @@ import "./controllers";
 import "./message_highlight";
 import "./sidebar_message";
 import "./sidebar_dialogue";
+import "./clearing_response";
