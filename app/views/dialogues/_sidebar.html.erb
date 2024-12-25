@@ -47,25 +47,24 @@
   });
 }
 
-// Применяем классы после полной загрузки страницы или после Turbo Streams
-document.addEventListener("turbo:load", () => {
-  applyActiveClass();
-});
+  // Apply classes after page is fully loaded or after Turbo Streams
+  document.addEventListener("turbo:load", () => {
+    applyActiveClass();
+  });
 
-document.addEventListener("turbo:render", () => {
-  applyActiveClass();
-});
+  document.addEventListener("turbo:render", () => {
+    applyActiveClass();
+  });
 
-// Наблюдаем за изменениями в списке
-const observer = new MutationObserver(() => {
-  applyActiveClass();
-});
+  // We are watching the changes in the list
+  const observer = new MutationObserver(() => {
+    applyActiveClass();
+  });
 
-document.addEventListener("turbo:load", () => {
-  const targetNode = document.querySelector(".nav[data-params-dialogue]");
-  if (targetNode) {
-    observer.observe(targetNode, { childList: true, subtree: true });
-  }
-});
-
+  document.addEventListener("turbo:load", () => {
+    const targetNode = document.querySelector(".nav[data-params-dialogue]");
+    if (targetNode) {
+      observer.observe(targetNode, { childList: true, subtree: true });
+    }
+  });
 </script>
