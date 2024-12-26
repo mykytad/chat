@@ -6,17 +6,43 @@ RSpec.describe MessagesController, type: :request do
   let!(:other_user) { create(:user) }
   let!(:dialogue) { create(:dialogue, sender: user, recipient: recipient) }
   let!(:other_dialogue) { create(:dialogue, sender: other_user, recipient: recipient) }
-  let!(:message) { create(:message, dialogue: dialogue, user: user) }
+  let!(:message1) { create(:message, dialogue: dialogue, user: user, read: false) }
+  let!(:message2) { create(:message, dialogue: dialogue, user: recipient, read: false) }
 
   before do
     sign_in user
   end
 
   describe "GET #index" do
-    it "returns a successful response for a valid dialogue" do
-      get dialogue_messages_path(dialogue)
-      expect(response).to have_http_status(:success)
-      expect(assigns(:messages)).to eq(dialogue.messages.order(:created_at))
+    context "when the user is a participant of the dialogue" do
+      it "marks unread messages from the other user as read" do
+        get dialogue_messages_path(dialogue)
+        message2.reload
+        expect(message2.read).to be true
+      end
+
+      it "does not mark messages sent by the current user as read" do
+        get dialogue_messages_path(dialogue)
+        message1.reload
+        expect(message1.read).to be false
+      end
+
+      it "returns nil if replied_to_id does not exist" do
+        get dialogue_messages_path(dialogue, params: { replied_to_id: 999 })
+        expect(assigns(:replied_message)).to be_nil
+      end
+
+      it "sets the replied message when replied_to_id exists" do
+        replied_message = create(:message, dialogue: dialogue, user: recipient)
+        get dialogue_messages_path(dialogue, params: { replied_to_id: replied_message.id })
+        expect(assigns(:replied_message)).to eq(replied_message.body)
+      end
+    end
+    context "when replied_to_id is present" do
+      it "returns nil if replied_to_id does not exist" do
+        get dialogue_messages_path(dialogue, params: { replied_to_id: 999 })
+        expect(assigns(:replied_message)).to be_nil
+      end
     end
   end
 
@@ -47,10 +73,10 @@ RSpec.describe MessagesController, type: :request do
   describe "PATCH #update" do
     context "when the user owns the message" do
       it "updates the message" do
-        patch dialogue_message_path(dialogue, message), params: { message: { body: "Updated content" } }
+        patch dialogue_message_path(dialogue, message1), params: { message: { body: "Updated content" } }
         expect(response).to redirect_to(dialogue_messages_path(dialogue))
-        message.reload
-        expect(message.body).to eq("Updated content")
+        message1.reload
+        expect(message1.body).to eq("Updated content")
       end
     end
 
@@ -58,10 +84,10 @@ RSpec.describe MessagesController, type: :request do
       before { sign_in recipient }
 
       it "does not update the message" do
-        patch dialogue_message_path(dialogue, message), params: { message: { body: "Invalid update" } }
+        patch dialogue_message_path(dialogue, message1), params: { message: { body: "Invalid update" } }
         expect(response).to redirect_to(dialogue_messages_path(dialogue))
-        message.reload
-        expect(message.body).not_to eq("Invalid update")
+        message1.reload
+        expect(message1.body).not_to eq("Invalid update")
       end
     end
   end
@@ -80,7 +106,7 @@ RSpec.describe MessagesController, type: :request do
     it "does not delete the message for an invalid user" do
       sign_in other_user
       expect {
-        delete dialogue_message_path(dialogue, message)
+        delete dialogue_message_path(dialogue, message1)
       }.not_to change(Message, :count)
 
       expect(response).to redirect_to(dialogues_path)
