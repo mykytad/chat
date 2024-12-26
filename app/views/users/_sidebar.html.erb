@@ -1,5 +1,5 @@
-<div class="sidebar d-none d-lg-flex flex-column overflow-scroll flex-shrink-0 bg-body-tertiary">
-    <div class="sticky-top mb-2 sidebar_icons_menu d-flex align-items-center justify-content-between">
+<div class="sidebar d-none d-lg-flex flex-column overflow-scroll flex-shrink-0 mb-4 bg-body-tertiary">
+    <div class="sticky-top mb-2 sidebar_menu_header d-flex align-items-center justify-content-between">
       <a href="<%= root_path %>" class="d-flex  px-3 align-items-center mb-md-0 me-md-auto link-body-emphasis text-decoration-none nav-link link-secondary">
         <span class="fs-4">MyChat</span>
       </a>
@@ -22,7 +22,7 @@
       </li>
     </ul>
 
-    <div class="sidebar_icons_menu sticky-bottom d-flex flex-row justify-content-around col-12">
+    <div class="sidebar_menu_header sticky-bottom d-flex flex-row justify-content-around col-12">
       <div class="sidebar_icon_wrap person col-2 p-2">
         <%= link_to current_user, class:"sidebar_icon_link" do %>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="sidebar_icon bi bi-person" viewBox="0 0 16 16">

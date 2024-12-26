@@ -9,6 +9,11 @@ class MessagesController < ApplicationController
     # @messages.unread_by(current_user).each { |message| message.update(read: true) }
     @messages = @messages.order(created_at: :asc)
     @current_user_id = current_user.id
+
+    if params[:replied_to_id].present?
+      @replied_message = @messages.find(params[:replied_to_id])
+      @replied_message = @replied_message.body
+    end
   end
 
   def create
@@ -67,6 +72,7 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
     @messages = @dialogue.messages
     @messages.unread_by(current_user).each { |message| message.update(read: true) }
+    # @dialogue.touch
     head :ok
   end
 

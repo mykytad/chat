@@ -1,7 +1,7 @@
-<div class="col-12 d-flex justify-content-evenly vh-100">
+<div class="col-12 d-flex justify-content-evenly h-100">
   <%= render "dialogues/sidebar" %>
 
-  <div class="msg-display row col-9">
+  <div class="msg-display col-9 flex-column justify-content-around">
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
       <div class="container-fluid">
         <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
@@ -41,42 +41,41 @@
     </nav>
 
     <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-    <div class="h-75 overflow-scroll d-flex flex-column" id="messages">
+    <div class="message_window overflow-scroll d-flex flex-column" id="messages" style="<%= "height:760px" if params[:replied_to_id].present? %>">
       <%= render @messages %>
+      <span id="down-point"></span>
     </div>
 
+    <span class="scrol-down-arrow">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+      </svg>
+    </span>
     <%= render "messages/new" %>
   </div>
 </div>
 
 <script>
-  var objDiv = document.getElementById("messages");
-  objDiv.scrollTop = objDiv.scrollHeight;
+ document.addEventListener('turbo:load', () => {
+    const scrollDownArrow = document.querySelector('.scrol-down-arrow');
+    const msgDisplay = document.querySelector('.msg-display');
+    const downPoint = document.getElementById('down-point');
+    let lastScrollTop = 0;
 
-  function showSidebar() {
-    var backArrow = document.getElementById('back-arrow');
-    var sidebar = document.querySelector('.sidebar');
-    var sidebarCross = document.getElementById('sidebar-cross');
-    var msgDisplay = document.querySelector('.msg-display');
+    // Check if the elements exist
+    if (!msgDisplay || !scrollDownArrow) {
+        console.warn("Elements .msg-display or .scrol-down-arrow not found");
+        return;
+    }
 
-    backArrow.classList.add('d-none');
-    msgDisplay.classList.add('d-none');
-    sidebar.classList.remove('d-none');
-    sidebarCross.classList.remove('d-none');
-  }
+    // Scroll to down-point on arrow click
+    scrollDownArrow.addEventListener('click', () => {
+        downPoint.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    });
 
-  function hideSidebar() {
-    var backArrow = document.getElementById('back-arrow');
-    var sidebar = document.querySelector('.sidebar');
-    var sidebarCross = document.getElementById('sidebar-cross');
-    var msgDisplay = document.querySelector('.msg-display');
-
-    backArrow.classList.remove('d-none');
-    msgDisplay.classList.remove('d-none');
-    sidebar.classList.add('d-none');
-    sidebarCross.classList.add('d-none');
-  }
-
-  document.getElementById('back-arrow').addEventListener('click', showSidebar);
-  document.getElementById('sidebar-cross').addEventListener('click', hideSidebar);
+    // Scroll when the window is resized
+    window.addEventListener('resize', () => {
+        downPoint.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    });
+  });
 </script>

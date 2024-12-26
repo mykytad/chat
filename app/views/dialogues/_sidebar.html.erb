@@ -13,11 +13,58 @@
   <small class="px-3 mb-1 mt-0"> All chats </small>
 
   <%= turbo_stream_from "dialogues" %>
-  <span id="dialogues">
-    <ul id="current-user" data-current-user-id="<%=current_user.id%>" class="nav nav-pills flex-column mb-auto">
-      <%= render @dialogues %>
-    </ul>
-  </span>
+  <ul class="dialogues-list nav nav-pills flex-column"
+      data-params-dialogue="<%= params[:dialogue_id] %>">
+    <%= render @dialogues %>
+  </ul>
 
   <%= render "dialogues/dialogue_icon" %>
 </div>
+
+<script>
+  function applyActiveClass() {
+  const dialogueList = document.querySelector(".nav[data-params-dialogue]");
+  if (!dialogueList) return;
+
+  const paramsDialogueId = parseInt(dialogueList.dataset.paramsDialogue, 10);
+
+  dialogueList.querySelectorAll(".user_list_item").forEach((item) => {
+    const dialogueId = parseInt(item.dataset.dialogueId, 10);
+
+    if (paramsDialogueId === dialogueId) {
+      item.classList.add("list_active_item");
+      const link = item.querySelector(".user_list_link");
+      if (link) {
+        link.classList.add("link-secondary");
+      }
+    } else {
+      item.classList.remove("list_active_item");
+      const link = item.querySelector(".user_list_link");
+      if (link) {
+        link.classList.remove("link-secondary");
+      }
+    }
+  });
+}
+
+  // Apply classes after page is fully loaded or after Turbo Streams
+  document.addEventListener("turbo:load", () => {
+    applyActiveClass();
+  });
+
+  document.addEventListener("turbo:render", () => {
+    applyActiveClass();
+  });
+
+  // We are watching the changes in the list
+  const observer = new MutationObserver(() => {
+    applyActiveClass();
+  });
+
+  document.addEventListener("turbo:load", () => {
+    const targetNode = document.querySelector(".nav[data-params-dialogue]");
+    if (targetNode) {
+      observer.observe(targetNode, { childList: true, subtree: true });
+    }
+  });
+</script>
