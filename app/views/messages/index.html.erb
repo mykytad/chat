@@ -56,26 +56,19 @@
 </div>
 
 <script>
- document.addEventListener('turbo:load', () => {
+  document.addEventListener('turbo:load', () => {
     const scrollDownArrow = document.querySelector('.scrol-down-arrow');
     const msgDisplay = document.querySelector('.msg-display');
     const downPoint = document.getElementById('down-point');
-    let lastScrollTop = 0;
-
-    // Check if the elements exist
-    if (!msgDisplay || !scrollDownArrow) {
-        console.warn("Elements .msg-display or .scrol-down-arrow not found");
-        return;
-    }
 
     // Scroll to down-point on arrow click
     scrollDownArrow.addEventListener('click', () => {
-        downPoint.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      downPoint.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
     });
 
     // Scroll when the window is resized
     window.addEventListener('resize', () => {
-        downPoint.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      downPoint.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
     });
   });
 </script>
