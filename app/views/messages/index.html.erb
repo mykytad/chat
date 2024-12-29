@@ -54,3 +54,48 @@
     <%= render "messages/new" %>
   </div>
 </div>
+
+<script>
+ document.addEventListener('turbo:load', function () {
+  const messagesContainer = document.getElementById('messages');
+
+  // Функция для прокрутки контейнера до самого низа
+  function scrollToBottom() {
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  }
+
+  // Прокрутка вниз сразу при загрузке страницы
+  scrollToBottom();
+
+  // Прокрутка вниз при изменении контента в контейнере сообщений
+  document.addEventListener('turbo:stream-render', function (event) {
+    if (event.target && event.target.id === 'messages') {
+      scrollToBottom();
+    }
+  });
+});
+
+// Используем window для глобальной области видимости, чтобы избежать переопределения observer
+if (typeof window.observer === 'undefined') {
+  window.observer = new MutationObserver(function () {
+    const messagesContainer = document.getElementById('messages');
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  });
+
+  const messagesElement = document.getElementById('messages');
+  if (messagesElement) {
+    window.observer.observe(messagesElement, { childList: true });
+  }
+} else {
+  // Если переменная уже существует, обновляем наблюдатель
+  window.observer.disconnect();
+  const messagesElement = document.getElementById('messages');
+  if (messagesElement) {
+    window.observer.observe(messagesElement, { childList: true });
+  }
+}
+</script>
