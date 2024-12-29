@@ -59,17 +59,17 @@
  document.addEventListener('turbo:load', function () {
   const messagesContainer = document.getElementById('messages');
 
-  // Функция для прокрутки контейнера до самого низа
+  // Function to scroll the container to the bottom
   function scrollToBottom() {
     if (messagesContainer) {
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
   }
 
-  // Прокрутка вниз сразу при загрузке страницы
+  // Scroll to the bottom immediately when the page loads
   scrollToBottom();
 
-  // Прокрутка вниз при изменении контента в контейнере сообщений
+  // Scroll to the bottom when the content in the messages container changes
   document.addEventListener('turbo:stream-render', function (event) {
     if (event.target && event.target.id === 'messages') {
       scrollToBottom();
@@ -77,7 +77,7 @@
   });
 });
 
-// Используем window для глобальной области видимости, чтобы избежать переопределения observer
+// Use window for global scope to avoid re-declaring observer
 if (typeof window.observer === 'undefined') {
   window.observer = new MutationObserver(function () {
     const messagesContainer = document.getElementById('messages');
@@ -91,7 +91,7 @@ if (typeof window.observer === 'undefined') {
     window.observer.observe(messagesElement, { childList: true });
   }
 } else {
-  // Если переменная уже существует, обновляем наблюдатель
+  // If the variable already exists, update the observer
   window.observer.disconnect();
   const messagesElement = document.getElementById('messages');
   if (messagesElement) {
