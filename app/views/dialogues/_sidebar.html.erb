@@ -13,7 +13,7 @@
   <small class="px-3 mb-1 mt-0"> All chats </small>
 
   <%= turbo_stream_from "dialogues" %>
-  <ul class="dialogues-list nav nav-pills flex-column"
+  <ul class="dialogues-list nav nav-pills flex-column vh-100"
       data-params-dialogue="<%= params[:dialogue_id] %>">
     <%= render @dialogues %>
   </ul>
