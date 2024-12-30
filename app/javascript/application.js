@@ -7,4 +7,4 @@ import "./message_highlight";
 import "./sidebar_message";
 import "./sidebar_dialogue";
 import "./clearing_response";
-import "./scroll_button";
+import "./scroll";
