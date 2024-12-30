@@ -8,13 +8,13 @@ RSpec.feature "static pages", type: :feature do
   end
 
   it "visit contacs pages" do
-    click_link :page_contact
+    visit contacts_path
 
     expect(body).to have_content "Contacts"
   end
 
   it "visit about pages " do
-    click_link "About"
+    visit about_path
 
     expect(body).to have_content "About"
   end
