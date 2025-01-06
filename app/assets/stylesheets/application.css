@@ -75,6 +75,13 @@
 .message_content{
   padding: 5px 15px;
 }
+.message_link{
+  color:#1cbcfe;
+  text-decoration: none;
+}
+.message_link:hover{
+  text-decoration: underline;
+}
 .highlight {
   box-shadow: 0 0 10px #0dcaf0;
 }
