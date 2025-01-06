@@ -25,7 +25,8 @@
         <%= link_to 'Cancel', dialogue_messages_path(@dialogue), class:"btn btn-secondary" %>
       <% end %>
     <% else %>
-      <span><%= auto_link(message.body, html: { class:'message_link', target: '_blank', rel: 'noopener noreferrer' }) %></span>
+      <%= auto_link(html_escape(message.body), html: { class:'message_link', target: '_blank', rel: 'noopener noreferrer' }) %>
+      <!--<%= auto_link(sanitize(message.body, tags: [], attributes: []), html: {class:'message_link',target: '_blank', rel: 'noopener noreferrer' }) %>-->
       <br>
     <% end %>
     <small class="d-none read-<%= message.user_id %>">

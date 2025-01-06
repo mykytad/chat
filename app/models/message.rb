@@ -14,4 +14,11 @@ class Message < ApplicationRecord
   after_create_commit { broadcast_append_to "dialogue_#{dialogue.id}_messages" }
   after_update_commit { broadcast_replace_to "dialogue_#{dialogue.id}_messages" }
   after_destroy_commit { broadcast_remove_to "dialogue_#{dialogue.id}_messages" }
+
+  private
+
+  # add back-shielding to the model before saving
+  def escape_html
+    self.body = CGI.escapeHTML(self.body)
+  end
 end
