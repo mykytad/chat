@@ -25,7 +25,7 @@
         <%= link_to 'Cancel', dialogue_messages_path(@dialogue), class:"btn btn-secondary" %>
       <% end %>
     <% else %>
-      <%= message.body %>
+      <span><%= auto_link(message.body, html: { class:'message_link', target: '_blank', rel: 'noopener noreferrer' }) %></span>
       <br>
     <% end %>
     <small class="d-none read-<%= message.user_id %>">

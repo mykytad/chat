@@ -51,6 +51,7 @@ gem 'warden'
 gem "carrierwave"
 gem "mini_magick"
 gem "avatarly"
+gem 'rails_autolink'
 
 # Use Sass to process CSS
 # gem "sassc-rails"
