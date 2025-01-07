@@ -22,19 +22,7 @@ class Message < ApplicationRecord
     self.body = CGI.escapeHTML(self.body)
   end
 
-  # def fetch_link_preview
-  #   return unless body =~ URI::DEFAULT_PARSER.make_regexp
-
-  #   preview_data = LinkPreviewService.fetch(body.match(URI::DEFAULT_PARSER.make_regexp)[0])
-  #   if preview_data
-  #     self.link_title = preview_data[:title]
-  #     self.link_description = preview_data[:description]
-  #     self.link_image = preview_data[:image]
-  #     self.link_url = preview_data[:url]
-  #   end
-  # end
-
-
+  # extract link preview data
   def fetch_link_preview
     Rails.logger.debug "Fetching link preview for: #{body}"
     return unless body =~ URI::DEFAULT_PARSER.make_regexp
