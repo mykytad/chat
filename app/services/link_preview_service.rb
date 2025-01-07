@@ -9,8 +9,11 @@ class LinkPreviewService
       image: page.images.best,
       url: page.url
     }
-  rescue => e
-    Rails.logger.error "Error fetching preview for #{url}: #{e.message}"
+  rescue MetaInspector::TimeoutError, MetaInspector::RequestError => e
+    Rails.logger.error "Error fetching preview for #{url}: #{e.class} - #{e.message}\n#{e.backtrace.join("\n")}"
+    nil
+  rescue StandardError => e
+    Rails.logger.error "Unexpected error for #{url}: #{e.class} - #{e.message}\n#{e.backtrace.join("\n")}"
     nil
   end
 end

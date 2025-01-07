@@ -9,3 +9,7 @@ Lint/LiteralAsCondition:
 Lint/AmbiguousBlockAssociation:
   Exclude:
   - 'spec/models/message_spec.rb'
+
+Style/WordArray:
+  Exclude:
+  - 'app/controllers/messages_controller.rb'
