@@ -26,6 +26,20 @@
       <% end %>
     <% else %>
       <%= auto_link(html_escape(message.body), html: { class:'message_link', target: '_blank', rel: 'noopener noreferrer' }) %>
+
+      <% if message.link_url.present? %>
+        <div class="link-preview">
+          <a href="<%= message.link_url %>" target="_blank" rel="noopener noreferrer">
+            <% if message.link_image.present? %>
+              <img src="<%= message.link_image %>" alt="<%= message.link_title %>" class="link-preview-image">
+            <% end %>
+            <div class="link-preview-details">
+              <h4><%= message.link_title %></h4>
+              <p><%= message.link_description %></p>
+            </div>
+          </a>
+        </div>
+      <% end %>
       <!--<%= auto_link(sanitize(message.body, tags: [], attributes: []), html: {class:'message_link',target: '_blank', rel: 'noopener noreferrer' }) %>-->
       <br>
     <% end %>
