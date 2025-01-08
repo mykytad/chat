@@ -16,7 +16,7 @@
       data-controller="message-read-status" 
       data-message-read-status-target="message" 
       data-message-id="<%= message.id %>"
-      data-dialogue-id="<%=  message.dialogue.id %>">
+      data-dialogue-id="<%= message.dialogue.id %>">
 
     <% if params[:edit_message_id].to_i == message.id %>
       <%= form_for [@dialogue, message], html: { class:"d-flex align-items-center" } do |f| %>
@@ -25,22 +25,21 @@
         <%= link_to 'Cancel', dialogue_messages_path(@dialogue), class:"btn btn-secondary" %>
       <% end %>
     <% else %>
-      <%= auto_link(html_escape(message.body), html: { class:'message_link', target: '_blank', rel: 'noopener noreferrer' }) %>
+      <%= auto_link(html_escape(message.body), html: { class:'text-white', target: '_blank', rel: 'noopener noreferrer' }) %>
 
       <% if message.link_url.present? %>
         <div class="link-preview">
-          <a href="<%= message.link_url %>" target="_blank" rel="noopener noreferrer">
+          <a href="<%= message.link_url %>" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+            <div class="link-preview-details">
+              <h4 class="text-white"><%= message.link_title %></h4>
+              <p class="text-white"><%= message.link_description %></p>
+            </div>
             <% if message.link_image.present? %>
               <img src="<%= message.link_image %>" alt="<%= message.link_title %>" class="link-preview-image">
             <% end %>
-            <div class="link-preview-details">
-              <h4><%= message.link_title %></h4>
-              <p><%= message.link_description %></p>
-            </div>
           </a>
         </div>
       <% end %>
-      <!--<%= auto_link(sanitize(message.body, tags: [], attributes: []), html: {class:'message_link',target: '_blank', rel: 'noopener noreferrer' }) %>-->
       <br>
     <% end %>
     <small class="d-none read-<%= message.user_id %>">

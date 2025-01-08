@@ -110,7 +110,10 @@
 }
 
 .link-preview {
-  border: 1px solid #ddd;
+  border-radius: 3px;
+  border-left: 3px solid #fff;
+  background: #115e3a;
+  overflow: hidden;
   padding: 10px;
   margin-top: 10px;
   display: flex;
@@ -118,9 +121,9 @@
 }
 
 .link-preview-image {
-  max-width: 100px;
-  max-height: 100px;
-  object-fit: cover;
+  max-width: 530px;
+  border-radius: 3px;
+  /* max-height: 400px; */
 }
 
 .link-preview-details h4 {
