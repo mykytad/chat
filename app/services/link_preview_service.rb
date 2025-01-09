@@ -5,13 +5,13 @@ class LinkPreviewService
 
   def self.fetch(url)
     if image_url?(url)
-      # Если ссылка на изображение, возвращаем данные с ним
+      # If the link is to an image, return data with it
       {
         image: url,
         url: url
       }
     else
-      # Если ссылка на веб-страницу, используем MetaInspector
+      # If the link is to a web page, use MetaInspector
       page = MetaInspector.new(url, allow_redirections: :all)
       {
         title: page.title,

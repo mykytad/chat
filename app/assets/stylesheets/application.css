@@ -38,6 +38,7 @@
  
 .user_list_link{
   color: #6c757d;
+  width: 233px;
 }
 .user_list_link:hover{
   color: #495057;
