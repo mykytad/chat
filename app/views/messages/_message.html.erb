@@ -12,7 +12,7 @@
     </a>
   <% end %>
 
-  <div class="message_content <%= 'read' if message.read %>"
+  <div class="message_content overflow-x-hidden <%= 'read' if message.read %>"
       data-controller="message-read-status" 
       data-message-read-status-target="message" 
       data-message-id="<%= message.id %>"
