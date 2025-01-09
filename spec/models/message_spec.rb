@@ -69,4 +69,47 @@ RSpec.describe Message, type: :model do
       end
     end
   end
+
+  describe 'private methods' do
+    let(:message_with_url) { build(:message, body: "Check out this link: https://example.com") }
+    let(:message_with_html) { build(:message, body: "<h1>Hello</h1>") }
+
+    describe '#escape_html' do
+      it "escapes HTML tags in the message body" do
+        message_with_html.send(:escape_html)
+        expect(message_with_html.body).to eq("&lt;h1&gt;Hello&lt;/h1&gt;")
+      end
+    end
+
+    describe '#fetch_link_preview' do
+      context 'when the message body contains a valid URL' do
+        before do
+          allow(LinkPreviewService).to receive(:fetch).and_return(
+            title: 'Example Title',
+            description: 'Example Description',
+            image: 'https://example.com/image.png',
+            url: 'https://example.com'
+          )
+        end
+
+        it "fetches the link preview and updates the message fields" do
+          message_with_url.send(:fetch_link_preview)
+          expect(message_with_url.link_title).to eq('Example Title')
+          expect(message_with_url.link_description).to eq('Example Description')
+          expect(message_with_url.link_image).to eq('https://example.com/image.png')
+          expect(message_with_url.link_url).to eq('https://example.com')
+        end
+      end
+
+      context 'when the message body does not contain a valid URL' do
+        it "does not update the message fields" do
+          message_with_html.send(:fetch_link_preview)
+          expect(message_with_html.link_title).to be_nil
+          expect(message_with_html.link_description).to be_nil
+          expect(message_with_html.link_image).to be_nil
+          expect(message_with_html.link_url).to be_nil
+        end
+      end
+    end
+  end
 end
