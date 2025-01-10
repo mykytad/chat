@@ -123,25 +123,25 @@ RSpec.describe MessagesController, type: :request do
 
   describe "DELETE #destroy" do
     let!(:message_to_delete) { create(:message, dialogue: dialogue, user: user) }
-  
+
     context "when the current user is the message owner" do
       it "deletes the message and redirects to the dialogue messages path" do
         expect {
           delete dialogue_message_path(dialogue, message_to_delete)
         }.to change(Message, :count).by(-1)
-  
+
         expect(response).to redirect_to(dialogue_messages_path(dialogue))
       end
     end
-  
+
     context "when the current user is not the message owner" do
       before { sign_in other_user }
-  
+
       it "does not delete the message and redirects to the dialogues path" do
         expect {
           delete dialogue_message_path(dialogue, message_to_delete)
         }.not_to change(Message, :count)
-  
+
         expect(response).to redirect_to(dialogues_path)
       end
     end
