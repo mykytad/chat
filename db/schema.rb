@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_02_091614) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_07_104253) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_02_091614) do
     t.integer "replied_to_id"
     t.boolean "read", default: false
     t.datetime "edited_at", default: "2024-12-02 10:13:53", null: false
+    t.string "link_title"
+    t.text "link_description"
+    t.string "link_image"
+    t.string "link_url"
   end
 
   create_table "users", force: :cascade do |t|

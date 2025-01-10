@@ -55,6 +55,35 @@ RSpec.describe MessagesController, type: :request do
 
         expect(response).to redirect_to(dialogue_messages_path(dialogue))
       end
+
+      it "updates the last_message and updated_at fields of the dialogue" do
+        post dialogue_messages_path(dialogue), params: { message: { body: "Hello!" } }
+
+        dialogue.reload
+        expect(dialogue.last_message).to eq("Hello!")
+        expect(dialogue.updated_at).not_to eq(dialogue.created_at)
+      end
+    end
+
+    context "with a message containing a URL" do
+      before do
+        allow(LinkPreviewService).to receive(:fetch).and_return(
+          title: 'Example Title',
+          description: 'Example Description',
+          image: 'https://example.com/image.png',
+          url: 'https://example.com'
+        )
+      end
+
+      it "fetches the link preview and includes the data in the message" do
+        post dialogue_messages_path(dialogue), params: { message: { body: "Check this out: https://example.com" } }
+
+        message = Message.last
+        expect(message.link_title).to eq('Example Title')
+        expect(message.link_description).to eq('Example Description')
+        expect(message.link_image).to eq('https://example.com/image.png')
+        expect(message.link_url).to eq('https://example.com')
+      end
     end
 
     context "as a non-participant" do

@@ -38,6 +38,7 @@
  
 .user_list_link{
   color: #6c757d;
+  width: 233px;
 }
 .user_list_link:hover{
   color: #495057;
@@ -75,6 +76,13 @@
 .message_content{
   padding: 5px 15px;
 }
+.message_link{
+  color:#1cbcfe;
+  text-decoration: none;
+}
+.message_link:hover{
+  text-decoration: underline;
+}
 .highlight {
   box-shadow: 0 0 10px #0dcaf0;
 }
@@ -101,6 +109,35 @@
   font-size: 8px;
   margin-right: 5px;
 }
+
+.link-preview {
+  border-radius: 3px;
+  border-left: 3px solid #fff;
+  background: #115e3a;
+  overflow: hidden;
+  padding: 10px;
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.link-preview-image {
+  max-width: 530px;
+  border-radius: 3px;
+  /* max-height: 400px; */
+}
+
+.link-preview-details h4 {
+  margin: 0 0 5px;
+  font-size: 16px;
+}
+
+.link-preview-details p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
 
 .scrol-down-arrow {
   display: none;

@@ -29,6 +29,17 @@ class MessagesController < ApplicationController
       @message.updated_at = Time.now.strftime("%c")
       @message.edited_at = Time.now.strftime("%c")
 
+      # Проверяем наличие ссылки в теле сообщения
+      if (url = extract_url(@message.body))
+        preview = LinkPreviewService.fetch(url)
+        if preview
+          @message.link_title = preview[:title]
+          @message.link_description = preview[:description]
+          @message.link_image = preview[:image]
+          @message.link_url = preview[:url]
+        end
+      end
+
       if @message.save
         @dialogue.update(last_message: @message.body, updated_at: @message.created_at)
         redirect_to dialogue_messages_path(@dialogue)
@@ -93,5 +104,9 @@ class MessagesController < ApplicationController
   def user_dialogues
     @dialogues = Dialogue.where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id)
                               .order(pin_dialogue: :desc, pined_at: :desc, updated_at: :desc)
+  end
+
+  def extract_url(text)
+    URI.extract(text, ['http', 'https']).first
   end
 end
