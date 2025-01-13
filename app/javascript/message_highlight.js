@@ -28,7 +28,7 @@ const initializeHighlighting = () => {
   const initializeLinks = () => {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", (event) => {
-        event.preventDefault(); // Предотвращаем стандартное поведение
+        event.preventDefault(); // Prevent the default behavior
 
         const hash = anchor.getAttribute("href");
         const targetElement = document.querySelector(hash);
@@ -41,7 +41,7 @@ const initializeHighlighting = () => {
     });
   };
 
-  // Обработка текущего хэша при загрузке страницы
+  // Handle the current hash when the page loads
   const hash = window.location.hash;
   if (hash) {
     const targetElement = document.querySelector(hash);
@@ -51,10 +51,10 @@ const initializeHighlighting = () => {
     }
   }
 
-  // Инициализация ссылок
+  // Initialize links
   initializeLinks();
 };
 
-// Убедимся, что скрипт работает при разных сценариях загрузки страницы
+// Ensure the script works for different page loading scenarios
 document.addEventListener("DOMContentLoaded", initializeHighlighting);
 document.addEventListener("turbo:load", initializeHighlighting);
