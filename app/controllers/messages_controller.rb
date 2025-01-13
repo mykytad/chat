@@ -75,11 +75,15 @@ class MessagesController < ApplicationController
   def destroy
     @message = dialogue.messages.find(params[:id])
 
-    if @dialogue.sender_id == current_user.id || @dialogue.recipient_id == current_user.id
-      @message.destroy
-      redirect_to dialogue_messages_path(@dialogue)
+    if @message.user_id == current_user.id
+      if @dialogue.sender_id == current_user.id || @dialogue.recipient_id == current_user.id
+        @message.destroy
+        redirect_to dialogue_messages_path(@dialogue)
+      else
+        redirect_to dialogues_path
+      end
     else
-      redirect_to dialogues_path, alert: "you can't delete this message"
+      redirect_to dialogues_path
     end
   end
 
