@@ -1,54 +1,60 @@
-document.addEventListener("DOMContentLoaded", () => {
+const initializeHighlighting = () => {
   const messagesDiv = document.getElementById("messages");
 
-  if (messagesDiv) {
-    const applyHighlight = (element) => {
-      element.classList.add("highlight");
+  if (!messagesDiv) return;
 
-      setTimeout(() => {
-        element.classList.remove("highlight");
-      }, 1000);
-    };
+  const applyHighlight = (element) => {
+    element.classList.add("highlight");
 
-    const removeHashFromURL = () => {
-      history.replaceState(null, null, " ");
-    };
+    setTimeout(() => {
+      element.classList.remove("highlight");
+    }, 1000);
+  };
 
-    const handleAnchorClick = (anchor) => {
-      const hash = anchor.getAttribute("href");
-      const targetElement = document.querySelector(hash);
-      if (targetElement) {
-        applyHighlight(targetElement);
-        // Remove the hash from the URL after 1.5 seconds
-        setTimeout(removeHashFromURL, 1500);
-      }
-    };
+  const removeHashFromURL = () => {
+    history.replaceState(null, null, " ");
+  };
 
-    // Handle the current hash when the page loads
-    const hash = window.location.hash;
-    if (hash) {
-      const targetElement = document.querySelector(hash);
-      if (targetElement) {
-        applyHighlight(targetElement);
-        setTimeout(removeHashFromURL, 1500);
-      }
+  const handleAnchorClick = (anchor) => {
+    const hash = anchor.getAttribute("href");
+    const targetElement = document.querySelector(hash);
+
+    if (targetElement) {
+      applyHighlight(targetElement);
+      setTimeout(removeHashFromURL, 1500);
     }
+  };
 
-    // Add click handlers to all anchor links
+  const initializeLinks = () => {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", (event) => {
-        event.preventDefault(); // Prevent default browser behavior
+        event.preventDefault(); // Prevent the default behavior
+
         const hash = anchor.getAttribute("href");
         const targetElement = document.querySelector(hash);
 
         if (targetElement) {
-          // Scroll to the target element manually
           targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
-
-          // Apply highlight and remove hash
           setTimeout(() => handleAnchorClick(anchor), 100);
         }
       });
     });
+  };
+
+  // Handle the current hash when the page loads
+  const hash = window.location.hash;
+  if (hash) {
+    const targetElement = document.querySelector(hash);
+    if (targetElement) {
+      applyHighlight(targetElement);
+      setTimeout(removeHashFromURL, 1500);
+    }
   }
-});
+
+  // Initialize links
+  initializeLinks();
+};
+
+// Ensure the script works for different page loading scenarios
+document.addEventListener("DOMContentLoaded", initializeHighlighting);
+document.addEventListener("turbo:load", initializeHighlighting);
