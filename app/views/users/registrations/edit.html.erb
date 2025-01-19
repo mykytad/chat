@@ -10,7 +10,7 @@
           </svg>
         </span>
         <span class="navbar-brand p-0 d-flex align-items-center text-dark-emphasis">
-          User Edit <%= resource_name.to_s.humanize %>  <%= current_user.id %>
+          User Edit <%= resource_name.to_s.humanize %>
         </span>
       </div>
     </nav>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="row mb-3">
-            <div class="field col-sm-8 w-100">
+          <div class="field col-sm-8 w-100">
             <%= f.label :current_password, class:"col-sm-5 col-form-label" %>
             <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control" %> 
             <small class = "text-body-secondary">(we need your current password to confirm your changes)</small><br />
@@ -75,9 +75,20 @@
         </div>
       <% end %>
 
-      <h3 class="mt-2 align-self-center">Cancel my account</h3>
-      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete,class:"btn btn-outline-danger col-sm-2 mt-2 w-100" %>
-      <%= link_to "Back", :back, class:"btn btn-outline-primary col-sm-2  mt-2 w-100" %>
+      <div class="d-flex flex-column align-items-center">
+        <div class="row mb-3">
+          <div class="field col-sm-8 w-100">
+            <h3 class="align-self-center">Cancel my account</h3>
+            <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete,class:"edit-user-buttons btn btn-outline-danger w-100" %>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="field col-sm-8 w-100">
+            <%= link_to "Back", :back, class:"edit-user-buttons btn btn-outline-primary w-100" %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
