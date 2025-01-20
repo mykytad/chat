@@ -75,20 +75,14 @@
         </div>
       <% end %>
 
-      <div class="d-flex flex-column align-items-center">
-        <div class="row mb-3">
-          <div class="field col-sm-8 w-100">
-            <h3 class="align-self-center">Cancel my account</h3>
-            <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete,class:"edit-user-buttons btn btn-outline-danger w-100" %>
+        <div class="user_edit_buttuns d-flex justify-content-center">
+          <div class=" field col-sm-8 w-100">
+            <h3 class="align-self-center my-3">Cancel my account</h3>
+            <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete,class:"mb-1 btn btn-outline-danger w-100" %>
+            <%= link_to "Back", :back, class:"mt-1 btn btn-outline-primary w-100" %>
           </div>
         </div>
 
-        <div class="row mb-3">
-          <div class="field col-sm-8 w-100">
-            <%= link_to "Back", :back, class:"edit-user-buttons btn btn-outline-primary w-100" %>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
