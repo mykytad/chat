@@ -32,8 +32,8 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         }.not_to change(User, :count)
 
         user = assigns(:user)
-        expect(user).to be_a_new(User) # Проверяем, что объект - новый и не сохранённый
-        expect(user.errors.any?).to be true # Убедимся, что есть ошибки валидации
+        expect(user).to be_a_new(User) # Check that the object is new and not saved
+        expect(user.errors.any?).to be true # Let's make sure there are validation errors
       end
     end
   end
