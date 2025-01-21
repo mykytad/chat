@@ -22,7 +22,25 @@
       </span>
     </li>
 
-    <li class="nav-item user_list_item">
+    <li class="ms-2 mt-2">
+      <span class="fw-medium">
+        Email:
+      </span><br>
+      <span class="fw-light">
+        <%= @user.email %>
+      </span>
+    </li>
+
+    <li class="ms-2 mt-2">
+      <span class="fw-medium">
+        Phone:
+      </span><br>
+      <span class="fw-light">
+        <%= @user.phone %>
+      </span>
+    </li>
+
+    <li class="nav-item user_list_item border-top border-danger-subtle mt-3">
       <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class:"nav-link text-danger" %>
     </li>
   </ul>
