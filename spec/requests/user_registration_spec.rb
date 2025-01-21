@@ -8,7 +8,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:valid_attributes) { { name: 'Test User', phone: '123456789', email: 'test@example.com', password: 'password' } }
+    let(:valid_attributes) { { name: 'Test User', phone: '123456789', email: 'test@example.com', password: '123456' } }
     let(:invalid_attributes) { { name: '', phone: '', email: '', password: '' } }
 
     context 'with valid attributes' do
