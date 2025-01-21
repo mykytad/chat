@@ -1,5 +1,5 @@
 <div class="col-12 d-flex justify-content-evenly h-100">
-  <%= render "users/sidebar" %>
+  <%= render "users/sidebar", avatar: @avatar %>
 
   <div class="msg-display col-9 flex-column justify-content-around">
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
@@ -10,7 +10,7 @@
           </svg>
         </span>
         <span class="navbar-brand p-0 d-flex align-items-center text-dark-emphasis">
-          Edit <%= resource_name.to_s.humanize %>
+          User Edit <%= resource_name.to_s.humanize %>
         </span>
       </div>
     </nav>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="row mb-3">
-            <div class="field col-sm-8 w-100">
+          <div class="field col-sm-8 w-100">
             <%= f.label :current_password, class:"col-sm-5 col-form-label" %>
             <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control" %> 
             <small class = "text-body-secondary">(we need your current password to confirm your changes)</small><br />
@@ -75,9 +75,14 @@
         </div>
       <% end %>
 
-      <h3 class="mt-2 align-self-center">Cancel my account</h3>
-      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete,class:"btn btn-outline-danger col-sm-2 mt-2 w-100" %>
-      <%= link_to "Back", :back, class:"btn btn-outline-primary col-sm-2  mt-2 w-100" %>
+        <div class="user_edit_buttuns d-flex justify-content-center">
+          <div class=" field col-sm-8 w-100">
+            <h3 class="align-self-center my-3">Cancel my account</h3>
+            <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete,class:"mb-1 btn btn-outline-danger w-100" %>
+            <%= link_to "Back", :back, class:"mt-1 btn btn-outline-primary w-100" %>
+          </div>
+        </div>
+
     </div>
   </div>
 </div>

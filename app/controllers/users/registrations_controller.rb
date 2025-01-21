@@ -2,6 +2,8 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
+  before_action :set_avatar, only: [:edit, :update]
+
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /users/sign_up
@@ -63,4 +65,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  private
+
+  def set_avatar
+    @avatar = AvatarGenerator.generate(current_user)
+  end
 end
