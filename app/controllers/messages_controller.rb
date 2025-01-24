@@ -98,7 +98,7 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:body, :user_id, :dialogue_id)
+    params.require(:message).permit(:body, :user_id, :dialogue_id, { images: [] })
   end
 
   def dialogue
