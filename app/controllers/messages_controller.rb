@@ -44,7 +44,7 @@ class MessagesController < ApplicationController
         @dialogue.update(last_message: @message.body, updated_at: @message.created_at)
         redirect_to dialogue_messages_path(@dialogue)
       else
-        flash[:alert] = 'Failed to send message.'
+        # flash[:alert] = 'Failed to send message.'
         redirect_to dialogue_messages_path(@dialogue)
       end
     else

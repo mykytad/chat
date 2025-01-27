@@ -8,7 +8,8 @@ class Message < ApplicationRecord
   mount_uploaders :images, ImageUploader
   serialize :images # , JSON  If you use SQLite,
 
-  validates :body, presence: true
+  # validates :body, presence: true
+  validate :body_or_image_present
   validates :dialogue_id, presence: true
   validates :user_id, presence: true
 
@@ -38,6 +39,12 @@ class Message < ApplicationRecord
       self.link_description = preview_data[:description]
       self.link_image = preview_data[:image]
       self.link_url = preview_data[:url]
+    end
+  end
+
+  def body_or_image_present
+    if body.blank? && images.blank?
+      errors.add(:base, "The message must contain text or at least one image")
     end
   end
 end

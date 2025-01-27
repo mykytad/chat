@@ -6,23 +6,45 @@ RSpec.describe Message, type: :model do
     it { is_expected.to belong_to(:dialogue) }
   end
 
-  describe 'validations' do
-    it { is_expected.to validate_presence_of(:body) }
-    it { is_expected.to validate_presence_of(:dialogue_id) }
-    it { is_expected.to validate_presence_of(:user_id) }
-  end
-
   let(:user) { create(:user) }
   let(:dialogue) { create(:dialogue, sender: user, recipient: create(:user)) }
   let(:message) { create(:message, user: user, dialogue: dialogue) }
 
-  it "is valid with valid attributes" do
-    expect(message).to be_valid
+  it "is invalid without text or an image" do
+    message = Message.new(body: "", user: user, dialogue: dialogue)
+
+    expect(message).to_not be_valid
+    expect(message.errors[:base]).to include("The message must contain text or at least one image")
   end
 
-  it "is invalid without a body" do
-    message.body = nil
-    expect(message).to_not be_valid
+  describe 'validations' do
+    it { is_expected.to validate_presence_of(:dialogue_id) }
+    it { is_expected.to validate_presence_of(:user_id) }
+
+    it "is invalid without text or an image" do
+      # Создаем сообщение без текста и изображения
+      message = Message.new(body: "", user: user, dialogue: dialogue)
+
+      # Проверяем, что сообщение невалидно и появляется ошибка с нужным сообщением
+      expect(message).to_not be_valid
+      expect(message.errors[:base]).to include("The message must contain text or at least one image")
+    end
+
+    it "is valid with text" do
+      # Создаем сообщение с текстом
+      message = Message.new(body: "Hello!", user: user, dialogue: dialogue)
+      expect(message).to be_valid
+    end
+
+    it "is valid with an image and no text" do
+      # Создаем сообщение с изображением
+      message = Message.new(
+        images: [fixture_file_upload(Rails.root.join('spec/fixtures/files/test_image.jpg'), 'image/jpeg')],
+        user: user,
+        dialogue: dialogue
+      )
+      expect(message).to be_valid
+    end
   end
 
   it "can reply to another message" do
