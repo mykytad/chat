@@ -5,6 +5,9 @@ class Message < ApplicationRecord
 
   has_many :replies, class_name: "Message", foreign_key: "replied_to_id"
 
+  mount_uploaders :images, ImageUploader
+  serialize :images # , JSON  If you use SQLite,
+
   validates :body, presence: true
   validates :dialogue_id, presence: true
   validates :user_id, presence: true

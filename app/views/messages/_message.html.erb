@@ -26,6 +26,13 @@
       <% end %>
     <% else %>
       <%= auto_link(html_escape(message.body), html: { class:'text-white', target: '_blank', rel: 'noopener noreferrer' }) %>
+        
+      <% if message.images.present? %>
+        <br>
+        <% message.images.each do |image| %>
+          <%= image_tag image.thumb.url, class: "", style: "max-width: 300px;" %>
+        <% end %>
+      <% end %>
 
       <% if message.link_url.present? %>
         <div class="link-preview">
