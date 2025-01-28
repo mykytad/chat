@@ -163,6 +163,16 @@
 .msg_form{
   margin-top: 0 !important;
 }
+.svg-upload-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #198754;
+}
+.svg-upload-label:hover {
+  color: #157347;
+}
 
 /* sidebar */
 .sidebar_menu_header{

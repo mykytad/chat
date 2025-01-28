@@ -1,7 +1,7 @@
 <div id="message_<%= message.id %>" class="message flex-column message_body_wrap msg-text-<%= message.user_id %> bg-secondary align-self-start text-white rounded-4 align-self-start mb-1">
   <% if message.replied_to.present? %>
-    <a href="#message_<%= message.replied_to.id %>" class="text-white text-decoration-none reply-link">
-      <div class="reply message_content rounded-end1 m-2">
+    <a href="#message_<%= message.replied_to.id %>" class="text-white text-decoration-none reply-link ">
+      <div class="reply message_content rounded-end1 m-2 overflow-hidden">
         <small class="fw-semibold">
           <%= message.replied_to.user.name %>
         </small><br>
@@ -26,6 +26,13 @@
       <% end %>
     <% else %>
       <%= auto_link(html_escape(message.body), html: { class:'text-white', target: '_blank', rel: 'noopener noreferrer' }) %>
+        
+      <% if message.images.present? %>
+        <br>
+        <% message.images.each do |image| %>
+          <%= image_tag image.thumb.url %>
+        <% end %>
+      <% end %>
 
       <% if message.link_url.present? %>
         <div class="link-preview">
