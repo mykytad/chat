@@ -29,9 +29,13 @@
         
       <% if message.images.present? %>
         <br>
+        <div class="image-collage image-count-<%= message.images.size %>">
           <% message.images.each do |image| %>
-            <%= image_tag image.url, class:" mb-1" %>
+            <div class="collage-item">
+              <%= image_tag(image.url, alt: "Message Image") %>
+            </div>
           <% end %>
+        </div>
       <% end %>
 
       <% if message.link_url.present? %>
