@@ -29,9 +29,9 @@
         
       <% if message.images.present? %>
         <br>
-        <% message.images.each do |image| %>
-          <%= image_tag image.thumb.url %>
-        <% end %>
+          <% message.images.each do |image| %>
+            <%= image_tag image.url, class:" mb-1" %>
+          <% end %>
       <% end %>
 
       <% if message.link_url.present? %>
