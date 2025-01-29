@@ -1,6 +1,6 @@
 <%= form_for :message, class: "msg_form row col-12 d-flex align-items-center justify-content-center", html: { enctype: "multipart/form-data" } do |form| %>
   <%= form.hidden_field :replied_to_id, value: params[:replied_to_id] if params[:replied_to_id].present? %>
-  
+
   <% if params[:replied_to_id].present? %>
     <div class="reply_new message_content rounded-end1 m-2 text-white d-flex justify-content-between">
       <small>
@@ -14,13 +14,16 @@
     </div>
   <% end %>
 
+  <div id="image-previews" class="mb-3 d-flex"></div> <!-- Контейнер для превью -->
+
+
   <div class="col-auto mb-3 d-flex justify-content-center align-items-center">
     <label for="image-upload" class="svg-upload-label">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
         <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
       </svg>
     </label>
-    <%= form.file_field :images, multiple: true, id: "image-upload", class: "d-none" %>
+    <%= form.file_field :images, multiple: true, id: "image-upload", class: "d-none", onchange: "previewImages(event)" %>
   </div>
 
   <div class="col-auto mb-3 col-10">
@@ -56,4 +59,67 @@
       });
     }
   });
+
+  function previewImages(event) {
+    const previewContainer = document.getElementById('image-previews');
+    previewContainer.innerHTML = ''; // Clearing the container before adding new images
+
+    Array.from(event.target.files).forEach(file => {
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.maxWidth = '100px';
+        img.style.marginRight = '10px';
+        img.classList.add('preview-image');
+
+        // Create a button to cancel
+        const cancelBtn = document.createElement('button');
+        cancelBtn.innerText = 'X';
+        cancelBtn.classList.add('btn', 'btn-secondary', 'btn-sm', 'cancel-btn');
+        cancelBtn.onclick = function() {
+          removePreview(img, cancelBtn, file);
+        };
+
+        // Create a container for the image and button
+        const wrapper = document.createElement('div');
+        wrapper.style.position = 'relative'; // To position a button over an image
+        wrapper.style.display = 'inline-block'; // To make the images go next to each other
+
+        // Add an image and a button
+        wrapper.appendChild(img);
+        wrapper.appendChild(cancelBtn);
+        previewContainer.appendChild(wrapper);
+
+        // Position the "X" button in the upper right corner
+        cancelBtn.style.position = 'absolute';
+        cancelBtn.style.top = '0';
+        cancelBtn.style.right = '0';
+        cancelBtn.style.zIndex = '10';
+        cancelBtn.style.backgroundColor = 'rgba((134, 142, 150, 0.8)';
+        cancelBtn.style.color = 'white';
+        // cancelBtn.style.border = 'none';
+        cancelBtn.style.borderRadius = '20%';
+        cancelBtn.style.padding = '5px';
+      };
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function removePreview(img, cancelBtn, file) {
+    const previewContainer = document.getElementById('image-previews');
+    previewContainer.removeChild(img.parentElement);
+    
+    // Delete the file from the selection
+    const input = document.getElementById('image-upload');
+    const files = Array.from(input.files);
+    const index = files.indexOf(file);
+    if (index !== -1) {
+      files.splice(index, 1);
+    }
+    input.files = new DataTransfer().files; // Updating the file list
+    files.forEach(f => input.files.append(f)); // Добавляем оставшиеся файлы
+  }
 </script>
