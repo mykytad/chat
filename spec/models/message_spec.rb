@@ -25,19 +25,19 @@ RSpec.describe Message, type: :model do
       # Create a message without text and images
       message = Message.new(body: "", user: user, dialogue: dialogue)
 
-      # Проверяем, что сообщение невалидно и появляется ошибка с нужным сообщением
+      # Check that the message is invalid and an error appears with the desired message
       expect(message).to_not be_valid
       expect(message.errors[:base]).to include("The message must contain text or at least one image")
     end
 
     it "is valid with text" do
-      #create message with text
+      # Create message with text
       message = Message.new(body: "Hello!", user: user, dialogue: dialogue)
       expect(message).to be_valid
     end
 
     it "is valid with an image and no text" do
-      # create message with image
+      # Create message with image
       message = Message.new(
         images: [fixture_file_upload(Rails.root.join('spec/fixtures/files/test_image.jpg'), 'image/jpg')],
         user: user,
