@@ -25,7 +25,7 @@
     <%= form.file_field :images, multiple: true, id: "image-upload", class: "d-none", onchange: "previewImages(event)" %>
   </div>
 
-  <div class="col-auto mb-3 col-10 col-md-9">
+  <div class="col-auto mb-3 col-19 col-lg-10">
     <%= form.text_field :body, autofocus: true, class: "form-control form-control-lg message_area" %>
   </div>
 
@@ -69,7 +69,7 @@
       reader.onload = function(e) {
         const img = document.createElement('img');
         img.src = e.target.result;
-        img.style.maxWidth = '100px';
+        img.style.maxWidth = '80px';
         img.style.marginRight = '10px';
         img.classList.add('preview-image');
 
@@ -94,13 +94,12 @@
         // Position the "X" button in the upper right corner
         cancelBtn.style.position = 'absolute';
         cancelBtn.style.top = '0';
-        cancelBtn.style.right = '0';
+        cancelBtn.style.right = '10px';
         cancelBtn.style.zIndex = '10';
         cancelBtn.style.backgroundColor = 'rgba((134, 142, 150, 0.8)';
         cancelBtn.style.color = 'white';
-        // cancelBtn.style.border = 'none';
+        cancelBtn.style.opacity = '80%';
         cancelBtn.style.borderRadius = '20%';
-        cancelBtn.style.padding = '5px';
       };
 
       reader.readAsDataURL(file);
@@ -119,6 +118,6 @@
       files.splice(index, 1);
     }
     input.files = new DataTransfer().files; // Updating the file list
-    files.forEach(f => input.files.append(f)); // Добавляем оставшиеся файлы
+    files.forEach(f => input.files.append(f)); // Add the remaining files
   }
 </script>
