@@ -14,8 +14,6 @@
     </div>
   <% end %>
 
-  <div id="image-previews" class="mb-3 d-flex"></div> <!-- Container for image previews -->
-
   <div class="col-auto mb-3 d-flex justify-content-center align-items-center">
     <label for="image-upload" class="svg-upload-label">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
@@ -58,66 +56,4 @@
       });
     }
   });
-
-  function previewImages(event) {
-    const previewContainer = document.getElementById('image-previews');
-    previewContainer.innerHTML = ''; // Clearing the container before adding new images
-
-    Array.from(event.target.files).forEach(file => {
-      const reader = new FileReader();
-
-      reader.onload = function(e) {
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        img.style.maxWidth = '80px';
-        img.style.marginRight = '10px';
-        img.classList.add('preview-image');
-
-        // Create a button to cancel
-        const cancelBtn = document.createElement('button');
-        cancelBtn.innerText = 'X';
-        cancelBtn.classList.add('btn', 'btn-secondary', 'btn-sm', 'cancel-btn');
-        cancelBtn.onclick = function() {
-          removePreview(img, cancelBtn, file);
-        };
-
-        // Create a container for the image and button
-        const wrapper = document.createElement('div');
-        wrapper.style.position = 'relative'; // To position a button over an image
-        wrapper.style.display = 'inline-block'; // To make the images go next to each other
-
-        // Add an image and a button
-        wrapper.appendChild(img);
-        wrapper.appendChild(cancelBtn);
-        previewContainer.appendChild(wrapper);
-
-        // Position the "X" button in the upper right corner
-        cancelBtn.style.position = 'absolute';
-        cancelBtn.style.top = '0';
-        cancelBtn.style.right = '10px';
-        cancelBtn.style.zIndex = '10';
-        cancelBtn.style.backgroundColor = 'rgba((134, 142, 150, 0.8)';
-        cancelBtn.style.color = 'white';
-        cancelBtn.style.opacity = '80%';
-        cancelBtn.style.borderRadius = '20%';
-      };
-
-      reader.readAsDataURL(file);
-    });
-  }
-
-  function removePreview(img, cancelBtn, file) {
-    const previewContainer = document.getElementById('image-previews');
-    previewContainer.removeChild(img.parentElement);
-    
-    // Delete the file from the selection
-    const input = document.getElementById('image-upload');
-    const files = Array.from(input.files);
-    const index = files.indexOf(file);
-    if (index !== -1) {
-      files.splice(index, 1);
-    }
-    input.files = new DataTransfer().files; // Updating the file list
-    files.forEach(f => input.files.append(f)); // Add the remaining files
-  }
 </script>
