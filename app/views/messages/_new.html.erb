@@ -1,17 +1,17 @@
 <%= form_for :message, class:"msg_form row g-3 col-12 d-flex align-items-center justify-content-center" do |form| %>
   <%= form.hidden_field :replied_to_id, value: params[:replied_to_id] if params[:replied_to_id].present? %>
     <%if params[:replied_to_id].present?%>
-    <div class="reply_new message_content rounded-end1 m-2 text-white d-flex justify-content-between" >
-      <small>
-        <%= @replied_message %>
-      </small>
-      <%= link_to "#", id:"clear-reply", class:"text-white" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-        </svg>
-      <% end %>
-    </div>
-  <% end %>
+      <div class="reply_new message_content rounded-end1 m-2 text-white d-flex justify-content-between" >
+        <small>
+          <%= @replied_message %>
+        </small>
+        <%= link_to "#", id:"clear-reply", class:"text-white" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+          </svg>
+        <% end %>
+      </div>
+    <% end %>
   
   <div class="col-auto mb-3 d-flex justify-content-center align-items-center">
     <label for="image-upload" class="svg-upload-label">
@@ -28,6 +28,27 @@
 
   <div class="col-auto col-1">
     <%= form.submit "Send", class: "btn btn-success mb-3" %>
+  </div>
+
+  <!-- Image Preview Modal -->
+  <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewLabel" aria-hidden="true" data-turbo-permanent>
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imagePreviewLabel">Image Preview</h5>
+          <button type="button" class="btn-close" id="closeModal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex flex-wrap" id="imagePreviewContainer">
+          <!-- Images will be added here dynamically -->
+        </div>
+        <div class="modal-footer">
+          <input type="file" id="addMoreImages" multiple class="d-none">
+          <label for="addMoreImages" class="btn btn-outline-success">+ Add Image</label>
+          <button type="button" class="btn btn-secondary" id="cancelUpload">Cancel</button>
+          <button type="button" class="btn btn-success" id="confirmUpload">Send</button>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
 
@@ -55,4 +76,110 @@
       });
     }
   });
+
+document.addEventListener("turbo:load", initImagePreview);
+document.addEventListener("turbo:render", initImagePreview);
+
+function initImagePreview() {
+  let selectedFiles = [];
+  const imageUploadInput = document.getElementById("image-upload");
+  const addMoreImagesInput = document.getElementById("addMoreImages");
+  const modalElement = document.getElementById("imagePreviewModal");
+  const previewContainer = document.getElementById("imagePreviewContainer");
+  const cancelUploadButton = document.getElementById("cancelUpload");
+  const confirmUploadButton = document.getElementById("confirmUpload");
+  const closeModalButton = document.getElementById("closeModal");
+  const modal = new bootstrap.Modal(modalElement, { backdrop: "static" });
+
+  // Function to update image previews
+  function updatePreview() {
+    previewContainer.innerHTML = ""; // Clear before updating
+
+    if (selectedFiles.length === 0) {
+      closeAndClear(); // Close the modal and clear the form
+      return;
+    }
+
+    selectedFiles.forEach((file, index) => {
+      if (!file.type.startsWith("image/")) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imgWrapper = document.createElement("div");
+        imgWrapper.classList.add("position-relative", "m-2");
+        imgWrapper.style.display = "inline-block";
+
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        img.classList.add("img-thumbnail");
+        img.style.maxWidth = "100px";
+        img.style.maxHeight = "100px";
+
+        // Button to remove the image
+        const removeBtn = document.createElement("button");
+        removeBtn.innerHTML = "&times;";
+        removeBtn.classList.add("btn", "btn-danger", "btn-sm", "position-absolute", "top-0", "end-0");
+        removeBtn.style.padding = "2px 6px";
+        removeBtn.onclick = function () {
+          selectedFiles.splice(index, 1); // Remove the image from the array
+          updateFileInput();
+          updatePreview();
+        };
+
+        imgWrapper.appendChild(img);
+        imgWrapper.appendChild(removeBtn);
+        previewContainer.appendChild(imgWrapper);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Function to update input[type="file"]
+  function updateFileInput() {
+    const dataTransfer = new DataTransfer();
+    selectedFiles.forEach((file) => dataTransfer.items.add(file));
+    imageUploadInput.files = dataTransfer.files;
+  }
+
+  // Handling image selection
+  imageUploadInput.addEventListener("change", function (event) {
+    selectedFiles = Array.from(event.target.files);
+    updateFileInput();
+    updatePreview();
+    modal.show();
+  });
+
+  // Adding new images in the modal
+  addMoreImagesInput.addEventListener("change", function (event) {
+    const newFiles = Array.from(event.target.files);
+    selectedFiles = [...selectedFiles, ...newFiles]; // Add new files
+    updateFileInput();
+    updatePreview();
+  });
+
+  // "Cancel" button clears the files and closes the modal
+  cancelUploadButton.addEventListener("click", function () {
+    closeAndClear();
+  });
+
+  // "Send" button submits the form
+  confirmUploadButton.addEventListener("click", function () {
+    updateFileInput();
+    document.querySelector(".msg_form").submit();
+  });
+
+  // Close button clears the form and closes the modal
+  closeModalButton.addEventListener("click", function () {
+    closeAndClear();
+  });
+
+  // Clear the form and close the modal
+  function closeAndClear() {
+    selectedFiles = [];
+    imageUploadInput.value = ""; // Clear the file input
+    updateFileInput();
+    previewContainer.innerHTML = ""; // Clear the preview
+    modal.hide();
+  }
+}
 </script>

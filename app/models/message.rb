@@ -10,6 +10,7 @@ class Message < ApplicationRecord
 
   # validates :body, presence: true
   validate :body_or_image_present
+  validate :message_images_limit
   validates :dialogue_id, presence: true
   validates :user_id, presence: true
 
@@ -45,6 +46,13 @@ class Message < ApplicationRecord
   def body_or_image_present
     if body.blank? && images.blank?
       errors.add(:base, "The message must contain text or at least one image")
+    end
+  end
+
+  # limit for images in a message
+  def message_images_limit
+    if images.count > 5
+      errors.add(:images, "You can upload up to 5 images")
     end
   end
 end

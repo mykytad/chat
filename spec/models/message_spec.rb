@@ -22,28 +22,49 @@ RSpec.describe Message, type: :model do
     it { is_expected.to validate_presence_of(:user_id) }
 
     it "is invalid without text or an image" do
-      # Создаем сообщение без текста и изображения
+      # Create a message without text and images
       message = Message.new(body: "", user: user, dialogue: dialogue)
 
-      # Проверяем, что сообщение невалидно и появляется ошибка с нужным сообщением
+      # Check that the message is invalid and an error appears with the desired message
       expect(message).to_not be_valid
       expect(message.errors[:base]).to include("The message must contain text or at least one image")
     end
 
     it "is valid with text" do
-      # Создаем сообщение с текстом
+      # Create message with text
       message = Message.new(body: "Hello!", user: user, dialogue: dialogue)
       expect(message).to be_valid
     end
 
     it "is valid with an image and no text" do
-      # Создаем сообщение с изображением
+      # Create message with image
       message = Message.new(
-        images: [fixture_file_upload(Rails.root.join('spec/fixtures/files/test_image.jpg'), 'image/jpeg')],
+        images: [fixture_file_upload(Rails.root.join('spec/fixtures/files/test_image.jpg'), 'image/jpg')],
         user: user,
         dialogue: dialogue
       )
       expect(message).to be_valid
+    end
+
+    it "is invalid with more than 5 images" do
+      user = create(:user)
+      dialogue = create(:dialogue, sender: user, recipient: create(:user))
+
+      message = Message.new(
+        images: [
+          fixture_file_upload(Rails.root.join('spec/fixtures/files/test_image.jpg'), 'image/jpg'),
+          fixture_file_upload(Rails.root.join('spec/fixtures/files/test_image2.jpg'), 'image/jpg'),
+          fixture_file_upload(Rails.root.join('spec/fixtures/files/test_image3.jpg'), 'image/jpg'),
+          fixture_file_upload(Rails.root.join('spec/fixtures/files/test_image4.jpg'), 'image/jpg'),
+          fixture_file_upload(Rails.root.join('spec/fixtures/files/test_image5.jpg'), 'image/jpg'),
+          fixture_file_upload(Rails.root.join('spec/fixtures/files/test_image6.jpg'), 'image/jpg')
+        ],
+        user: user,
+        dialogue: dialogue
+      )
+
+      expect(message).to_not be_valid
+      expect(message.errors[:images]).to include("You can upload up to 5 images")
     end
   end
 
