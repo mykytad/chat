@@ -1,29 +1,28 @@
-<%= form_for :message, class: "msg_form row col-12 d-flex align-items-center justify-content-center", html: { enctype: "multipart/form-data" } do |form| %>
+<%= form_for :message, class:"msg_form row g-3 col-12 d-flex align-items-center justify-content-center" do |form| %>
   <%= form.hidden_field :replied_to_id, value: params[:replied_to_id] if params[:replied_to_id].present? %>
-
-  <% if params[:replied_to_id].present? %>
-    <div class="reply_new message_content rounded-end1 m-2 text-white d-flex justify-content-between">
-      <small>
-        <%= @replied_message %>
-      </small>
-      <%= link_to "#", id: "clear-reply", class: "text-white" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-        </svg>
-      <% end %>
-    </div>
-  <% end %>
-
+    <%if params[:replied_to_id].present?%>
+      <div class="reply_new message_content rounded-end1 m-2 text-white d-flex justify-content-between" >
+        <small>
+          <%= @replied_message %>
+        </small>
+        <%= link_to "#", id:"clear-reply", class:"text-white" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+          </svg>
+        <% end %>
+      </div>
+    <% end %>
+  
   <div class="col-auto mb-3 d-flex justify-content-center align-items-center">
     <label for="image-upload" class="svg-upload-label">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
         <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
       </svg>
     </label>
-    <%= form.file_field :images, multiple: true, id: "image-upload", class: "d-none", onchange: "previewImages(event)" %>
+    <%= form.file_field :images, multiple: true, id: "image-upload", class: "d-none" %>
   </div>
 
-  <div class="col-auto mb-3 col-19 col-lg-10">
+  <div class="col-auto mb-3 col-10">
     <%= form.text_field :body, autofocus: true, class: "form-control form-control-lg message_area" %>
   </div>
 
