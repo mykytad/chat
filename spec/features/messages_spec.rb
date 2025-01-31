@@ -14,7 +14,9 @@ RSpec.feature "messages pages", type: :feature do
     expect(body).to have_content "Foo"
 
     fill_in :message_body, with: "Hi, Foo"
-    click_button "Send"
+    within(".col-auto.col-1") do
+      click_button "Send"
+    end
 
     expect(body).to have_content "Hi, Foo"
   end
