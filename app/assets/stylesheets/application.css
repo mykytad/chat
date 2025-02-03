@@ -238,6 +238,9 @@
   .body_height{
     height: 915px
   }
+  .sidebar{
+    max-height: 850px;
+  }
   .msg-display{
     max-height: 915px;
   }
