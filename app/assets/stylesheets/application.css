@@ -211,6 +211,17 @@
   .user_edit_buttuns{
     width: 205px;
     margin: 0;
+  }.message_body_wrap {
+    max-width: 85%;
+  }
+  .body_height{
+    height: 667px
+  }
+  .msg-display{
+    max-height: 667px;
+  }
+  .message_window{
+    height: 565px;
   }
 }
 @media (min-width: 375px) {
@@ -223,6 +234,18 @@
   .user_edit_buttuns{
     width: 292px;
     margin: 0;
+  }
+  .body_height{
+    height: 915px
+  }
+  .sidebar{
+    max-height: 850px;
+  }
+  .msg-display{
+    max-height: 915px;
+  }
+  .message_window{
+    height: 755px;
   }
 }
 @media (min-width: 500px) {
@@ -248,11 +271,14 @@
     min-width: 55%;
   }
   .message_body_wrap {
-    max-width: 60%;
+    max-width: 80%;
   }
 }
 @media (min-width: 992px) {
   .sidebar{
     width: 280px;
+  }
+  .message_body_wrap {
+    max-width: 60%;
   }
 }
