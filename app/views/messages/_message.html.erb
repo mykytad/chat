@@ -93,37 +93,37 @@
 
 <script>
   function toggleDropdown(event) {
-      event.stopPropagation();
-      const dropdownContent = event.currentTarget.nextElementSibling;
+    event.stopPropagation();
+    const dropdownContent = event.currentTarget.nextElementSibling;
+    
+    document.querySelectorAll(".dropdown-content").forEach(dropdown => {
+      if (dropdown !== dropdownContent) {
+        dropdown.style.display = "none";
+      }
+    });
+    
+    dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+    
+    // Ensure dropdown stays within viewport
+    setTimeout(() => {
+      const rect = dropdownContent.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
       
-      document.querySelectorAll(".dropdown-content").forEach(dropdown => {
-          if (dropdown !== dropdownContent) {
-              dropdown.style.display = "none";
-          }
-      });
-      
-      dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-      
-      // Ensure dropdown stays within viewport
-      setTimeout(() => {
-          const rect = dropdownContent.getBoundingClientRect();
-          const viewportWidth = window.innerWidth;
-          const viewportHeight = window.innerHeight;
-          
-          if (rect.right > viewportWidth) {
-              dropdownContent.style.left = `auto`;
-              dropdownContent.style.right = "0";
-          }
-          if (rect.bottom > viewportHeight) {
-              dropdownContent.style.top = "auto";
-              dropdownContent.style.bottom = "100%";
-          }
-      }, 0);
+      if (rect.right > viewportWidth) {
+        dropdownContent.style.left = `auto`;
+        dropdownContent.style.right = "0";
+      }
+      if (rect.bottom > viewportHeight) {
+        dropdownContent.style.top = "auto";
+        dropdownContent.style.bottom = "100%";
+      }
+    }, 0);
   }
 
   document.addEventListener("click", function() {
-      document.querySelectorAll(".dropdown-content").forEach(dropdown => {
-          dropdown.style.display = "none";
-      });
+    document.querySelectorAll(".dropdown-content").forEach(dropdown => {
+        dropdown.style.display = "none";
+    });
   });
 </script>

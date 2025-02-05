@@ -45,6 +45,12 @@
   min-width: 120px;
   z-index: 10;
 }
+.message_content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  word-break: break-all;
+}
 .dropdown-content a {
   display: block;
   padding: 8px 12px;
