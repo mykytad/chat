@@ -32,6 +32,45 @@
   padding: 6px 12px; 
 } */
  /* messages index */
+ .dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  min-width: 120px;
+  z-index: 10;
+}
+.dropdown-content a {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: black;
+}
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+.dropdown-content hr {
+  margin: 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+.dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+.dropdown-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+
  .list_active_item{
   background:#198754;
  }

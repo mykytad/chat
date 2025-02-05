@@ -12,7 +12,7 @@
     </a>
   <% end %>
 
-  <div class="message_content overflow-x-hidden <%= 'read' if message.read %>"
+  <div class="message_content  <%= 'read' if message.read %>"
       data-controller="message-read-status" 
       data-message-read-status-target="message" 
       data-message-id="<%= message.id %>"
@@ -22,7 +22,7 @@
       <%= form_for [@dialogue, message], html: { class:"d-flex align-items-center" } do |f| %>
         <%= f.text_area :body, class:"form-control form-control-sm me-1" %>
         <%= f.submit 'Save', class:"btn btn-primary me-1" %>
-        <%= link_to 'Cancel', dialogue_messages_path(@dialogue), class:"btn btn-secondary" %>
+        <%= link_to 'Cancel', :back, class:"btn btn-secondary" %>
       <% end %>
     <% else %>
       <%= auto_link(html_escape(message.body), html: { class:'text-white', target: '_blank', rel: 'noopener noreferrer' }) %>
@@ -72,6 +72,20 @@
       <%= message.created_at.strftime("%d.%m.%y, %H:%M")%>
     </small>
 
+    <div class="dropdown">
+      <a href="#" onclick="toggleDropdown(event)" class="text-white text-decoration-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+          <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+        </svg>
+      </a>
+      <div class="dropdown-content">
+        <%= link_to "Reply", dialogue_messages_path(message.dialogue_id, replied_to_id: message.id) %>
+        <%= link_to "Edit", dialogue_messages_path(message.dialogue.id, edit_message_id: message.id) %>
+        <hr class="dropdown-divider">
+        <%= link_to "Delete", dialogue_message_path(message.dialogue.id, message.id), data: { turbo_method: :delete }, class:"text-danger" %>
+      </div>
+    </div>
+
     <%= link_to dialogue_messages_path(message.dialogue_id, replied_to_id: message.id), class: "reply-link text-decoration-none text-white", data: { turbo_frame: "new_message" } do %>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply" viewBox="0 0 16 16">
         <path d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.7 8.7 0 0 0-1.921-.306 7 7 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254l-.042-.028a.147.147 0 0 1 0-.252l.042-.028zM7.8 10.386q.103 0 .223.006c.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96z"/>
@@ -94,3 +108,40 @@
     <% end %>
   </div>
 </div>
+
+<script>
+  function toggleDropdown(event) {
+      event.stopPropagation();
+      const dropdownContent = event.currentTarget.nextElementSibling;
+      
+      document.querySelectorAll(".dropdown-content").forEach(dropdown => {
+          if (dropdown !== dropdownContent) {
+              dropdown.style.display = "none";
+          }
+      });
+      
+      dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+      
+      // Ensure dropdown stays within viewport
+      setTimeout(() => {
+          const rect = dropdownContent.getBoundingClientRect();
+          const viewportWidth = window.innerWidth;
+          const viewportHeight = window.innerHeight;
+          
+          if (rect.right > viewportWidth) {
+              dropdownContent.style.left = `auto`;
+              dropdownContent.style.right = "0";
+          }
+          if (rect.bottom > viewportHeight) {
+              dropdownContent.style.top = "auto";
+              dropdownContent.style.bottom = "100%";
+          }
+      }, 0);
+  }
+
+  document.addEventListener("click", function() {
+      document.querySelectorAll(".dropdown-content").forEach(dropdown => {
+          dropdown.style.display = "none";
+      });
+  });
+</script>
