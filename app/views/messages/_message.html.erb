@@ -83,7 +83,7 @@
         <% if params[:edit_message_id].to_i != message.id && @current_user_id == message.user_id %>
           <li><%= link_to "Edit", dialogue_messages_path(message.dialogue.id, edit_message_id: message.id), data: { turbo: false }, class: "dropdown-item" %></li>
           <li><hr class="dropdown-divider-custom"></li>
-          <li><%= link_to "Delete", dialogue_message_path(message.dialogue.id, message.id), data: { turbo_method: :delete }, data: { turbo: false }, class: "dropdown-item text-danger" %></li>
+          <li><%= link_to "Delete", dialogue_message_path(message.dialogue.id, message.id), data: { turbo_method: :delete }, class: "dropdown-item text-danger" %></li> <%#data: { turbo: false },%>
         <% end %>
       </ul>
     </div>

@@ -35,18 +35,18 @@ RSpec.feature "dialogues pages", type: :feature do
       click_button "Start"
 
       expect(body).to have_content "Foo"
-      expect(body).to have_link :pin_link
+      expect(body).to have_button :pin_button
 
-      click_link :pin_link
-      expect(body).to have_link :unpin_link
+      click_button :pin_button
+      expect(body).to have_button :unpin_button
     end
 
     it "unpin dialogue" do
       click_button "Start"
-      click_link :pin_link
-      click_link :unpin_link
+      click_button :pin_button
+      click_button :unpin_button
 
-      expect(body).to have_link :pin_link
+      expect(body).to have_button :pin_button
     end
   end
 end
