@@ -22,7 +22,9 @@
       <%= form_for [@dialogue, message], html: { class:"d-flex align-items-center" } do |f| %>
         <%= f.text_area :body, class:"form-control form-control-sm me-1" %>
         <%= f.submit 'Save', class:"btn btn-primary me-1" %>
-        <%= link_to 'Cancel', :back, class:"btn btn-secondary" %>
+        <%= button_tag 'Cancel', type: 'button', class: "btn btn-secondary", data: { turbolinks: false }, onclick: "window.location='#{dialogue_messages_path(@dialogue)}'" %>
+
+        <%# link_to 'Cancel', dialogue_messages_path(@dialogue), class:"btn btn-secondary" %>
       <% end %>
     <% else %>
       <%= auto_link(html_escape(message.body), html: { class:'text-white', target: '_blank', rel: 'noopener noreferrer' }) %>
@@ -72,58 +74,21 @@
       <%= message.created_at.strftime("%d.%m.%y, %H:%M")%>
     </small>
 
-    <div class="dropdown">
-      <a href="#" onclick="toggleDropdown(event)" class="text-white text-decoration-none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-          <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-        </svg>
-      </a>
-      <div class="dropdown-content">
-        <%= link_to "Reply", dialogue_messages_path(message.dialogue_id, replied_to_id: message.id) %>
 
-        <% if params[:edit_message_id].to_i != message.id && @current_user_id == message.user_id %>
-          <%= link_to "Edit", dialogue_messages_path(message.dialogue.id, edit_message_id: message.id) %>
-          <hr class="dropdown-divider">
-          <%= link_to "Delete", dialogue_message_path(message.dialogue.id, message.id), data: { turbo_method: :delete }, class:"text-danger" %>
-        <% end %>
-      </div>
+
+    <div class="dropdown d-inline-block">
+      <a class="dropdown-toggle  text-white text-decoration-none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      </a>
+
+      <ul class="dropdown-menu">
+        <li><%= link_to "Reply", dialogue_messages_path(message.dialogue_id, replied_to_id: message.id), class: "dropdown-item" %></li>
+        <li><%= link_to "Edit", dialogue_messages_path(message.dialogue.id, edit_message_id: message.id), class: "dropdown-item" %></li>
+        <li><hr class="dropdown-divider-custom"></li>
+        <li><%= link_to "Delete", dialogue_message_path(message.dialogue.id, message.id), data: { turbo_method: :delete }, class: "dropdown-item text-danger" %></li>
+      </ul>
     </div>
+
+
+
   </div>
 </div>
-
-<script>
-  function toggleDropdown(event) {
-    event.stopPropagation();
-    const dropdownContent = event.currentTarget.nextElementSibling;
-    
-    document.querySelectorAll(".dropdown-content").forEach(dropdown => {
-      if (dropdown !== dropdownContent) {
-        dropdown.style.display = "none";
-      }
-    });
-    
-    dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-    
-    // Ensure dropdown stays within viewport
-    setTimeout(() => {
-      const rect = dropdownContent.getBoundingClientRect();
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-      
-      if (rect.right > viewportWidth) {
-        dropdownContent.style.left = `auto`;
-        dropdownContent.style.right = "0";
-      }
-      if (rect.bottom > viewportHeight) {
-        dropdownContent.style.top = "auto";
-        dropdownContent.style.bottom = "100%";
-      }
-    }, 0);
-  }
-
-  document.addEventListener("click", function() {
-    document.querySelectorAll(".dropdown-content").forEach(dropdown => {
-        dropdown.style.display = "none";
-    });
-  });
-</script>
