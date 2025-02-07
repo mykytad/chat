@@ -53,26 +53,29 @@
 <% end %>
 
 <script>
-  var objDiv = document.getElementById("messages");
-  objDiv.scrollTop = objDiv.scrollHeight;
-
   document.addEventListener("turbo:load", () => {
     const replyClearButton = document.querySelector("#clear-reply");
     if (replyClearButton) {
       replyClearButton.addEventListener("click", (event) => {
-        event.preventDefault(); // Prevent the default link behavior
+        event.preventDefault(); // Відміна стандартної поведінки кнопки
 
-        // Remove the replied_to_id parameter from the URL
+        // Видалення параметра replied_to_id з URL
         const url = new URL(window.location.href);
-        url.searchParams.delete('replied_to_id'); // Delete the parameter from the query string
-        history.replaceState(null, null, url.toString()); // Update the URL without reloading the page
+        url.searchParams.delete("replied_to_id");
+        history.replaceState(null, null, url.toString());
 
-        // Additionally, clear the reply block and input field
+        // Очищення блоку відповіді та поля вводу
         const replyBlock = document.querySelector(".reply_new");
         const repliedToInput = document.querySelector("input[name='message[replied_to_id]']");
         
         if (replyBlock) replyBlock.remove();
         if (repliedToInput) repliedToInput.value = "";
+
+        // Видалення класу message-window-height
+        const messagesWindow = document.getElementById("messages");
+        if (messagesWindow) {
+          messagesWindow.classList.remove("message-window-height");
+        }
       });
     }
   });
