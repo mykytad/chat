@@ -80,9 +80,11 @@
 
 
     <div class="dropdown d-inline-block">
-      <a class="dropdown-toggle  text-white text-decoration-none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-turbo="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+      <a class="dropdown-toggle  text-white text-decoration-none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-turbo="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
           <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-        </svg></a>
+        </svg>
+      </a>
 
       <ul class="dropdown-menu">
         <li><%= link_to "Reply", dialogue_messages_path(message.dialogue_id, replied_to_id: message.id), class: "dropdown-item" %></li>
