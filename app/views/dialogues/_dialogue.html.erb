@@ -1,7 +1,7 @@
 <li id="dialogue_<%= dialogue.id %>" class="user_list_item border-bottom rounded-0 nav-item d-flex align-items-center justify-content-between"
     data-dialogue-id="<%= dialogue.id %>">
 
-  <%= link_to dialogue_messages_path(dialogue), class: "user_list_link nav-link sidebar_recipient_max-height col-10 fw-semibold" do %>
+  <%= link_to dialogue_messages_path(dialogue), data: { turbo: false }, class: "user_list_link nav-link sidebar_recipient_max-height col-10 fw-semibold" do %>
     <span>
       <%= @current_user_id == dialogue.sender_id ? dialogue.recipient.name : dialogue.sender.name %>
       <% if dialogue.pin_dialogue %>
