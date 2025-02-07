@@ -215,6 +215,9 @@
 .message_window{
   height: 805px;
 }
+.message-window-height{
+  height: calc(805px - 50px);
+}
 
 @media (min-width: 300px) {
   .user_edit_buttuns{
@@ -231,6 +234,9 @@
   }
   .message_window{
     height: 565px;
+  }
+  .message-window-height{
+    height: calc(565px - 50px);
   }
 }
 @media (min-width: 375px) {
@@ -255,6 +261,9 @@
   }
   .message_window{
     height: 755px;
+  }
+  .message-window-height{
+    height: calc(755px - 50px);
   }
 }
 @media (min-width: 500px) {
