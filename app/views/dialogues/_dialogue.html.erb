@@ -1,7 +1,7 @@
 <li id="dialogue_<%= dialogue.id %>" class="user_list_item p-2 border-bottom"
     data-dialogue-id="<%= dialogue.id %>">
 
-  <%= link_to dialogue_messages_path(dialogue), data: { turbo: false }, class: "user_list_link d-flex justify-content-between" do %>
+  <%= link_to dialogue_messages_path(dialogue), class: "user_list_link d-flex justify-content-between" do %>
     <div class="pt-1">
       <p class="fw-bold mb-0">
         <%= @current_user_id == dialogue.sender_id ? dialogue.recipient.name : dialogue.sender.name %>
