@@ -182,13 +182,6 @@
   background: #ced4da;
   /* height: 36px; */
 }
-.sidebar{
-  width: 75%;
-}
-.sidebar_recipient_max-height{
-  max-height: 55px;
-  overflow: hidden;
-}
 .sidebar_icon{
   color: #6c757d;
   width: 30px;
@@ -261,9 +254,9 @@
   .body_height{
     height: 915px
   }
-  .sidebar{
-    max-height: 850px;
-  }
+  // .sidebar{
+    // max-height: 850px;
+  // }
   .msg-display{
     max-height: 915px;
   }
@@ -284,9 +277,9 @@
   .message_body{
     min-width: 75%;
   }
-  .sidebar{
-    width: 75%;
-  }
+  // .sidebar{
+    // width: 75%;
+  // }
   .user_edit_buttuns{
     width: 373px;
     margin: 0;
@@ -301,9 +294,9 @@
   }
 }
 @media (min-width: 992px) {
-  .sidebar{
-    width: 280px;
-  }
+  // .sidebar{
+    // width: 280px;
+  // }
   .message_body_wrap {
     max-width: 60%;
   }
