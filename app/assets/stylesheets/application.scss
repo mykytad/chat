@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap";
 
  .body_height{
   height: 930px;
@@ -38,25 +39,17 @@
   white-space: normal;
   word-break: break-all;
 }
- .list_active_item{
-  background:#198754;
- }
- .list_active_item .user_list_link{
-  color: #fff !important;
- }
- 
-.user_list_link{
-  color: #6c757d;
-  width: 233px;
-}
-.user_list_link:hover{
-  color: #495057;
- }
+
  .messages_recipient{
   height: 35px;
   background: #ced4da;
   color:#6c757d;
   box-shadow: 0 6px 8px -2px rgba(0, 0, 0, 0.2);
+ }
+ .last-message{
+  margin-bottom: 0;
+  max-height: 21px;
+  overflow: hidden;
  }
 
 .message_body_wrap{
@@ -189,13 +182,6 @@
   background: #ced4da;
   /* height: 36px; */
 }
-.sidebar{
-  width: 75%;
-}
-.sidebar_recipient_max-height{
-  max-height: 55px;
-  overflow: hidden;
-}
 .sidebar_icon{
   color: #6c757d;
   width: 30px;
@@ -206,15 +192,30 @@
 .users_list_wrap{
   height: 92%;
 }
+.list_active_item{
+  background:#198754;
+ }
+ .list_active_item p{
+  color: #fff !important;
+ }
+
+.user_list_link{
+  color: #6c757d;
+  text-decoration: none;
+  /* width: 233px; */
+}
+.user_list_link:hover{
+  color: #495057;
+ }
 #back-arrow{
   cursor: pointer;
 }
 #sidebar-cross{
   cursor: pointer;
 }
-.message_window{
-  height: 805px;
-}
+// .message_window{
+//   height: 805px;
+// }
 .message-window-height{
   height: calc(805px - 50px);
 }
@@ -230,6 +231,9 @@
     height: 667px
   }
   .msg-display{
+    max-height: 667px;
+  }
+  .dialogues-display{
     max-height: 667px;
   }
   .message_window{
@@ -253,10 +257,13 @@
   .body_height{
     height: 915px
   }
-  .sidebar{
-    max-height: 850px;
-  }
+  // .sidebar{
+    // max-height: 850px;
+  // }
   .msg-display{
+    max-height: 915px;
+  }
+  .dialogues-display{
     max-height: 915px;
   }
   .message_window{
@@ -271,13 +278,20 @@
     width: 357px;
     margin: 0;
   }
+  .message_window{
+    height: 805px;
+  }
+  .message-window-height{
+    height: calc(805px - 50px);
+  }
 }
 @media (min-width: 575px) {
   .message_body{
     min-width: 75%;
   }
   .sidebar{
-    width: 75%;
+    height: 915px;
+  //   width: 75%;
   }
   .user_edit_buttuns{
     width: 373px;
@@ -293,9 +307,9 @@
   }
 }
 @media (min-width: 992px) {
-  .sidebar{
-    width: 280px;
-  }
+  // .sidebar{
+    // width: 280px;
+  // }
   .message_body_wrap {
     max-width: 60%;
   }

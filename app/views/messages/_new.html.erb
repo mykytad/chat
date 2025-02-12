@@ -1,4 +1,4 @@
-<%= form_for :message, class:"msg_form row g-3 col-12 d-flex flex-wrap align-items-center justify-content-center" do |form| %>
+<%= form_for :message, class:"msg_form row g-3 col-12 d-flex flex-wrap align-items-center justify-content-center message-form-container" do |form| %>
   <%= form.hidden_field :replied_to_id, value: params[:replied_to_id] if params[:replied_to_id].present? %>
   <%if params[:replied_to_id].present?%>
     <div class="reply_new message_content col-11 rounded-end1 m-2 text-white d-flex justify-content-between">
@@ -30,26 +30,6 @@
     <%= form.submit "Send", class: "btn btn-success mb-3" %>
   </div>
 
-  <!-- Image Preview Modal -->
-  <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewLabel" aria-hidden="true" data-turbo-permanent>
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="imagePreviewLabel">Image Preview</h5>
-          <button type="button" class="btn-close" id="closeModal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body d-flex flex-wrap" id="imagePreviewContainer">
-          <!-- Images will be added here dynamically -->
-        </div>
-        <div class="modal-footer">
-          <input type="file" id="addMoreImages" multiple class="d-none">
-          <label for="addMoreImages" class="btn btn-outline-success">+ Add Image</label>
-          <button type="button" class="btn btn-secondary" id="cancelUpload">Cancel</button>
-          <button type="button" class="btn btn-success" id="confirmUpload">Send</button>
-        </div>
-      </div>
-    </div>
-  </div>
 <% end %>
 
 <script>
@@ -57,21 +37,21 @@
     const replyClearButton = document.querySelector("#clear-reply");
     if (replyClearButton) {
       replyClearButton.addEventListener("click", (event) => {
-        event.preventDefault(); // Відміна стандартної поведінки кнопки
+        event.preventDefault(); // Override the default button behavior
 
-        // Видалення параметра replied_to_id з URL
+        // Removing the replied_to_id parameter from the URL
         const url = new URL(window.location.href);
         url.searchParams.delete("replied_to_id");
         history.replaceState(null, null, url.toString());
 
-        // Очищення блоку відповіді та поля вводу
+        // Clearing the response block and input field
         const replyBlock = document.querySelector(".reply_new");
         const repliedToInput = document.querySelector("input[name='message[replied_to_id]']");
         
         if (replyBlock) replyBlock.remove();
         if (repliedToInput) repliedToInput.value = "";
 
-        // Видалення класу message-window-height
+        // Removing the message-window-height class
         const messagesWindow = document.getElementById("messages");
         if (messagesWindow) {
           messagesWindow.classList.remove("message-window-height");
@@ -150,6 +130,9 @@
       updateFileInput();
       updatePreview();
       modal.show();
+      modalElement.classList.add("show");
+      modalElement.setAttribute("aria-modal", "true");
+      modalElement.removeAttribute("aria-hidden");
     });
 
     // Adding new images in the modal
@@ -185,4 +168,23 @@
       modal.hide();
     }
   }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const inputField = document.querySelector(".message_area");
+    const formContainer = document.querySelector(".message-form-container");
+
+    if (inputField && formContainer) {
+      inputField.addEventListener("focus", () => {
+        if (window.visualViewport) {
+          const viewportHeight = window.visualViewport.height;
+          formContainer.style.transform = `translateY(-${window.innerHeight - viewportHeight}px)`;
+        }
+      });
+
+      inputField.addEventListener("blur", () => {
+        formContainer.style.transform = "translateY(0)";
+      });
+    }
+  });
+
 </script>
