@@ -9,3 +9,5 @@ import "./sidebar_message";
 import "./sidebar_dialogue";
 import "./clearing_response";
 import "./scroll";
+import { Modal } from "bootstrap";
+window.bootstrap = { Modal };

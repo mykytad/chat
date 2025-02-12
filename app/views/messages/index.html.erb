@@ -71,10 +71,10 @@
           const windowHeight = window.innerHeight;
 
           if (viewportHeight < windowHeight) {
-            // Клавиатура открыта
+            // keyboard opened
             formContainer.style.transform = `translateY(-${windowHeight - viewportHeight}px)`;
           } else {
-            // Клавиатура закрыта
+            // keyboard closed
             formContainer.style.transform = "translateY(0)";
           }
         });
@@ -83,5 +83,4 @@
 
     adjustForKeyboard();
   });
-
 </script>

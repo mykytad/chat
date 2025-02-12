@@ -37,5 +37,25 @@
 
       <script src="https://code.jquery.com/jquery-3.7.1.slim.js" integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
     </div>
+    <!-- Image Preview Modal -->
+    <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewLabel" aria-hidden="true" data-turbo-permanent>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="imagePreviewLabel">Image Preview</h5>
+            <button type="button" class="btn-close" id="closeModal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body d-flex flex-wrap" id="imagePreviewContainer">
+            <!-- Images will be added here dynamically -->
+          </div>
+          <div class="modal-footer">
+            <input type="file" id="addMoreImages" multiple class="d-none">
+            <label for="addMoreImages" class="btn btn-outline-success">+ Add Image</label>
+            <button type="button" class="btn btn-secondary" id="cancelUpload">Cancel</button>
+            <button type="button" class="btn btn-success" id="confirmUpload">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
