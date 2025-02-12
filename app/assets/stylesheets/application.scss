@@ -213,9 +213,9 @@
 #sidebar-cross{
   cursor: pointer;
 }
-.message_window{
-  height: 805px;
-}
+// .message_window{
+//   height: 805px;
+// }
 .message-window-height{
   height: calc(805px - 50px);
 }
@@ -272,14 +272,21 @@
     width: 357px;
     margin: 0;
   }
+  .message_window{
+    height: 805px;
+  }
+  .message-window-height{
+    height: calc(805px - 50px);
+  }
 }
 @media (min-width: 575px) {
   .message_body{
     min-width: 75%;
   }
-  // .sidebar{
-    // width: 75%;
-  // }
+  .sidebar{
+    height: 915px;
+  //   width: 75%;
+  }
   .user_edit_buttuns{
     width: 373px;
     margin: 0;
