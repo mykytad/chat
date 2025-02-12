@@ -26,11 +26,16 @@
 
   <body>
     <div class="container body_height">
-      <% if notice %>
-        <p class="notice"><%= notice %></p>
+      <% if flash[:alert] %>
+        <div class="alert alert-danger fade show" role="alert">
+          <%= flash[:alert] %>
+        </div>
       <% end %>
-      <% if alert %>
-        <p class="alert"><%= alert %></p>
+
+      <% if flash[:notice] %>
+        <div class="alert alert-success fade show" role="alert">
+          <%= flash[:notice] %>
+        </div>
       <% end %>
       
       <%= yield %>
