@@ -1,7 +1,9 @@
-<div class="col-12 d-flex justify-content-evenly vh-100">
-  <%= render "dialogues/sidebar" %>
+<div class="col-12 row d-flex justify-content-evenly vh-100">
+  <div class="col-12 col-md-3">
+    <%= render "dialogues/sidebar" %>
+  </div>
 
-  <div class="dialogues-display col-9 overflow-hidden">
+  <div class="dialogues-display col-12 col-md-9 flex-column justify-content-around">
     
     <nav class="d-flex navbar navbar-expand-lg fixed py-0 messages_recipient mb-2">
       <div class="container-fluid"> 
