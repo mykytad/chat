@@ -6,7 +6,7 @@ RSpec.describe DialoguesController, type: :request do
   let(:dialogue) { create(:dialogue, sender: user, recipient: recipient) }
 
   before do
-    # Имитация входа пользователя
+    # Simulate user login
     post user_session_path, params: { user: { email: user.email, password: user.password } }
   end
 
