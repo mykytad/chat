@@ -34,7 +34,7 @@ RSpec.describe DialoguesController, type: :request do
       allow_any_instance_of(Dialogue).to receive(:save).and_return(false)
       post dialogues_path, params: { recipient_id: recipient.id }
       expect(response).to redirect_to(dialogues_path)
-      expect(flash[:alert]).to eq("some went wrong")
+      expect(flash[:alert]).to eq("Something went wrong")
     end
   end
 
