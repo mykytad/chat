@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_27_150750) do
     t.datetime "updated_at", null: false
     t.integer "replied_to_id"
     t.boolean "read", default: false
-    t.datetime "edited_at", default: "2025-01-27 15:05:52", null: false
+    t.datetime "edited_at", default: "2025-02-19 10:20:36", null: false
     t.string "link_title"
     t.text "link_description"
     t.string "link_image"
