@@ -57,29 +57,28 @@
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("turbo:load", adjustForKeyboard);
+  document.addEventListener("turbo:render", adjustForKeyboard);
+
+  function adjustForKeyboard() {
     const formContainer = document.querySelector(".message-form-container");
     const inputField = document.querySelector(".message_area");
 
     if (!formContainer || !inputField) return;
 
-    function adjustForKeyboard() {
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener("resize", () => {
-          const viewportHeight = window.visualViewport.height;
-          const windowHeight = window.innerHeight;
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", () => {
+        const viewportHeight = window.visualViewport.height;
+        const windowHeight = window.innerHeight;
 
-          if (viewportHeight < windowHeight) {
-            // keyboard opened
-            formContainer.style.transform = `translateY(-${windowHeight - viewportHeight}px)`;
-          } else {
-            // keyboard closed
-            formContainer.style.transform = "translateY(0)";
-          }
-        });
-      }
+        if (viewportHeight < windowHeight) {
+          // keyboard opened
+          formContainer.style.transform = `translateY(-${windowHeight - viewportHeight}px)`;
+        } else {
+          // keyboard closed
+          formContainer.style.transform = "translateY(0)";
+        }
+      });
     }
-
-    adjustForKeyboard();
-  });
+  }
 </script>
