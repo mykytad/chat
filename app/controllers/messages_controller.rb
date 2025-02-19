@@ -29,7 +29,7 @@ class MessagesController < ApplicationController
       @message.updated_at = Time.now.strftime("%c")
       @message.edited_at = Time.now.strftime("%c")
 
-      # Проверяем наличие ссылки в теле сообщения
+      # Checking for a link in the message body
       if (url = extract_url(@message.body))
         preview = LinkPreviewService.fetch(url)
         if preview
