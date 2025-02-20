@@ -59,24 +59,20 @@
 <script>
   document.addEventListener("turbo:load", () => {
     const messageWindow = document.querySelector(".message_window");
-    const formContainer = document.querySelector(".message-form-container");
     const inputField = document.querySelector(".message_area");
 
-    if (!messageWindow || !formContainer || !inputField || !window.visualViewport) return;
+    if (!messageWindow || !inputField || !window.visualViewport) return;
 
     function adjustForKeyboard() {
-      const viewportHeight = window.visualViewport.height;
-      const formHeight = formContainer.offsetHeight; // Высота поля ввода
+        const viewportHeight = window.visualViewport.height;
 
-      if (document.activeElement === inputField) {
-        // Устанавливаем высоту окна сообщений, чтобы не было зазора
-        messageWindow.style.height = `${viewportHeight - formHeight}px`;
-        formContainer.style.bottom = "0"; // Убираем отступ
-      } else {
-        // Восстанавливаем высоту
-        messageWindow.style.height = "";
-        formContainer.style.bottom = ""; // Возвращаем стандартное положение
-      }
+        if (document.activeElement === inputField) {
+            // Клавиатура открыта — устанавливаем высоту окна сообщений без запаса
+            messageWindow.style.height = `${viewportHeight}px`;
+        } else {
+            // Клавиатура закрыта — восстанавливаем высоту
+            messageWindow.style.height = "";
+        }
     }
 
     window.visualViewport.addEventListener("resize", adjustForKeyboard);
@@ -84,9 +80,9 @@
     inputField.addEventListener("blur", adjustForKeyboard);
 
     document.addEventListener("turbo:before-cache", () => {
-      window.visualViewport.removeEventListener("resize", adjustForKeyboard);
-      inputField.removeEventListener("focus", adjustForKeyboard);
-      inputField.removeEventListener("blur", adjustForKeyboard);
+        window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+        inputField.removeEventListener("focus", adjustForKeyboard);
+        inputField.removeEventListener("blur", adjustForKeyboard);
     });
   });
 
