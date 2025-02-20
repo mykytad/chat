@@ -58,11 +58,10 @@
 
 <script>
   document.addEventListener("turbo:load", () => {
-    const messageWindow = document.querySelector(".message_window");
     const formContainer = document.querySelector(".message-form-container");
     const inputField = document.querySelector(".message_area");
 
-    if (!messageWindow || !formContainer || !inputField || !window.visualViewport) return;
+    if (!formContainer || !inputField || !window.visualViewport) return;
 
     function adjustForKeyboard() {
       const viewportHeight = window.visualViewport.height;
@@ -70,12 +69,10 @@
       const formHeight = formContainer.offsetHeight; // Высота поля ввода
 
       if (document.activeElement === inputField) {
-        // Клавиатура открыта — уменьшаем высоту окна сообщений
-        messageWindow.style.height = `${viewportHeight - formHeight}px`;
-        formContainer.style.transform = `translateY(-${windowHeight - viewportHeight}px)`;
+        // Клавиатура открыта — поднимаем форму на её высоту
+        formContainer.style.transform = `translateY(-${windowHeight - viewportHeight + formHeight}px)`;
       } else {
-        // Клавиатура закрыта — восстанавливаем высоту
-        messageWindow.style.height = "";
+        // Клавиатура закрыта — возвращаем форму на место
         formContainer.style.transform = "translateY(0)";
       }
     }
@@ -90,4 +87,5 @@
       inputField.removeEventListener("blur", adjustForKeyboard);
     });
   });
+
 </script>
