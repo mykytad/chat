@@ -61,25 +61,27 @@
     const formContainer = document.querySelector(".message-form-container");
     const inputField = document.querySelector(".message_area");
 
-    if (!formContainer || !inputField) return;
+    if (!formContainer || !inputField || !window.visualViewport) return;
 
     function adjustForKeyboard() {
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener("resize", () => {
-          const viewportHeight = window.visualViewport.height;
-          const windowHeight = window.innerHeight;
+      const viewportHeight = window.visualViewport.height;
+      const windowHeight = window.innerHeight;
 
-          if (viewportHeight < windowHeight) {
-            // keyboard opened
-            formContainer.style.transform = `translateY(-${windowHeight - viewportHeight}px)`;
-          } else {
-            // keyboard closed
-            formContainer.style.transform = "translateY(0)";
-          }
-        });
+      if (document.activeElement === inputField) {
+        formContainer.style.transform = `translateY(-${windowHeight - viewportHeight}px)`;
+      } else {
+        formContainer.style.transform = "translateY(0)";
       }
     }
 
-    adjustForKeyboard();
+    window.visualViewport.addEventListener("resize", adjustForKeyboard);
+    inputField.addEventListener("focus", adjustForKeyboard);
+    inputField.addEventListener("blur", adjustForKeyboard);
+
+    document.addEventListener("turbo:before-cache", () => {
+      window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+      inputField.removeEventListener("focus", adjustForKeyboard);
+      inputField.removeEventListener("blur", adjustForKeyboard);
+    });
   });
 </script>
