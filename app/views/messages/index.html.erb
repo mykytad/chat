@@ -1,7 +1,6 @@
 <div class="col-12 row d-flex justify-content-evenly h-100">
-  <div class="col-12 col-md-3">
-    <%= render "dialogues/sidebar" %>
-  </div>
+
+  <%= render "dialogues/sidebar" %>
 
   <div class="msg-display col-12 col-md-9 flex-column justify-content-around">
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
@@ -58,29 +57,32 @@
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const formContainer = document.querySelector(".message-form-container");
+  document.addEventListener("turbo:load", () => {
+    const messageWindow = document.querySelector(".message_window");
     const inputField = document.querySelector(".message_area");
 
-    if (!formContainer || !inputField) return;
+    if (!messageWindow || !inputField || !window.visualViewport) return;
 
     function adjustForKeyboard() {
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener("resize", () => {
-          const viewportHeight = window.visualViewport.height;
-          const windowHeight = window.innerHeight;
+      const viewportHeight = window.visualViewport.height;
 
-          if (viewportHeight < windowHeight) {
-            // keyboard opened
-            formContainer.style.transform = `translateY(-${windowHeight - viewportHeight}px)`;
-          } else {
-            // keyboard closed
-            formContainer.style.transform = "translateY(0)";
-          }
-        });
+      if (document.activeElement === inputField) {
+        // Keyboard open - set message box height without margin
+        messageWindow.style.height = `${viewportHeight - 150}px`;
+      } else {
+        // Keyboard closed - restore height
+        messageWindow.style.height = "";
       }
     }
 
-    adjustForKeyboard();
+    window.visualViewport.addEventListener("resize", adjustForKeyboard);
+    inputField.addEventListener("focus", adjustForKeyboard);
+    inputField.addEventListener("blur", adjustForKeyboard);
+
+    document.addEventListener("turbo:before-cache", () => {
+      window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+      inputField.removeEventListener("focus", adjustForKeyboard);
+      inputField.removeEventListener("blur", adjustForKeyboard);
+    });
   });
 </script>

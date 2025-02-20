@@ -97,6 +97,19 @@ RSpec.describe MessagesController, type: :request do
         expect(response).to redirect_to(dialogues_path)
       end
     end
+
+    context "when the message contains only images" do
+      it "updates the last_message field as 'Image(s)'" do
+        image_path = Rails.root.join("spec/fixtures/files/test_image.jpg")
+        file = fixture_file_upload(image_path, "image/jpeg")
+
+        post dialogue_messages_path(dialogue), params: { message: { body: "", images: [file] } }
+
+        dialogue.reload
+        expect(dialogue.last_message).to eq("Image(s)")
+        expect(dialogue.updated_at).not_to eq(dialogue.created_at)
+      end
+    end
   end
 
   describe "PATCH #update" do
