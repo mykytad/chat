@@ -58,31 +58,32 @@
 
 <script>
   document.addEventListener("turbo:load", () => {
-    const formContainer = document.querySelector(".message-form-container");
-    const inputField = document.querySelector(".message_area");
+  const formContainer = document.querySelector(".message-form-container");
+  const messagesContainer = document.querySelector(".messages-container");
+  const inputField = document.querySelector(".message_area");
 
-    if (!formContainer || !inputField) return;
+  if (!formContainer || !messagesContainer || !inputField) return;
 
-    function adjustForKeyboard() {
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener("resize", () => {
-          const viewportHeight = window.visualViewport.height;
-          const windowHeight = window.innerHeight;
-          const keyboardHeight = windowHeight - viewportHeight;
+  function adjustForKeyboard() {
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", () => {
+        const viewportHeight = window.visualViewport.height;
+        const windowHeight = window.innerHeight;
+        const keyboardHeight = windowHeight - viewportHeight;
 
-          if (keyboardHeight > 100) { 
-            // Raise the input field only if the keyboard is actually opened
-            formContainer.style.transform = `translateY(-${keyboardHeight}px)`;
-            formContainer.style.paddingBottom = `${keyboardHeight}px`; // Adding an indent
-          } else {
-            // Return the form to its original position
-            formContainer.style.transform = "translateY(0)";
-            formContainer.style.paddingBottom = "0";
-          }
-        });
-      }
+        if (keyboardHeight > 100) { 
+          // Уменьшаем высоту контейнера с сообщениями
+          messagesContainer.style.height = `calc(100vh - ${keyboardHeight + formContainer.offsetHeight}px)`;
+          messagesContainer.style.overflowY = "auto"; // Включаем скролл
+        } else {
+          // Восстанавливаем высоту контейнера
+          messagesContainer.style.height = "";
+        }
+      });
     }
+  }
 
-    adjustForKeyboard();
+  adjustForKeyboard();
 });
+
 </script>
