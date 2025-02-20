@@ -68,18 +68,21 @@
         window.visualViewport.addEventListener("resize", () => {
           const viewportHeight = window.visualViewport.height;
           const windowHeight = window.innerHeight;
+          const keyboardHeight = windowHeight - viewportHeight;
 
-          if (viewportHeight < windowHeight) {
-            // keyboard opened
-            formContainer.style.transform = `translateY(-${windowHeight - viewportHeight}px)`;
+          if (keyboardHeight > 100) { 
+            // Raise the input field only if the keyboard is actually opened
+            formContainer.style.transform = `translateY(-${keyboardHeight}px)`;
+            formContainer.style.paddingBottom = `${keyboardHeight}px`; // Adding an indent
           } else {
-            // keyboard closed
+            // Return the form to its original position
             formContainer.style.transform = "translateY(0)";
+            formContainer.style.paddingBottom = "0";
           }
         });
       }
     }
 
     adjustForKeyboard();
-  });
+});
 </script>
