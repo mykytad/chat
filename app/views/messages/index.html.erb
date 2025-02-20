@@ -60,9 +60,8 @@
   document.addEventListener("turbo:load", () => {
   const formContainer = document.querySelector(".message-form-container");
   const messagesContainer = document.querySelector(".messages-container");
-  const inputField = document.querySelector(".message_area");
 
-  if (!formContainer || !messagesContainer || !inputField) return;
+  if (!formContainer || !messagesContainer) return;
 
   function adjustForKeyboard() {
     if (window.visualViewport) {
@@ -72,12 +71,11 @@
         const keyboardHeight = windowHeight - viewportHeight;
 
         if (keyboardHeight > 100) { 
-          // Уменьшаем высоту контейнера с сообщениями
-          messagesContainer.style.height = `calc(100vh - ${keyboardHeight + formContainer.offsetHeight}px)`;
-          messagesContainer.style.overflowY = "auto"; // Включаем скролл
+          // Поднимаем контейнер сообщений, чтобы не перекрывался формой
+          messagesContainer.style.paddingBottom = `${keyboardHeight + formContainer.offsetHeight}px`;
         } else {
-          // Восстанавливаем высоту контейнера
-          messagesContainer.style.height = "";
+          // Восстанавливаем стандартный отступ
+          messagesContainer.style.paddingBottom = "";
         }
       });
     }
@@ -85,5 +83,4 @@
 
   adjustForKeyboard();
 });
-
 </script>
