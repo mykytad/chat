@@ -59,19 +59,20 @@
 <script>
   document.addEventListener("turbo:load", () => {
     const messageWindow = document.querySelector(".message_window");
+    const formContainer = document.querySelector(".message-form-container");
     const inputField = document.querySelector(".message_area");
 
-    if (!messageWindow || !inputField || !window.visualViewport) return;
+    if (!messageWindow || !formContainer || !inputField || !window.visualViewport) return;
 
     function adjustForKeyboard() {
       const viewportHeight = window.visualViewport.height;
-      const windowHeight = window.innerHeight;
+      const formHeight = formContainer.offsetHeight; // Get actual input form height
 
       if (document.activeElement === inputField) {
-        // Клавиатура открыта — уменьшаем высоту окна сообщений
-        messageWindow.style.height = `${viewportHeight - 50}px`; // 50px — запас для поля ввода
+        // Reduce message window height to prevent big spaces under input
+        messageWindow.style.height = `${viewportHeight - formHeight}px`;
       } else {
-        // Клавиатура закрыта — восстанавливаем высоту
+        // Restore message window height when keyboard is closed
         messageWindow.style.height = "";
       }
     }
@@ -86,5 +87,4 @@
       inputField.removeEventListener("blur", adjustForKeyboard);
     });
   });
-
 </script>
