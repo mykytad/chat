@@ -66,14 +66,16 @@
 
     function adjustForKeyboard() {
       const viewportHeight = window.visualViewport.height;
-      const formHeight = formContainer.offsetHeight; // Get actual input form height
+      const formHeight = formContainer.offsetHeight; // Высота поля ввода
 
       if (document.activeElement === inputField) {
-        // Reduce message window height to prevent big spaces under input
+        // Устанавливаем высоту окна сообщений, чтобы не было зазора
         messageWindow.style.height = `${viewportHeight - formHeight}px`;
+        formContainer.style.bottom = "0"; // Убираем отступ
       } else {
-        // Restore message window height when keyboard is closed
+        // Восстанавливаем высоту
         messageWindow.style.height = "";
+        formContainer.style.bottom = ""; // Возвращаем стандартное положение
       }
     }
 
@@ -87,4 +89,5 @@
       inputField.removeEventListener("blur", adjustForKeyboard);
     });
   });
+
 </script>
