@@ -57,34 +57,5 @@
 </div>
 
 <script>
-  document.addEventListener("turbo:load", () => {
-    const messageWindow = document.querySelector(".message_window");
-    const formContainer = document.querySelector(".message-form-container");
-    const inputField = document.querySelector(".message_area");
-
-    if (!messageWindow || !formContainer || !inputField || !window.visualViewport) return;
-
-    function adjustForKeyboard() {
-      const viewportHeight = window.visualViewport.height;
-      const formHeight = formContainer.offsetHeight; // Get actual input form height
-
-      if (document.activeElement === inputField) {
-        // Reduce message window height to prevent big spaces under input
-        messageWindow.style.height = `${viewportHeight - formHeight}px`;
-      } else {
-        // Restore message window height when keyboard is closed
-        messageWindow.style.height = "";
-      }
-    }
-
-    window.visualViewport.addEventListener("resize", adjustForKeyboard);
-    inputField.addEventListener("focus", adjustForKeyboard);
-    inputField.addEventListener("blur", adjustForKeyboard);
-
-    document.addEventListener("turbo:before-cache", () => {
-      window.visualViewport.removeEventListener("resize", adjustForKeyboard);
-      inputField.removeEventListener("focus", adjustForKeyboard);
-      inputField.removeEventListener("blur", adjustForKeyboard);
-    });
-  });
+  
 </script>
