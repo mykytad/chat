@@ -68,7 +68,7 @@
 
         if (document.activeElement === inputField) {
             // Клавиатура открыта — устанавливаем высоту окна сообщений без запаса
-            messageWindow.style.height = `${viewportHeight}px`;
+            messageWindow.style.height = `${viewportHeight - 90}px`;
         } else {
             // Клавиатура закрыта — восстанавливаем высоту
             messageWindow.style.height = "";
