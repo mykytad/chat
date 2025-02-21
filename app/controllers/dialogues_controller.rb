@@ -19,7 +19,7 @@ class DialoguesController < ApplicationController
     if @dialogue.save
       redirect_to dialogue_messages_path(@dialogue)
     else
-      redirect_to dialogues_path, alert: "some went wrong"
+      redirect_to dialogues_path, alert: "Something went wrong"
     end
   end
 
