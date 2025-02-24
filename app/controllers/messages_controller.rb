@@ -4,19 +4,18 @@ class MessagesController < ApplicationController
   before_action :user_dialogues
 
   def index
-    if current_user.id == dialogue.sender_id || current_user.id == dialogue.recipient_id
-      @messages = @dialogue.messages
-      # @messages.where(read: false).where.not(user_id: current_user.id).update_all(read: true)
-      @messages.unread_by(current_user).each { |message| message.update(read: true) }
-      @messages = @messages.order(created_at: :asc)
-      @current_user_id = current_user.id
+    if @dialogue.nil? || (current_user.id != @dialogue.sender_id && current_user.id != @dialogue.recipient_id)
+      redirect_to root_path, alert: "Dialogue not found or you do not have access"
+      return
+    end
 
-      if params[:replied_to_id].present?
-        @replied_message = @messages.find_by(id: params[:replied_to_id])
-        @replied_message = @replied_message&.body
-      end
-    else
-      redirect_to root_path
+    @messages = @dialogue.messages
+    @messages.unread_by(current_user).each { |message| message.update(read: true) }
+    @messages = @messages.order(created_at: :asc)
+    @current_user_id = current_user.id
+
+    if params[:replied_to_id].present?
+      @replied_message = @messages.find_by(id: params[:replied_to_id])&.body
     end
   end
 
@@ -107,7 +106,7 @@ class MessagesController < ApplicationController
   end
 
   def dialogue
-    @dialogue ||= Dialogue.find(params[:dialogue_id])
+    @dialogue ||= Dialogue.find_by(id: params[:dialogue_id])
   end
 
   def user_dialogues
