@@ -1,9 +1,8 @@
-<div class="col-12 row bg-light-subtle h-100">
-  <div class="col-12 col-lg-3 d-lg-flex flex-column py-1">
-    <%= render "dialogues/sidebar" %>
-  </div>
+<div class="col-12 row d-flex justify-content-evenly h-100">
 
-  <div class="msg-display col-12 col-lg-9 h-100 py-1">
+  <%= render "dialogues/sidebar" %>
+
+  <div class="msg-display col-12 col-md-9 flex-column justify-content-around">
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
       <div class="container-fluid">
         <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
@@ -43,9 +42,9 @@
     </nav>
 
     <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-    <div class="message_window p-2 overflow-scroll d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
+    <div class="message_window overflow-scroll d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
       <%= render @messages %>
-      <span id="down-point d-flex flex-column"></span>
+      <span id="down-point"></span>
     </div>
 
     <span class="scrol-down-arrow d-none">
@@ -53,13 +52,9 @@
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
       </svg>
     </span>
-
-    <div class="text-muted d-flex justify-content-start align-items-center">
-      <%= render "messages/new" %>
-    </div>
+    <%= render "messages/new" %>
   </div>
 </div>
-
 
 <script>
   document.addEventListener("turbo:load", () => {

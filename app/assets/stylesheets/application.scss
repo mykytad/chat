@@ -16,7 +16,7 @@
  @import "bootstrap";
 
  .body_height{
-  height: 930px;
+  // height: 930px;
   margin-top: 10px;
   margin-bottom: 10px;
  }
@@ -213,11 +213,11 @@
 #sidebar-cross{
   cursor: pointer;
 }
-// .message_window{
-//   height: 805px;
-// }
+.message_window{
+  height: 88%;
+}
 .message-window-height{
-  height: calc(805px - 50px);
+  height: calc(88% - 50px);
 }
 
 @media (min-width: 300px) {
@@ -227,21 +227,13 @@
   }.message_body_wrap {
     max-width: 85%;
   }
-  .body_height{
-    height: 667px
-  }
-  .msg-display{
-    max-height: 667px;
-  }
-  .dialogues-display{
-    max-height: 667px;
-  }
-  .message_window{
-    height: 565px;
-  }
-  .message-window-height{
-    height: calc(565px - 50px);
-  }
+  // .body_height{
+  //   height: 667px
+  // }
+  // .msg-display{
+  //   max-height: 667px;
+  // }
+
 }
 @media (min-width: 375px) {
   .user_edit_buttuns{
@@ -254,44 +246,22 @@
     width: 292px;
     margin: 0;
   }
-  .body_height{
-    height: 915px
-  }
-  // .sidebar{
-    // max-height: 850px;
+  // .body_height{
+  //   height: 915px
   // }
-  .msg-display{
-    max-height: 915px;
-  }
-  .dialogues-display{
-    max-height: 915px;
-  }
-  .message_window{
-    height: 755px;
-  }
-  .message-window-height{
-    height: calc(755px - 50px);
-  }
+  // .msg-display{
+  //   max-height: 915px;
+  // }
 }
 @media (min-width: 500px) {
   .user_edit_buttuns{
     width: 357px;
     margin: 0;
   }
-  .message_window{
-    height: 805px;
-  }
-  .message-window-height{
-    height: calc(805px - 50px);
-  }
 }
 @media (min-width: 575px) {
   .message_body{
     min-width: 75%;
-  }
-  .sidebar{
-    height: 915px;
-  //   width: 75%;
   }
   .user_edit_buttuns{
     width: 373px;
@@ -307,9 +277,6 @@
   }
 }
 @media (min-width: 992px) {
-  // .sidebar{
-    // width: 280px;
-  // }
   .message_body_wrap {
     max-width: 60%;
   }

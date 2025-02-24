@@ -16,7 +16,7 @@ document.addEventListener('turbo:load', function () {
   // Function to scroll to the bottom
   function scrollToBottom() {
     if (messagesContainer) {
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      messagesContainer.scrollTo({ top: messagesContainer.scrollHeight, behavior: 'smooth' });
     }
   }
 
@@ -30,10 +30,8 @@ document.addEventListener('turbo:load', function () {
     }
   }
 
-  // Scroll to down-point on arrow click
-  scrollDownArrow.addEventListener('click', () => {
-    downPoint.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-  });
+  // Scroll to bottom on arrow click
+  scrollDownArrow.addEventListener('click', scrollToBottom);
 
   // Scroll when the window is resized
   window.addEventListener('resize', () => {
