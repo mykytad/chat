@@ -68,21 +68,23 @@
 
     if (!messageWindow || !inputField || !window.visualViewport) return;
 
-    // Function for identifying a mobile device
-    function isMobileDevice() {
-        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
+    const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (!isMobileDevice) return; // Прерываем выполнение на ПК
 
     function adjustForKeyboard() {
-        if (!isMobileDevice()) return; // Interrupt execution on PC
-
         const viewportHeight = window.visualViewport.height;
 
         if (document.activeElement === inputField) {
-            // Keyboard open - reduce the height of the message window
+            // Открыта клавиатура — уменьшаем высоту окна сообщений
             messageWindow.style.height = `${viewportHeight - 120}px`;
+
+            // Прокручиваем **вверх**, чтобы показать предыдущие сообщения
+            setTimeout(() => {
+                messageWindow.scrollTop = 0;
+            }, 100);
         } else {
-            // Keyboard closed - restore height
+            // Закрыта клавиатура — восстанавливаем высоту
             messageWindow.style.height = "";
         }
     }
@@ -92,9 +94,12 @@
     inputField.addEventListener("blur", adjustForKeyboard);
 
     document.addEventListener("turbo:before-cache", () => {
-        window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+        if (window.visualViewport) {
+            window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+        }
         inputField.removeEventListener("focus", adjustForKeyboard);
         inputField.removeEventListener("blur", adjustForKeyboard);
     });
-  });
+});
+
 </script>
