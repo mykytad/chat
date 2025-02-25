@@ -21,7 +21,7 @@
     <% if params[:edit_message_id].to_i == message.id %>
       <%= form_for [@dialogue, message], html: { class:"d-flex align-items-center" } do |f| %>
         <%= f.text_area :body, class:"form-control form-control-sm me-1" %>
-        <%= f.submit 'Save', class:"btn btn-primary me-1" %>
+        <%= f.submit 'Save', class:"btn bg-success-subtle me-1" %>
 
         <%= link_to dialogue_messages_path(@dialogue), class:"btn btn-secondary" do %>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
