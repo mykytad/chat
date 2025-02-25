@@ -65,9 +65,9 @@
   document.addEventListener("turbo:load", () => {
     const messageWindow = document.querySelector(".message_window");
     const inputField = document.querySelector(".message_area");
-    const footer = inputField.closest(".chat_footer"); // Обертка инпута (если есть)
+    const footer = inputField.closest(".chat_footer"); // Контейнер ввода
 
-    if (!messageWindow || !inputField || !window.visualViewport) return;
+    if (!messageWindow || !inputField || !footer || !window.visualViewport) return;
 
     const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     if (!isMobileDevice) return;
@@ -77,19 +77,16 @@
         const keyboardHeight = window.innerHeight - viewportHeight; // Высота клавиатуры
 
         if (document.activeElement === inputField) {
-            // Уменьшаем высоту контейнера сообщений
-            messageWindow.style.height = `${viewportHeight - 120}px`;
+            // Смещаем поле ввода вверх, прикрепляя к клавиатуре
+            footer.style.position = "absolute";
+            footer.style.bottom = `${keyboardHeight}px`;
 
-            // Опускаем поле ввода вниз, чтобы не зависало
-            if (footer) {
-                footer.style.transform = `translateY(-${keyboardHeight}px)`;
-            }
+            // Прокручиваем контейнер сообщений вверх
+            messageWindow.scrollTop = messageWindow.scrollHeight;
         } else {
-            // Восстанавливаем исходное состояние
-            messageWindow.style.height = "";
-            if (footer) {
-                footer.style.transform = "";
-            }
+            // Восстанавливаем исходное положение
+            footer.style.position = "";
+            footer.style.bottom = "";
         }
     }
 
