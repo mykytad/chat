@@ -68,25 +68,23 @@
 
     if (!messageWindow || !inputField || !window.visualViewport) return;
 
-    const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-    if (!isMobileDevice) return; // Прерываем выполнение на ПК
+    // Function for identifying a mobile device
+    function isMobileDevice() {
+      return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
 
     function adjustForKeyboard() {
-        const viewportHeight = window.visualViewport.height;
+      if (!isMobileDevice()) return; // Interrupt execution on PC
 
-        if (document.activeElement === inputField) {
-            // Открыта клавиатура — уменьшаем высоту окна сообщений
-            messageWindow.style.height = `${viewportHeight - 120}px`;
+      const viewportHeight = window.visualViewport.height;
 
-            // Прокручиваем **вверх**, чтобы показать предыдущие сообщения
-            setTimeout(() => {
-                messageWindow.scrollTop = 0;
-            }, 100);
-        } else {
-            // Закрыта клавиатура — восстанавливаем высоту
-            messageWindow.style.height = "";
-        }
+      if (document.activeElement === inputField) {
+        // Keyboard open - reduce the height of the message window
+        messageWindow.style.height = `${viewportHeight - 120}px`;
+      } else {
+        // Keyboard closed - restore height
+        messageWindow.style.height = "";
+      }
     }
 
     window.visualViewport.addEventListener("resize", adjustForKeyboard);
@@ -94,12 +92,9 @@
     inputField.addEventListener("blur", adjustForKeyboard);
 
     document.addEventListener("turbo:before-cache", () => {
-        if (window.visualViewport) {
-            window.visualViewport.removeEventListener("resize", adjustForKeyboard);
-        }
-        inputField.removeEventListener("focus", adjustForKeyboard);
-        inputField.removeEventListener("blur", adjustForKeyboard);
+      window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+      inputField.removeEventListener("focus", adjustForKeyboard);
+      inputField.removeEventListener("blur", adjustForKeyboard);
     });
-});
-
+  });
 </script>
