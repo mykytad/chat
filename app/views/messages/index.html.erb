@@ -81,8 +81,8 @@
             footer.style.position = "absolute";
             footer.style.bottom = `${keyboardHeight}px`;
 
-            // Уменьшаем высоту окна сообщений до 40% экрана
-            messageWindow.style.height = `${viewportHeight * 0.4}px`;
+            // Уменьшаем высоту окна сообщений
+            messageWindow.classList.add("h-50");
 
             // Прокручиваем контейнер сообщений вверх
             messageWindow.scrollTop = messageWindow.scrollHeight;
@@ -92,7 +92,7 @@
             footer.style.bottom = "";
 
             // Восстанавливаем высоту окна сообщений
-            messageWindow.style.height = "";
+            messageWindow.classList.remove("h-50");
         }
     }
 
