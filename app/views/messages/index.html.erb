@@ -81,12 +81,18 @@
             footer.style.position = "absolute";
             footer.style.bottom = `${keyboardHeight}px`;
 
+            // Добавляем класс h-50 к message_window
+            messageWindow.classList.add("h-50");
+
             // Прокручиваем контейнер сообщений вверх
             messageWindow.scrollTop = messageWindow.scrollHeight;
         } else {
             // Восстанавливаем исходное положение
             footer.style.position = "";
             footer.style.bottom = "";
+
+            // Удаляем класс h-50 при закрытии клавиатуры
+            messageWindow.classList.remove("h-50");
         }
     }
 
