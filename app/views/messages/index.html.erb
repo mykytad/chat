@@ -81,18 +81,12 @@
             footer.style.position = "absolute";
             footer.style.bottom = `${keyboardHeight}px`;
 
-            // Уменьшаем высоту окна сообщений
-            messageWindow.classList.add("h-50");
-
             // Прокручиваем контейнер сообщений вверх
             messageWindow.scrollTop = messageWindow.scrollHeight;
         } else {
             // Восстанавливаем исходное положение
             footer.style.position = "";
             footer.style.bottom = "";
-
-            // Восстанавливаем высоту окна сообщений
-            messageWindow.classList.remove("h-50");
         }
     }
 
