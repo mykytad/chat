@@ -1,8 +1,11 @@
-<div class="col-12 row d-flex justify-content-evenly h-100">
-  <%= render "users/sidebar", avatar: @avatar %>
+<div class="col-12 row bg-light-subtle h-100">
+  <div class="col-12 col-lg-3 d-lg-flex flex-column py-1">
+    <%= render "users/sidebar", avatar: @avatar %>
+  </div>
 
-  <div class="msg-display col-12 col-md-9 flex-column justify-content-around">
-    <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
+  <div class="dialogues-display col-12 col-lg-9 h-100 py-1">
+
+    <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient mb-2">
       <div class="container-fluid">
         <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -15,103 +18,78 @@
       </div>
     </nav>
 
-    <div class="user_edit_window d-flex flex-column align-items-center">
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
+    <!--message_window p-2 overflow-scroll d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>-->
+    <div class="overflow-x-hidden ovrerflow-y-scroll d-flex align-items-center flex-column">
+      <div class="col-11 col-md-7 col-lg-6 flex-column justify-content-around">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
 
-        <div class="row mb-3">
-          <div class="field col-sm-8 w-100">
-            <%= f.label :email, class:"col-sm-2 col-form-label" %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
+          <div class="row mb-3">
+            <div class="field col-sm-8 w-100">
+              <%= f.label :email, class:"col-sm-2 col-form-label" %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
+            </div>
           </div>
-        </div>
 
-        <div class="row mb-3">
-          <div class="field col-sm-8 w-100">
-            <%= f.label :name, class:"col-sm-2 col-form-label" %>
-            <%= f.text_field :name, class:"form-control" %>
+          <div class="row mb-3">
+            <div class="field col-sm-8 w-100">
+              <%= f.label :name, class:"col-sm-2 col-form-label" %>
+              <%= f.text_field :name, class:"form-control" %>
+            </div>
           </div>
-        </div>
 
-        <div class="row mb-3">
-          <div class="field col-sm-8 w-100">
-            <%= f.label :phone, class:"col-sm-2 col-form-label" %>
-            <%= f.text_field :phone, class:"form-control" %>
+          <div class="row mb-3">
+            <div class="field col-sm-8 w-100">
+              <%= f.label :phone, class:"col-sm-2 col-form-label" %>
+              <%= f.text_field :phone, class:"form-control" %>
+            </div>
           </div>
-        </div>
 
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+
+          <div class="row mb-3">
+            <div class="field col-sm-8 w-100">
+              <%= f.label :password, class:"col-sm-2 col-form-label pb-0" %><br>
+              <small class = "text-body-secondary"> (leave blank if you don't want to change it) </small><br />
+              <%= f.password_field :password, autocomplete: "new-password", class:"form-control" %>
+              <% if @minimum_password_length %>
+                <small class = "text-body-secondary"><%= @minimum_password_length %> characters minimum</small>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="field col-sm-8 w-100">
+              <%= f.label :password_confirmation, class:"col-sm-6 col-form-label" %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="field col-sm-8 w-100">
+              <%= f.label :current_password, class:"col-sm-5 col-form-label" %>
+              <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control" %> 
+              <small class = "text-body-secondary">(we need your current password to confirm your changes)</small><br />
+            </div>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Update", class:"btn btn-success w-100" %>
+          </div>
         <% end %>
 
-        <div class="row mb-3">
-          <div class="field col-sm-8 w-100">
-            <%= f.label :password, class:"col-sm-2 col-form-label pb-0" %><br>
-            <small class = "text-body-secondary"> (leave blank if you don't want to change it) </small><br />
-            <%= f.password_field :password, autocomplete: "new-password", class:"form-control" %>
-            <% if @minimum_password_length %>
-              <small class = "text-body-secondary"><%= @minimum_password_length %> characters minimum</small>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="field col-sm-8 w-100">
-            <%= f.label :password_confirmation, class:"col-sm-6 col-form-label" %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="field col-sm-8 w-100">
-            <%= f.label :current_password, class:"col-sm-5 col-form-label" %>
-            <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control" %> 
-            <small class = "text-body-secondary">(we need your current password to confirm your changes)</small><br />
-          </div>
-        </div>
-
-        <div class="actions">
-          <%= f.submit "Update", class:"btn btn-success w-100" %>
-        </div>
-      <% end %>
-
         <div class="user_edit_buttuns d-flex justify-content-center">
-          <div class=" field col-sm-8 w-100">
+          <div class="col-12 col-md-6 w-100">
             <h3 class="align-self-center my-3">Cancel my account</h3>
             <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete,class:"mb-1 btn btn-outline-danger w-100" %>
             <%= link_to "Back", :back, class:"mt-1 btn btn-outline-success w-100" %>
           </div>
         </div>
+      </div>
 
     </div>
+
   </div>
 </div>
-
-<script>
-  function showSidebar() {
-    var backArrow = document.getElementById('back-arrow');
-    var sidebar = document.querySelector('.sidebar');
-    var sidebarCross = document.getElementById('sidebar-cross');
-    var userDisplay = document.querySelector('.user-display');
-
-    backArrow.classList.add('d-none');
-    userDisplay.classList.add('d-none');
-    sidebar.classList.remove('d-none');
-    sidebarCross.classList.remove('d-none');
-  }
-
-  function hideSidebar() {
-    var backArrow = document.getElementById('back-arrow');
-    var sidebar = document.querySelector('.sidebar');
-    var sidebarCross = document.getElementById('sidebar-cross');
-    var userDisplay = document.querySelector('.user-display');
-
-    backArrow.classList.remove('d-none');
-    userDisplay.classList.remove('d-none');
-    sidebar.classList.add('d-none');
-    sidebarCross.classList.add('d-none');
-  }
-
-  document.getElementById('back-arrow').addEventListener('click', showSidebar);
-  document.getElementById('sidebar-cross').addEventListener('click', hideSidebar);
-</script>
