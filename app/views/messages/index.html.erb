@@ -62,41 +62,37 @@
 
 <script>
   document.addEventListener("turbo:load", () => {
-    const messageWindow = document.querySelector(".message_window");
-    const inputField = document.querySelector(".message_area");
-    const footer = inputField.closest(".chat_footer"); // Input container
+  const messageWindow = document.querySelector(".message_window");
+  const inputField = document.querySelector(".message_area");
 
-    if (!messageWindow || !inputField || !footer || !window.visualViewport) return;
+  if (!messageWindow || !inputField || !window.visualViewport) return;
 
-    const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (!isMobileDevice) return;
+  const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (!isMobileDevice) return;
 
-    function adjustForKeyboard() {
-      const viewportHeight = window.visualViewport.height;
-      const keyboardHeight = window.innerHeight - viewportHeight; // Keyboard height
+  function adjustForKeyboard() {
+    const viewportHeight = window.visualViewport.height;
+    const keyboardHeight = window.innerHeight - viewportHeight; // Высота клавиатуры
 
-      if (document.activeElement === inputField) {
-        // Move the input field up, attaching it to the keyboard
-        footer.style.position = "absolute";
-        footer.style.bottom = `${keyboardHeight}px`;
-
-        // Scroll the message container up
-        messageWindow.scrollTop = messageWindow.scrollHeight;
-      } else {
-        // We restore the original position
-        footer.style.position = "";
-        footer.style.bottom = "";
-      }
+    if (document.activeElement === inputField) {
+      // Уменьшаем высоту окна сообщений
+      messageWindow.style.height = `calc(100vh - ${keyboardHeight}px)`;
+      messageWindow.scrollTop = messageWindow.scrollHeight;
+    } else {
+      // Восстанавливаем стандартные значения
+      messageWindow.style.height = "";
     }
+  }
 
-    window.visualViewport.addEventListener("resize", adjustForKeyboard);
-    inputField.addEventListener("focus", adjustForKeyboard);
-    inputField.addEventListener("blur", adjustForKeyboard);
+  window.visualViewport.addEventListener("resize", adjustForKeyboard);
+  inputField.addEventListener("focus", adjustForKeyboard);
+  inputField.addEventListener("blur", adjustForKeyboard);
 
-    document.addEventListener("turbo:before-cache", () => {
-      window.visualViewport.removeEventListener("resize", adjustForKeyboard);
-      inputField.removeEventListener("focus", adjustForKeyboard);
-      inputField.removeEventListener("blur", adjustForKeyboard);
-    });
+  document.addEventListener("turbo:before-cache", () => {
+    window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+    inputField.removeEventListener("focus", adjustForKeyboard);
+    inputField.removeEventListener("blur", adjustForKeyboard);
   });
+});
+
 </script>
