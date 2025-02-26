@@ -175,6 +175,22 @@
 }
 
 /* sidebar */
+.sidebar{
+  height: 98%;
+
+  @media (max-width: 1024px) { // Планшеты
+    height: 92%;
+  }
+
+  @media (max-width: 768px) { // Маленькие планшеты
+    height: 90%;
+  }
+
+  @media (max-width: 480px) { // Мобильные устройства
+    height: 85%;
+  }
+}
+
 .sidebar_menu_header{
   background: #ced4da;
   /* height: 36px; */
@@ -210,9 +226,22 @@
 #sidebar-cross{
   cursor: pointer;
 }
-.message_window{
+.message_window {
   height: 88%;
+
+  @media (max-width: 1024px) {
+    height: 85%;
+  }
+
+  @media (max-width: 768px) {
+    height: 80%;
+  }
+
+  @media (max-width: 480px) {
+    height: 75%;
+  }
 }
+
 .message-window-height{
   height: calc(88% - 50px);
 }
