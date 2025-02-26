@@ -70,17 +70,14 @@
   const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   if (!isMobileDevice) return;
 
-  let originalHeight = getComputedStyle(messageWindow).height; // Сохраняем оригинальную высоту
-
   function adjustForKeyboard() {
     const viewportHeight = window.visualViewport.height;
     const keyboardHeight = window.innerHeight - viewportHeight;
 
-    if (document.activeElement === inputField) {
-      messageWindow.style.maxHeight = `calc(${originalHeight} - ${keyboardHeight}px)`;
-      messageWindow.scrollTop = messageWindow.scrollHeight;
+    if (document.activeElement === inputField && keyboardHeight > 0) {
+      messageWindow.style.height = `calc(100vh - ${keyboardHeight + 85}px)`;
     } else {
-      messageWindow.style.maxHeight = "";
+      messageWindow.style.height = "";
     }
   }
 
@@ -94,5 +91,6 @@
     inputField.removeEventListener("blur", adjustForKeyboard);
   });
 });
+
 
 </script>
