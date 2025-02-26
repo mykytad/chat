@@ -74,7 +74,7 @@
       if (currentHeight < initialHeight) {
         // Клавиатура открыта
         let keyboardHeight = initialHeight - currentHeight;
-        let newHeight = `calc(80vh - ${keyboardHeight + 85}px)`;
+        let newHeight = `calc(80vh - ${keyboardHeight }px)`;
         messageWindow.style.height = newHeight;
       } else {
         // Клавиатура закрыта – возвращаем исходное значение
@@ -85,5 +85,5 @@
 
 
 
- 
+  
 </script>
