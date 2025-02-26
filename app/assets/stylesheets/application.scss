@@ -55,9 +55,6 @@
 .message_body_wrap{
   display: flex;
 }
-.message_body{
-  display: flex;
-}
 .reply{
   border-radius: 3px;
   border-left: 3px solid #fff;
@@ -221,58 +218,11 @@
 }
 
 @media (min-width: 300px) {
-  // .user_edit_buttuns{
-  //   width: 205px;
-  //   margin: 0;
-  // }
   .message_body_wrap {
     max-width: 85%;
   }
-  // .body_height{
-  //   height: 667px
-  // }
-  // .msg-display{
-  //   max-height: 667px;
-  // }
-
-}
-@media (min-width: 375px) {
-  // .user_edit_buttuns{
-  //   width: 263px;
-  //   margin: 0;
-  // }
-}
-@media (min-width: 410px) {
-  // .user_edit_buttuns{
-  //   width: 292px;
-  //   margin: 0;
-  // }
-  // .body_height{
-  //   height: 915px
-  // }
-  // .msg-display{
-  //   max-height: 915px;
-  // }
-}
-@media (min-width: 500px) {
-  // .user_edit_buttuns{
-  //   width: 357px;
-  //   margin: 0;
-  // }
-}
-@media (min-width: 575px) {
-  .message_body{
-    min-width: 75%;
-  }
-  // .user_edit_buttuns{
-  //   width: 373px;
-  //   margin: 0;
-  // }
 }
 @media (min-width: 768px) {
-  .message_body{
-    min-width: 55%;
-  }
   .message_body_wrap {
     max-width: 80%;
   }
