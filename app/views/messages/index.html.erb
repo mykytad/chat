@@ -70,17 +70,17 @@
   const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   if (!isMobileDevice) return;
 
+  let originalHeight = getComputedStyle(messageWindow).height; // Сохраняем оригинальную высоту
+
   function adjustForKeyboard() {
     const viewportHeight = window.visualViewport.height;
-    const keyboardHeight = window.innerHeight - viewportHeight; // Высота клавиатуры
+    const keyboardHeight = window.innerHeight - viewportHeight;
 
     if (document.activeElement === inputField) {
-      // Уменьшаем высоту окна сообщений
-      messageWindow.style.height = `calc(100vh - ${keyboardHeight}px)`;
+      messageWindow.style.maxHeight = `calc(${originalHeight} - ${keyboardHeight}px)`;
       messageWindow.scrollTop = messageWindow.scrollHeight;
     } else {
-      // Восстанавливаем стандартные значения
-      messageWindow.style.height = "";
+      messageWindow.style.maxHeight = "";
     }
   }
 
