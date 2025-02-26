@@ -61,9 +61,9 @@
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("turbo:load", function () {
     const messageWindow = document.querySelector(".message_window");
-    
+
     if (!messageWindow) return;
 
     let initialHeight = window.innerHeight;
@@ -74,11 +74,16 @@
       if (currentHeight < initialHeight) {
         // Клавиатура открыта
         let keyboardHeight = initialHeight - currentHeight;
-        messageWindow.style.height = `calc(100vh - ${keyboardHeight + 85}px)`;
+        let newHeight = `calc(80vh - ${keyboardHeight + 85}px)`;
+        messageWindow.style.height = newHeight;
       } else {
-        // Клавиатура закрыта
-        messageWindow.style.height = "";
+        // Клавиатура закрыта – возвращаем исходное значение
+        messageWindow.style.height = "80vh";
       }
     });
   });
+
+
+
+ 
 </script>
