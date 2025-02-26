@@ -62,37 +62,36 @@
 
 <script>
   document.addEventListener("turbo:load", () => {
-  const messageWindow = document.querySelector(".message_window");
-  const inputField = document.querySelector(".message_area");
+    const messageWindow = document.querySelector(".message_window");
+    const inputField = document.querySelector(".message_area");
 
-  if (!messageWindow || !inputField || !window.visualViewport) return;
+    if (!messageWindow || !inputField || !window.visualViewport) return;
 
-  const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  if (!isMobileDevice) return;
+    const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (!isMobileDevice) return;
 
-  let originalHeight = getComputedStyle(messageWindow).height; // Сохраняем оригинальную высоту
+    function adjustForKeyboard() {
+      const viewportHeight = window.visualViewport.height;
+      const keyboardHeight = window.innerHeight - viewportHeight;
 
-  function adjustForKeyboard() {
-    const viewportHeight = window.visualViewport.height;
-    const keyboardHeight = window.innerHeight - viewportHeight;
-
-    if (document.activeElement === inputField) {
-      messageWindow.style.maxHeight = `calc(${originalHeight} - ${keyboardHeight}px)`;
-      messageWindow.scrollTop = messageWindow.scrollHeight;
-    } else {
-      messageWindow.style.maxHeight = "";
+      if (document.activeElement === inputField && keyboardHeight > 0) {
+        messageWindow.style.height = `${viewportHeight - 85}px`; // Уменьшаем на высоту клавиатуры + 85px
+      }
     }
-  }
 
-  window.visualViewport.addEventListener("resize", adjustForKeyboard);
-  inputField.addEventListener("focus", adjustForKeyboard);
-  inputField.addEventListener("blur", adjustForKeyboard);
+    function resetHeight() {
+      messageWindow.style.height = ""; // Возвращаем исходную высоту
+    }
 
-  document.addEventListener("turbo:before-cache", () => {
-    window.visualViewport.removeEventListener("resize", adjustForKeyboard);
-    inputField.removeEventListener("focus", adjustForKeyboard);
-    inputField.removeEventListener("blur", adjustForKeyboard);
+    window.visualViewport.addEventListener("resize", adjustForKeyboard);
+    inputField.addEventListener("focus", adjustForKeyboard);
+    inputField.addEventListener("blur", resetHeight);
+
+    document.addEventListener("turbo:before-cache", () => {
+      window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+      inputField.removeEventListener("focus", adjustForKeyboard);
+      inputField.removeEventListener("blur", resetHeight);
+    });
   });
-});
 
 </script>
