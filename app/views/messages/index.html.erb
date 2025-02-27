@@ -67,17 +67,21 @@ function adjustMessageWindow() {
 
   if (!messageWindow || !msgDisplay) return;
 
-  messageWindow.style.height = `${window.visualViewport.height - 100}px`;
+  // Устанавливаем новую высоту сразу после открытия клавиатуры
+  const newHeight = window.visualViewport.height - 100;
+  messageWindow.style.height = `${newHeight}px`;
 
-  // Прокрутка вверх без анимации
-  msgDisplay.scrollTop = 0;
+  // Ожидаем отрисовки перед прокруткой вверх
+  requestAnimationFrame(() => {
+    msgDisplay.scrollTop = 0;
+  });
 }
 
-// Восстанавливаем высоту после закрытия клавиатуры
+// Восстанавливаем стандартную высоту после закрытия клавиатуры
 function restoreMessageWindow() {
   const messageWindow = document.querySelector(".message_window");
   if (messageWindow) {
-    messageWindow.style.height = "88vh";
+    messageWindow.style.height = "88vh"; // Возвращаем стандартную высоту
   }
 }
 
