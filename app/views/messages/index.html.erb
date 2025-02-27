@@ -77,7 +77,7 @@ function adjustMessageWindow() {
 
   if (keyboardHeight > 0) {
     // Устанавливаем новую высоту окна сообщений (не удваивая клавиатуру)
-    messageWindow.style.height = `${window.visualViewport.height + 100}px`;
+    messageWindow.style.height = `${window.visualViewport.height - 100}px`;
   }
 }
 
