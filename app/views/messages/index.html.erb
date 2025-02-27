@@ -65,23 +65,23 @@ document.addEventListener("turbo:load", function () {
   const msgDisplay = document.querySelector(".msg-display");
   if (!msgDisplay) return;
 
-  let initialHeight = window.innerHeight; // Начальная высота экрана
+  let initialHeight = window.innerHeight; // Запоминаем исходную высоту экрана
 
   function adjustHeight() {
     const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
     const keyboardHeight = initialHeight - viewportHeight; // Высота клавиатуры
 
     if (keyboardHeight > 100) {
-      // Клавиатура открыта — смещаем .msg-display вверх на высоту клавиатуры
-      msgDisplay.style.transform = `translateY(-${keyboardHeight}px)`;
+      // Клавиатура открыта — уменьшаем .msg-display только снизу
+      msgDisplay.style.height = `calc(100% - ${keyboardHeight}px)`;
     } else {
-      // Клавиатура закрыта — возвращаем в исходное положение
-      msgDisplay.style.transform = "translateY(0)";
+      // Клавиатура закрыта — возвращаем нормальную высоту
+      msgDisplay.style.height = "100%";
     }
   }
 
   window.visualViewport?.addEventListener("resize", adjustHeight);
-  window.addEventListener("resize", adjustHeight); // Для Safari
+  window.addEventListener("resize", adjustHeight);
   adjustHeight();
 });
 
