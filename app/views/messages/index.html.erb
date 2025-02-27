@@ -61,32 +61,35 @@
 </div>
 
 <script>
-  document.addEventListener("turbo:load", function () {
+document.addEventListener("turbo:load", function () {
   const msgDisplay = document.querySelector(".msg-display");
   const inputField = document.querySelector(".message-input");
 
   function adjustMsgDisplay() {
-    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    const inputHeight = inputField.offsetHeight + 20; // Добавляем запас
-
+    const viewportHeight = window.visualViewport.height; // Получаем текущую высоту экрана
+    const inputHeight = inputField.offsetHeight + 20; // Учитываем поле ввода и запас
     const newHeight = viewportHeight - inputHeight;
-    msgDisplay.style.flex = `1 1 ${newHeight}px`;
+
+    msgDisplay.style.height = `${newHeight}px`; // Меняем высоту окна сообщений
   }
 
   function resetMsgDisplay() {
-    msgDisplay.style.flex = "1 1 auto"; // Возвращаем нормальный режим
+    msgDisplay.style.height = ""; // Сбрасываем до стилей по умолчанию
   }
 
-  // Отслеживаем изменение размера экрана
-  window.visualViewport?.addEventListener("resize", () => {
-    if (window.visualViewport.height < window.innerHeight) {
-      adjustMsgDisplay(); // Клавиатура открылась
-    } else {
-      resetMsgDisplay(); // Клавиатура закрылась
-    }
-  });
-
-  resetMsgDisplay();
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", () => {
+      if (window.visualViewport.height < window.innerHeight) {
+        adjustMsgDisplay(); // Если экран стал меньше → клавиатура открылась
+      } else {
+        resetMsgDisplay(); // Если экран вернулся в норму → клавиатура закрылась
+      }
+    });
+  }
 });
+
+
+
+
 
 </script>
