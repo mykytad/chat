@@ -63,29 +63,24 @@
 <script>
 document.addEventListener("turbo:load", function () {
   const msgDisplay = document.querySelector(".msg-display");
-  const inputContainer = document.querySelector(".message_window"); // Контейнер с вводом сообщения
-  const inputHeight = inputContainer ? inputContainer.offsetHeight : 0;
-  let originalHeight = msgDisplay.offsetHeight; // Сохраняем исходную высоту
+  if (!msgDisplay) return;
+
+  let originalHeight = window.innerHeight; // Запоминаем исходную высоту окна
 
   function adjustHeight() {
-    if (!window.visualViewport) return;
+    const currentHeight = window.innerHeight;
 
-    const viewportHeight = window.visualViewport.height;
-    const screenHeight = window.innerHeight;
-
-    if (viewportHeight < screenHeight) {
-      // Клавиатура открыта
-      msgDisplay.style.height = `${viewportHeight - inputHeight}px`;
-      msgDisplay.scrollTop = msgDisplay.scrollHeight; // Автоскролл
+    if (currentHeight < originalHeight) {
+      // Клавиатура открылась
+      msgDisplay.style.height = `${currentHeight - 100}px`; // Уменьшаем высоту (подбери значение 100px)
+      msgDisplay.scrollTop = msgDisplay.scrollHeight; // Скроллим вниз
     } else {
-      // Клавиатура закрыта
-      msgDisplay.style.height = `${originalHeight}px`;
+      // Клавиатура закрылась
+      msgDisplay.style.height = ""; // Возвращаем стандартную высоту
     }
   }
 
-  window.visualViewport?.addEventListener("resize", adjustHeight);
-  adjustHeight();
+  window.addEventListener("resize", adjustHeight);
 });
-
 
 </script>
