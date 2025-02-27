@@ -234,7 +234,7 @@
   height: 100%;
 }
 .message_window {
-  height: calc(var(--vh, 1vh) * 100 - 60px); /* 60px — примерный размер navbar */
+  height: calc(var(--vh, 1vh) * 100 - 60px);
 }
 // .message_window {
 //   height: 88%;
