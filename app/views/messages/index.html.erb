@@ -61,29 +61,17 @@
 </div>
 
 <script>
-  document.addEventListener("turbo:load", function () {
-    const messageWindow = document.querySelector(".message_window");
+  document.addEventListener("DOMContentLoaded", function () {
+  const messageWindow = document.querySelector(".message_window");
+  const inputHeight = 80;
 
-    if (!messageWindow) return;
+  function adjustHeight() {
+    const availableHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    messageWindow.style.height = `${availableHeight - inputHeight}px`;
+  }
 
-    let initialHeight = window.innerHeight;
+  adjustHeight();
+  window.visualViewport?.addEventListener("resize", adjustHeight);
+});
 
-    window.addEventListener("resize", () => {
-      let currentHeight = window.innerHeight;
-
-      if (currentHeight < initialHeight) {
-        // Клавиатура открыта
-        let keyboardHeight = initialHeight - currentHeight;
-        let newHeight = `calc(80vh - ${keyboardHeight }px)`;
-        messageWindow.style.height = newHeight;
-      } else {
-        // Клавиатура закрыта – возвращаем исходное значение
-        messageWindow.style.height = "80vh";
-      }
-    });
-  });
-
-
-
-  
 </script>
