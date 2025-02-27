@@ -61,10 +61,16 @@
 </div>
 
 <script>
-window.visualViewport.addEventListener("resize", () => {
-  document.documentElement.style.setProperty("--vh", `${window.visualViewport.height * 0.01}px`);
-});
+  if (window.visualViewport) {
+    const updateHeight = () => {
+      document.documentElement.style.setProperty(
+        "--vh",
+        `${window.visualViewport.height * 0.01}px`
+      );
+    };
 
-// Применяем новую высоту
-document.body.style.height = "calc(var(--vh, 1vh) * 100)";
+    window.visualViewport.addEventListener("resize", updateHeight);
+    window.visualViewport.addEventListener("scroll", updateHeight);
+    updateHeight(); // Вызов при загрузке страницы
+  }
 </script>
