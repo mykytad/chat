@@ -62,31 +62,16 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-  const messageWindow = document.querySelector(".message_window");
-  const msgDisplay = document.querySelector(".msg-display"); // Блок с сообщениями
-  const inputHeight = 100; // Было 80px, теперь 100px
+    const messageWindow = document.querySelector(".message_window");
+    const inputHeight = 120;
 
-  function adjustHeight() {
-    const availableHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    messageWindow.style.height = `${availableHeight - inputHeight}px`;
-  }
-
-  function scrollMessages() {
-    if (msgDisplay) {
-      setTimeout(() => {
-        msgDisplay.scrollTop = msgDisplay.scrollHeight;
-      }, 200); // Небольшая задержка для корректной анимации
+    function adjustHeight() {
+      const availableHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      messageWindow.style.height = `${availableHeight - inputHeight}px`;
     }
-  }
 
-  adjustHeight();
-  window.visualViewport?.addEventListener("resize", () => {
     adjustHeight();
-    scrollMessages();
+    window.visualViewport?.addEventListener("resize", adjustHeight);
   });
-
-  // Прокрутка при загрузке страницы
-  scrollMessages();
-});
 
 </script>
