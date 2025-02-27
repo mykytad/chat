@@ -234,20 +234,23 @@
   height: 100%;
 }
 .message_window {
-  height: 88%;
-
-  @media (max-width: 1024px) {
-    height: 85%;
-  }
-
-  @media (max-width: 768px) {
-    height: 80%;
-  }
-
-  @media (max-width: 480px) {
-    height: 75%;
-  }
+  height: calc(var(--vh, 1vh) * 100 - 60px); /* 60px — примерный размер navbar */
 }
+// .message_window {
+//   height: 88%;
+
+//   @media (max-width: 1024px) {
+//     height: 85%;
+//   }
+
+//   @media (max-width: 768px) {
+//     height: 80%;
+//   }
+
+//   @media (max-width: 480px) {
+//     height: 75%;
+//   }
+// }
 
 .message-window-height{
   height: calc(88% - 50px);

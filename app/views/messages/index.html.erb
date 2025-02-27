@@ -61,16 +61,13 @@
 </div>
 
 <script>
-  if (window.visualViewport) {
-    const updateHeight = () => {
-      document.documentElement.style.setProperty(
-        "--vh",
-        `${window.visualViewport.height * 0.01}px`
-      );
-    };
+if (window.visualViewport) {
+  const updateHeight = () => {
+    document.documentElement.style.setProperty("--vh", `${window.visualViewport.height * 0.01}px`);
+  };
 
-    window.visualViewport.addEventListener("resize", updateHeight);
-    window.visualViewport.addEventListener("scroll", updateHeight);
-    updateHeight(); // Вызов при загрузке страницы
-  }
+  window.visualViewport.addEventListener("resize", updateHeight);
+  window.visualViewport.addEventListener("scroll", updateHeight);
+  updateHeight();
+}
 </script>
