@@ -63,23 +63,21 @@
 <script>
 document.addEventListener("turbo:load", function () {
   const msgDisplay = document.querySelector(".msg-display");
-  const messageWindow = document.querySelector(".message_window");
-  const inputHeight = 100; // Высота поля ввода
-  let initialHeight = window.innerHeight; // Запоминаем изначальную высоту экрана
+  const messageInput = document.querySelector(".message-input"); // Поле ввода
+  const inputHeight = 100; // Примерная высота клавиатуры
+  let initialHeight = document.documentElement.clientHeight; // Запоминаем начальную высоту
 
-  if (!msgDisplay || !messageWindow) return;
+  if (!msgDisplay || !messageInput) return;
 
   function adjustHeight() {
-    const currentHeight = window.innerHeight;
+    const currentHeight = document.documentElement.clientHeight;
 
     if (currentHeight < initialHeight - 100) {
-      // Открыта клавиатура — уменьшаем высоту messageWindow и msgDisplay
+      // Клавиатура открылась
       const newHeight = currentHeight - inputHeight;
-      messageWindow.style.height = `${newHeight}px`;
       msgDisplay.style.height = `${newHeight}px`;
     } else {
-      // Клавиатура закрыта — возвращаем нормальную высоту
-      messageWindow.style.height = "88%"; // Или 100% если нужно
+      // Клавиатура закрылась
       msgDisplay.style.height = "100%";
     }
   }
@@ -90,10 +88,22 @@ document.addEventListener("turbo:load", function () {
     }, 200);
   }
 
-  // Следим за изменениями высоты экрана
+  // Отслеживаем изменение размера экрана (особенно полезно для iOS)
   window.addEventListener("resize", adjustHeight);
+
+  // Реагируем на фокус/блур поля ввода (полезно для Android)
+  messageInput.addEventListener("focus", () => {
+    setTimeout(adjustHeight, 300);
+  });
+
+  messageInput.addEventListener("blur", () => {
+    setTimeout(adjustHeight, 300);
+  });
+
   adjustHeight();
   scrollMessages();
 });
+
+
 
 </script>
