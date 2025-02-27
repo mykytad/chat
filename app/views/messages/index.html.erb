@@ -61,33 +61,33 @@
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-  const msgDisplay = document.querySelector(".msg-display"); // Блок с сообщениями
-  const inputField = document.querySelector(".message-input"); // Поле ввода
+  document.addEventListener("turbo:load", function () {
+    const msgDisplay = document.querySelector(".msg-display"); // Блок с сообщениями
+    const inputField = document.querySelector(".message-input"); // Поле ввода
 
-  function adjustMsgDisplay() {
-    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    const inputHeight = inputField.offsetHeight + 20; // Добавляем 20px сверху
+    function adjustMsgDisplay() {
+      const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      const inputHeight = inputField.offsetHeight + 20; // Добавляем 20px сверху
 
-    msgDisplay.style.height = `${viewportHeight - inputHeight}px`;
-  }
-
-  function resetMsgDisplay() {
-    msgDisplay.style.height = "100vh"; // Возвращаем полную высоту
-  }
-
-  // Слушаем изменение размеров экрана (например, открытие клавиатуры)
-  window.visualViewport?.addEventListener("resize", () => {
-    if (window.visualViewport.height < window.innerHeight) {
-      adjustMsgDisplay(); // Если клавиатура открылась
-    } else {
-      resetMsgDisplay(); // Если клавиатура закрылась
+      msgDisplay.style.height = `${viewportHeight - inputHeight}px`;
     }
-  });
 
-  // При загрузке страницы
-  resetMsgDisplay();
-});
+    function resetMsgDisplay() {
+      msgDisplay.style.height = "100vh"; // Возвращаем полную высоту
+    }
+
+    // Слушаем изменение размеров экрана (например, открытие клавиатуры)
+    window.visualViewport?.addEventListener("resize", () => {
+      if (window.visualViewport.height < window.innerHeight) {
+        adjustMsgDisplay(); // Если клавиатура открылась
+      } else {
+        resetMsgDisplay(); // Если клавиатура закрылась
+      }
+    });
+
+    // При загрузке страницы
+    resetMsgDisplay();
+  });
 
  
 </script>
