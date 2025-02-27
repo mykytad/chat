@@ -63,21 +63,18 @@
 <script>
 function adjustMessageWindow() {
   const messageWindow = document.querySelector(".message_window");
-  const msgDisplay = document.querySelector(".msg-display");
 
-  if (!messageWindow || !msgDisplay) return;
+  if (!messageWindow) return;
 
-  // Устанавливаем новую высоту сразу после открытия клавиатуры
-  const newHeight = window.visualViewport.height - 100;
-  messageWindow.style.height = `${newHeight}px`;
-
-  // Ожидаем отрисовки перед прокруткой вверх
-  requestAnimationFrame(() => {
-    msgDisplay.scrollTop = 0;
-  });
+  // Вычисляем высоту клавиатуры
+  const keyboardHeight = window.innerHeight - window.visualViewport.height;
+  
+  if (keyboardHeight > 0) {
+    // Уменьшаем высоту окна сообщений на высоту клавиатуры + 10px
+    messageWindow.style.height = `${window.visualViewport.height - keyboardHeight + 100}px`;
+  }
 }
 
-// Восстанавливаем стандартную высоту после закрытия клавиатуры
 function restoreMessageWindow() {
   const messageWindow = document.querySelector(".message_window");
   if (messageWindow) {
