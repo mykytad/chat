@@ -61,24 +61,30 @@
 </div>
 
 <script>
+let initialHeight = null;
+
 function adjustMessageWindow() {
   const messageWindow = document.querySelector(".message_window");
-
   if (!messageWindow) return;
+
+  // Запоминаем исходную высоту, если она ещё не сохранена
+  if (initialHeight === null) {
+    initialHeight = messageWindow.offsetHeight;
+  }
 
   // Вычисляем высоту клавиатуры
   const keyboardHeight = window.innerHeight - window.visualViewport.height;
-  
+
   if (keyboardHeight > 0) {
-    // Уменьшаем высоту окна сообщений на высоту клавиатуры + 10px
-    messageWindow.style.height = `${window.visualViewport.height - keyboardHeight}px`;
+    // Устанавливаем новую высоту окна сообщений (не удваивая клавиатуру)
+    messageWindow.style.height = `${window.visualViewport.height - 10}px`;
   }
 }
 
 function restoreMessageWindow() {
   const messageWindow = document.querySelector(".message_window");
-  if (messageWindow) {
-    messageWindow.style.height = "88vh"; // Возвращаем стандартную высоту
+  if (messageWindow && initialHeight !== null) {
+    messageWindow.style.height = `${initialHeight}px`;
   }
 }
 
