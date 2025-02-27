@@ -62,32 +62,31 @@
 
 <script>
   document.addEventListener("turbo:load", function () {
-    const msgDisplay = document.querySelector(".msg-display"); // Контейнер сообщений
-    const inputField = document.querySelector(".message-input"); // Поле ввода
+  const msgDisplay = document.querySelector(".msg-display");
+  const inputField = document.querySelector(".message-input");
 
-    function adjustMsgDisplay() {
-      const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-      const inputHeight = inputField.offsetHeight + 20; // Добавляем 20px запаса
+  function adjustMsgDisplay() {
+    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    const inputHeight = inputField.offsetHeight + 20; // Добавляем запас
 
-      msgDisplay.style.minHeight = `${viewportHeight - inputHeight}px`;
+    const newHeight = viewportHeight - inputHeight;
+    msgDisplay.style.flex = `1 1 ${newHeight}px`;
+  }
+
+  function resetMsgDisplay() {
+    msgDisplay.style.flex = "1 1 auto"; // Возвращаем нормальный режим
+  }
+
+  // Отслеживаем изменение размера экрана
+  window.visualViewport?.addEventListener("resize", () => {
+    if (window.visualViewport.height < window.innerHeight) {
+      adjustMsgDisplay(); // Клавиатура открылась
+    } else {
+      resetMsgDisplay(); // Клавиатура закрылась
     }
-
-    function resetMsgDisplay() {
-      msgDisplay.style.minHeight = "100%"; // Возвращаем нормальную высоту
-    }
-
-    window.visualViewport?.addEventListener("resize", () => {
-      if (window.visualViewport.height < window.innerHeight) {
-        adjustMsgDisplay(); // Клавиатура открылась
-      } else {
-        resetMsgDisplay(); // Клавиатура закрылась
-      }
-    });
-
-    // Устанавливаем начальную высоту при загрузке страницы
-    resetMsgDisplay();
   });
 
-
+  resetMsgDisplay();
+});
 
 </script>
