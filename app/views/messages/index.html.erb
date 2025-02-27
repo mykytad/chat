@@ -63,18 +63,18 @@
 <script>
 document.addEventListener("turbo:load", function () {
   const msgDisplay = document.querySelector(".msg-display");
-  const inputHeight = 100; // Высота поля ввода с запасом
+  const messageWindow = document.querySelector(".message_window");
+  const inputHeight = 100; // Высота инпута с запасом
+  let initialHeight = window.innerHeight; // Запоминаем изначальную высоту экрана
 
-  if (!msgDisplay) return;
-
-  let initialHeight = window.innerHeight; // Запоминаем начальную высоту экрана
+  if (!msgDisplay || !messageWindow) return;
 
   function adjustHeight() {
-    const currentHeight = window.innerHeight;
+    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
 
-    // Открылась клавиатура (высота экрана уменьшилась)
-    if (currentHeight < initialHeight - 100) { 
-      msgDisplay.style.height = `${currentHeight - inputHeight}px`;
+    // Если высота экрана уменьшилась (открылась клавиатура)
+    if (viewportHeight < initialHeight - 100) {
+      msgDisplay.style.height = `${viewportHeight - inputHeight}px`;
     } else {
       msgDisplay.style.height = "100%"; // Возвращаем в исходное состояние
     }
@@ -86,10 +86,12 @@ document.addEventListener("turbo:load", function () {
     }, 200);
   }
 
-  window.addEventListener("resize", adjustHeight);
+  // Следим за изменениями высоты экрана
+  window.visualViewport?.addEventListener("resize", adjustHeight);
   adjustHeight();
   scrollMessages();
 });
+
 
 
 </script>
