@@ -67,16 +67,21 @@ function adjustMessageWindow() {
   
   if (!messageWindow || !msgDisplay) return;
 
-  const vh = window.visualViewport.height * 0.01; // 1vh в пикселях
-  const availableHeight = window.visualViewport.height - 100; // Учитываем запас 100px
+  const vh = window.visualViewport.height * 0.01;
+  const availableHeight = window.visualViewport.height - 100; // Запас 100px
 
   messageWindow.style.height = `${availableHeight}px`;
 
-  // Скроллим контейнер вверх
-  msgDisplay.scrollTop = 0;
+  // Даем браузеру отрисовать новый размер перед скроллом
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      msgDisplay.scrollTop = 0; // Прокручиваем **наверх**
+    }, 50); // Небольшая задержка для корректной отрисовки
+  });
 }
 
 // Слушаем изменение высоты экрана
 window.visualViewport.addEventListener("resize", adjustMessageWindow);
+
 
 </script>
