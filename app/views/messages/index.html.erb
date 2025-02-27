@@ -61,28 +61,28 @@
 </div>
 
 <script>
-document.addEventListener("turbo:load", function () {
-  const msgDisplay = document.querySelector(".msg-display");
-  if (!msgDisplay) return;
+// document.addEventListener("turbo:load", function () {
+//  const msgDisplay = document.querySelector(".msg-display");
+//  if (!msgDisplay) return;
 
-  let initialHeight = window.innerHeight; // Запоминаем исходную высоту экрана
+//  let initialHeight = window.innerHeight; // Запоминаем исходную высоту экрана
 
-  function adjustHeight() {
-    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    const keyboardHeight = initialHeight - viewportHeight; // Высота клавиатуры
+//  function adjustHeight() {
+  //  const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+  //  const keyboardHeight = initialHeight - viewportHeight; // Высота клавиатуры
 
-    if (keyboardHeight > 100) {
+  //  if (keyboardHeight > 100) {
       // Клавиатура открыта — уменьшаем .msg-display только снизу
-      msgDisplay.style.height = `calc(100% - ${keyboardHeight}px)`;
-    } else {
+    //  msgDisplay.style.height = `calc(100% - ${keyboardHeight}px)`;
+  //  } else {
       // Клавиатура закрыта — возвращаем нормальную высоту
-      msgDisplay.style.height = "100%";
-    }
-  }
+    //  msgDisplay.style.height = "100%";
+  //  }
+//  }
 
-  window.visualViewport?.addEventListener("resize", adjustHeight);
-  window.addEventListener("resize", adjustHeight);
-  adjustHeight();
-});
+//  window.visualViewport?.addEventListener("resize", adjustHeight);
+//  window.addEventListener("resize", adjustHeight);
+//  adjustHeight();
+// });
 
 </script>
