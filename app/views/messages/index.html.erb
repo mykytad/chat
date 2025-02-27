@@ -61,20 +61,22 @@
 </div>
 
 <script>
-if (window.visualViewport) {
-  const updateHeight = () => {
-    const viewportHeight = window.visualViewport.height - 100; // Добавляем запас 100px
-    document.documentElement.style.setProperty("--vh", `${viewportHeight * 0.01}px`);
+function adjustMessageWindow() {
+  const messageWindow = document.querySelector(".message_window");
+  const msgDisplay = document.querySelector(".msg-display");
+  
+  if (!messageWindow || !msgDisplay) return;
 
-    // Прокручиваем вверх при появлении клавиатуры
-    const msgDisplay = document.querySelector(".msg-display");
-    if (msgDisplay) {
-      msgDisplay.scrollTop = 0;
-    }
-  };
+  const vh = window.visualViewport.height * 0.01; // 1vh в пикселях
+  const availableHeight = window.visualViewport.height - 100; // Учитываем запас 100px
 
-  window.visualViewport.addEventListener("resize", updateHeight);
-  window.visualViewport.addEventListener("scroll", updateHeight);
-  updateHeight();
+  messageWindow.style.height = `${availableHeight}px`;
+
+  // Скроллим контейнер вверх
+  msgDisplay.scrollTop = 0;
 }
+
+// Слушаем изменение высоты экрана
+window.visualViewport.addEventListener("resize", adjustMessageWindow);
+
 </script>
