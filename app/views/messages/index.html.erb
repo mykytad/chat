@@ -62,35 +62,37 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const msgDisplay = document.querySelector(".msg-display"); // Блок с сообщениями
+  const msgDisplay = document.querySelector(".msg-display");
   const inputField = document.querySelector(".message-input");
   const inputHeight = 100; // Было 80px, теперь 100px
+
+  let initialHeight = window.innerHeight; // Запоминаем начальную высоту экрана
 
   function adjustHeight() {
     if (!msgDisplay) return;
 
-    const availableHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    const newHeight = availableHeight - inputHeight;
+    const currentHeight = window.innerHeight;
 
-    msgDisplay.style.height = `${newHeight}px`;
+    // Открылась клавиатура (высота экрана уменьшилась)
+    if (currentHeight < initialHeight) {
+      msgDisplay.style.height = `${currentHeight - inputHeight}px`;
+    } else {
+      msgDisplay.style.height = "100%"; // Возвращаем в исходное состояние
+    }
   }
 
   function scrollMessages() {
     if (msgDisplay) {
       setTimeout(() => {
         msgDisplay.scrollTop = msgDisplay.scrollHeight;
-      }, 200); // Небольшая задержка для корректной анимации
+      }, 200);
     }
   }
 
+  window.addEventListener("resize", adjustHeight);
   adjustHeight();
-  window.visualViewport?.addEventListener("resize", () => {
-    adjustHeight();
-    scrollMessages();
-  });
-
-  // Прокрутка при загрузке страницы
   scrollMessages();
 });
+
 
 </script>
