@@ -65,19 +65,20 @@ let initialHeight = null;
 
 function adjustMessageWindow() {
   const messageWindow = document.querySelector(".message_window");
-  if (!messageWindow) return;
+  const msgDisplay = document.querySelector(".msg-display");
+  if (!messageWindow || !msgDisplay) return;
 
-  // Запоминаем исходную высоту, если она ещё не сохранена
   if (initialHeight === null) {
     initialHeight = messageWindow.offsetHeight;
   }
 
-  // Вычисляем высоту клавиатуры
   const keyboardHeight = window.innerHeight - window.visualViewport.height;
 
   if (keyboardHeight > 0) {
-    // Устанавливаем новую высоту окна сообщений (не удваивая клавиатуру)
-    messageWindow.style.height = `${window.visualViewport.height - 100}px`;
+    messageWindow.style.height = `${window.visualViewport.height - 110}px`;
+
+    // Прокручиваем .msg-display вверх
+    msgDisplay.scrollTop = 0;
   }
 }
 
