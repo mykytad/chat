@@ -63,43 +63,25 @@
 <script>
 document.addEventListener("turbo:load", function () {
   const msgDisplay = document.querySelector(".msg-display");
-  const messageInput = document.querySelector(".message-input"); // Поле ввода
-  const initialHeight = window.innerHeight; // Запоминаем начальную высоту экрана
+  if (!msgDisplay) return;
 
-  if (!msgDisplay || !messageInput) return;
+  let initialHeight = window.innerHeight; // Запоминаем начальную высоту экрана
 
   function adjustHeight() {
-    const currentHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
 
-    if (currentHeight < initialHeight - 100) {
-      // Открыта клавиатура — уменьшаем высоту msg-display
-      msgDisplay.style.height = `${currentHeight - 50}px`;
+    if (viewportHeight < initialHeight - 100) {
+      // Клавиатура открыта — уменьшаем .msg-display
+      msgDisplay.style.height = `${viewportHeight}px`;
     } else {
-      // Клавиатура закрыта — восстанавливаем нормальную высоту
+      // Клавиатура закрыта — возвращаем нормальную высоту
       msgDisplay.style.height = "100%";
     }
   }
 
-  function scrollMessages() {
-    setTimeout(() => {
-      msgDisplay.scrollTop = msgDisplay.scrollHeight;
-    }, 200);
-  }
-
-  // Отслеживаем изменение размера экрана (работает на Android и iOS)
   window.visualViewport?.addEventListener("resize", adjustHeight);
-
-  // Принудительно вызываем `adjustHeight` при фокусе и потере фокуса
-  messageInput.addEventListener("focus", () => {
-    setTimeout(adjustHeight, 300);
-  });
-
-  messageInput.addEventListener("blur", () => {
-    setTimeout(adjustHeight, 300);
-  });
-
+  window.addEventListener("resize", adjustHeight); // Для мобильных Safari
   adjustHeight();
-  scrollMessages();
 });
 
 </script>
