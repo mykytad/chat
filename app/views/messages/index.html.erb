@@ -61,20 +61,19 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("turbo:load", function () {
   const msgDisplay = document.querySelector(".msg-display");
-  const inputField = document.querySelector(".message-input");
-  const inputHeight = 100; // Было 80px, теперь 100px
+  const inputHeight = 100; // Высота поля ввода с запасом
+
+  if (!msgDisplay) return;
 
   let initialHeight = window.innerHeight; // Запоминаем начальную высоту экрана
 
   function adjustHeight() {
-    if (!msgDisplay) return;
-
     const currentHeight = window.innerHeight;
 
     // Открылась клавиатура (высота экрана уменьшилась)
-    if (currentHeight < initialHeight) {
+    if (currentHeight < initialHeight - 100) { 
       msgDisplay.style.height = `${currentHeight - inputHeight}px`;
     } else {
       msgDisplay.style.height = "100%"; // Возвращаем в исходное состояние
@@ -82,11 +81,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function scrollMessages() {
-    if (msgDisplay) {
-      setTimeout(() => {
-        msgDisplay.scrollTop = msgDisplay.scrollHeight;
-      }, 200);
-    }
+    setTimeout(() => {
+      msgDisplay.scrollTop = msgDisplay.scrollHeight;
+    }, 200);
   }
 
   window.addEventListener("resize", adjustHeight);
