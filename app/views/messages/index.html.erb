@@ -63,7 +63,14 @@
 <script>
 if (window.visualViewport) {
   const updateHeight = () => {
-    document.documentElement.style.setProperty("--vh", `${window.visualViewport.height * 0.01}px`);
+    const viewportHeight = window.visualViewport.height - 100; // Добавляем запас 100px
+    document.documentElement.style.setProperty("--vh", `${viewportHeight * 0.01}px`);
+
+    // Прокручиваем вверх при появлении клавиатуры
+    const msgDisplay = document.querySelector(".msg-display");
+    if (msgDisplay) {
+      msgDisplay.scrollTop = 0;
+    }
   };
 
   window.visualViewport.addEventListener("resize", updateHeight);
