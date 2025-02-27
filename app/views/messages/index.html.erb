@@ -64,19 +64,23 @@
 function adjustMessageWindow() {
   const messageWindow = document.querySelector(".message_window");
   const msgDisplay = document.querySelector(".msg-display");
-  
+
   if (!messageWindow || !msgDisplay) return;
 
-  const defaultHeight = "88vh"; // Обычная высота
   const reducedHeight = `${window.visualViewport.height - 100}px`; // Уменьшаем на 100px
-
   messageWindow.style.height = reducedHeight;
 
-  // Прокручиваем вверх после рендера
-  requestAnimationFrame(() => {
-    setTimeout(() => {
-      msgDisplay.scrollTop = 0;
-    }, 50);
+  // Ждем завершения анимации высоты, затем скроллим
+  setTimeout(() => {
+    scrollToTop(msgDisplay);
+  }, 300);
+}
+
+// Функция плавного скролла вверх
+function scrollToTop(element) {
+  element.scrollTo({
+    top: 0,
+    behavior: "smooth",
   });
 }
 
@@ -88,7 +92,7 @@ function restoreMessageWindow() {
   }
 }
 
-// Слушаем изменение высоты экрана
+// Отслеживаем изменение высоты экрана (клавиатура)
 window.visualViewport.addEventListener("resize", adjustMessageWindow);
 
 // Восстанавливаем высоту при потере фокуса
