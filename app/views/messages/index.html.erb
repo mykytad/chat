@@ -67,21 +67,31 @@ function adjustMessageWindow() {
   
   if (!messageWindow || !msgDisplay) return;
 
-  const vh = window.visualViewport.height * 0.01;
-  const availableHeight = window.visualViewport.height - 100; // Запас 100px
+  const defaultHeight = "88vh"; // Обычная высота
+  const reducedHeight = `${window.visualViewport.height - 100}px`; // Уменьшаем на 100px
 
-  messageWindow.style.height = `${availableHeight}px`;
+  messageWindow.style.height = reducedHeight;
 
-  // Даем браузеру отрисовать новый размер перед скроллом
+  // Прокручиваем вверх после рендера
   requestAnimationFrame(() => {
     setTimeout(() => {
-      msgDisplay.scrollTop = 0; // Прокручиваем **наверх**
-    }, 50); // Небольшая задержка для корректной отрисовки
+      msgDisplay.scrollTop = 0;
+    }, 50);
   });
+}
+
+// Восстанавливаем высоту после закрытия клавиатуры
+function restoreMessageWindow() {
+  const messageWindow = document.querySelector(".message_window");
+  if (messageWindow) {
+    messageWindow.style.height = "88vh";
+  }
 }
 
 // Слушаем изменение высоты экрана
 window.visualViewport.addEventListener("resize", adjustMessageWindow);
 
+// Восстанавливаем высоту при потере фокуса
+window.addEventListener("focusout", restoreMessageWindow);
 
 </script>
