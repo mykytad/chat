@@ -60,39 +60,3 @@
   </div>
 </div>
 
-<script>
-let initialHeight = null;
-
-function adjustMessageWindow() {
-  const messageWindow = document.querySelector(".message_window");
-  const msgDisplay = document.querySelector(".msg-display");
-  if (!messageWindow || !msgDisplay) return;
-
-  if (initialHeight === null) {
-    initialHeight = messageWindow.offsetHeight;
-  }
-
-  const keyboardHeight = window.innerHeight - window.visualViewport.height;
-
-  if (keyboardHeight > 0) {
-    messageWindow.style.height = `${window.visualViewport.height - 110}px`;
-    
-    // Прокрутка вверх с ожиданием рендеринга
-    requestAnimationFrame(() => {
-      msgDisplay.scrollTop = 0;
-    });
-  }
-}
-
-function restoreMessageWindow() {
-  const messageWindow = document.querySelector(".message_window");
-  if (messageWindow && initialHeight !== null) {
-    messageWindow.style.height = `${initialHeight}px`;
-  }
-}
-
-// Отслеживаем изменение высоты экрана (клавиатура)
-window.visualViewport.addEventListener("resize", adjustMessageWindow);
-window.addEventListener("focusout", restoreMessageWindow);
-
-</script>
