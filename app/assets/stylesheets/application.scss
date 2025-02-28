@@ -231,11 +231,12 @@
 }
 
 .msg-display{
-  height: 100%;
+  // height: 100%;
 }
 
 .message_window {
   height: 87%;
+  min-height: 0;
   transition: height 0.2s ease-in-out;
 
   @media (max-width: 1024px) {
