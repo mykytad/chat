@@ -61,41 +61,39 @@
 </div>
 
 <script>
-document.addEventListener("turbo:load", () => {
+ document.addEventListener("turbo:load", () => {
     const messageWindow = document.querySelector(".message_window");
     const inputField = document.querySelector(".message_area");
 
     if (!messageWindow || !inputField || !window.visualViewport) return;
 
+    // Function for identifying a mobile device
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
     function adjustForKeyboard() {
-        if (!isMobileDevice()) return;
+        if (!isMobileDevice()) return; // Interrupt execution on PC
 
         const viewportHeight = window.visualViewport.height;
-        const offsetTop = window.visualViewport.offsetTop || 0;
 
-        // Изменяем высоту только если клавиатура открыта
         if (document.activeElement === inputField) {
+            // Keyboard open - reduce the height of the message window
             messageWindow.style.height = `${viewportHeight - 120}px`;
-            messageWindow.scrollTop = 0; // Фиксация скролла вверху
         } else {
+            // Keyboard closed - restore height
             messageWindow.style.height = "";
         }
     }
 
-    // Используем focusin/focusout вместо focus/blur для лучшей совместимости
-    inputField.addEventListener("focusin", adjustForKeyboard);
-    inputField.addEventListener("focusout", adjustForKeyboard);
     window.visualViewport.addEventListener("resize", adjustForKeyboard);
+    inputField.addEventListener("focus", adjustForKeyboard);
+    inputField.addEventListener("blur", adjustForKeyboard);
 
     document.addEventListener("turbo:before-cache", () => {
         window.visualViewport.removeEventListener("resize", adjustForKeyboard);
-        inputField.removeEventListener("focusin", adjustForKeyboard);
-        inputField.removeEventListener("focusout", adjustForKeyboard);
+        inputField.removeEventListener("focus", adjustForKeyboard);
+        inputField.removeEventListener("blur", adjustForKeyboard);
     });
-});
-
+  });
 </script>
