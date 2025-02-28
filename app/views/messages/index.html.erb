@@ -61,38 +61,25 @@
 </div>
 
 <script>
-let initialHeight = null;
+function adjustChatHeight() {
+  const chatDisplay = document.querySelector('.msg-display');
+  if (!chatDisplay) return;
 
-function adjustMessageWindow() {
-  const messageWindow = document.querySelector(".message_window");
-  const msgDisplay = document.querySelector(".msg-display");
-  if (!messageWindow || !msgDisplay) return;
-
-  if (initialHeight === null) {
-    initialHeight = messageWindow.offsetHeight;
-  }
-
-  const keyboardHeight = window.innerHeight - window.visualViewport.height;
-
-  if (keyboardHeight > 0) {
-    messageWindow.style.height = `${window.visualViewport.height - 110}px`;
-    
-    // Прокрутка вверх с ожиданием рендеринга
-    requestAnimationFrame(() => {
-      msgDisplay.scrollTo({ top: 0, behavior: "instant" });
-    });
-  }
+  const viewportHeight = window.visualViewport.height;
+  chatDisplay.style.height = `${viewportHeight - 50}px`; // 50px — примерный отступ
 }
 
-function restoreMessageWindow() {
-  const messageWindow = document.querySelector(".message_window");
-  if (messageWindow && initialHeight !== null) {
-    messageWindow.style.height = `${initialHeight}px`;
-  }
+// Отслеживание изменения размера экрана (например, при открытии клавиатуры)
+window.visualViewport.addEventListener('resize', adjustChatHeight);
+
+function keepScrollTop() {
+  const = document.querySelector('.msg-display');
+  if (!chatDisplay) return;
+  
+  chatDisplay.scrollTop = 0;
 }
 
-// Отслеживаем изменение высоты экрана (клавиатура)
-window.visualViewport.addEventListener("resize", adjustMessageWindow);
-window.addEventListener("focusout", restoreMessageWindow);
+// Вызываем при изменении размера экрана
+window.visualViewport.addEventListener('resize', keepScrollTop);
 
 </script>
