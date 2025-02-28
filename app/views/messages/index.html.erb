@@ -83,16 +83,16 @@ document.addEventListener("turbo:load", () => {
         const keyboardHeight = window.innerHeight - viewportHeight;
 
         if (document.activeElement === inputField) {
-            // Уменьшаем высоту message_window и msg-display, чтобы они не выходили за экран
+            // Уменьшаем ТОЛЬКО СНИЗУ, не затрагивая верх
             messageWindow.style.height = `${viewportHeight - 120}px`;
-            msgDisplay.style.maxHeight = `${viewportHeight - 160}px`;
-            setTimeout(scrollToBottom, 100);
+            msgDisplay.style.paddingBottom = `${keyboardHeight + 10}px`;
         } else {
-            // Возвращаем исходные размеры
+            // Возвращаем размеры
             messageWindow.style.height = "";
-            msgDisplay.style.maxHeight = "";
-            setTimeout(scrollToBottom, 100);
+            msgDisplay.style.paddingBottom = "";
         }
+
+        setTimeout(scrollToBottom, 100);
     }
 
     window.visualViewport.addEventListener("resize", adjustForKeyboard);
