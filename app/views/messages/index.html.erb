@@ -61,7 +61,7 @@
 </div>
 
 <script>
-llet initialHeight = null;
+let initialHeight = null;
 
 function adjustMessageWindow() {
   const messageWindow = document.querySelector(".message_window");
@@ -76,11 +76,11 @@ function adjustMessageWindow() {
 
   if (keyboardHeight > 0) {
     messageWindow.style.height = `${window.visualViewport.height - 110}px`;
-
-    // Прокрутка вверх
-    setTimeout(() => {
+    
+    // Прокрутка вверх с ожиданием рендеринга
+    requestAnimationFrame(() => {
       msgDisplay.scrollTop = 0;
-    }, 0);
+    });
   }
 }
 
@@ -93,6 +93,6 @@ function restoreMessageWindow() {
 
 // Отслеживаем изменение высоты экрана (клавиатура)
 window.visualViewport.addEventListener("resize", adjustMessageWindow);
-window.visualViewport.addEventListener("resize", restoreMessageWindow);
+window.addEventListener("focusout", restoreMessageWindow);
 
 </script>
