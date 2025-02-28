@@ -62,29 +62,30 @@
 
 <script>
 document.addEventListener("turbo:load", () => {
-    const msgDisplay = document.querySelector(".msg-display");
     const messageWindow = document.querySelector(".message_window");
     const inputField = document.querySelector(".message_area");
 
-    if (!msgDisplay || !messageWindow || !inputField || !window.visualViewport) return;
+    if (!messageWindow || !inputField || !window.visualViewport) return;
 
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    function scrollToBottom() {
+        messageWindow.scrollTop = messageWindow.scrollHeight;
     }
 
     function adjustForKeyboard() {
         if (!isMobileDevice()) return;
 
         const viewportHeight = window.visualViewport.height;
-        const fullHeight = window.innerHeight;
-        const keyboardHeight = fullHeight - viewportHeight;
 
         if (document.activeElement === inputField) {
-            // Уменьшаем `msg-display`, оставляя место только для окна сообщений и ввода
-            msgDisplay.style.height = `${viewportHeight - 120}px`;
+            messageWindow.style.height = `${viewportHeight - 120}px`;
+            setTimeout(scrollToBottom, 50); // Прокрутка вниз после изменения высоты
         } else {
-            // Восстанавливаем высоту
-            msgDisplay.style.height = "";
+            messageWindow.style.height = "";
+            setTimeout(scrollToBottom, 50);
         }
     }
 
@@ -97,6 +98,9 @@ document.addEventListener("turbo:load", () => {
         inputField.removeEventListener("focus", adjustForKeyboard);
         inputField.removeEventListener("blur", adjustForKeyboard);
     });
+
+    // Прокрутка вниз при загрузке страницы
+    setTimeout(scrollToBottom, 50);
 });
 
 </script>
