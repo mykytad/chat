@@ -63,36 +63,31 @@
 <script>
 document.addEventListener("turbo:load", () => {
     const messageWindow = document.querySelector(".message_window");
-    const msgDisplay = document.querySelector(".msg-display");
     const inputField = document.querySelector(".message_area");
 
-    if (!messageWindow || !msgDisplay || !inputField || !window.visualViewport) return;
+    if (!messageWindow || !inputField || !window.visualViewport) return;
 
+    let lastScrollTop = messageWindow.scrollTop; // Запоминаем текущую позицию скролла
+
+    // Функция для определения мобильного устройства
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
-    function scrollToBottom() {
-        messageWindow.scrollTop = messageWindow.scrollHeight;
-    }
-
     function adjustForKeyboard() {
-        if (!isMobileDevice()) return;
+        if (!isMobileDevice()) return; // Останавливаем выполнение на ПК
 
         const viewportHeight = window.visualViewport.height;
-        const keyboardHeight = window.innerHeight - viewportHeight;
 
         if (document.activeElement === inputField) {
-            // Уменьшаем ТОЛЬКО СНИЗУ, не затрагивая верх
+            // Клавиатура открыта - уменьшаем высоту окна сообщений и фиксируем скролл
             messageWindow.style.height = `${viewportHeight - 120}px`;
-            msgDisplay.style.paddingBottom = `${keyboardHeight + 10}px`;
+            messageWindow.scrollTop = lastScrollTop; // Возвращаем скролл на место
         } else {
-            // Возвращаем размеры
+            // Клавиатура закрыта - восстанавливаем высоту
             messageWindow.style.height = "";
-            msgDisplay.style.paddingBottom = "";
+            lastScrollTop = messageWindow.scrollTop; // Сохраняем новую позицию скролла
         }
-
-        setTimeout(scrollToBottom, 100);
     }
 
     window.visualViewport.addEventListener("resize", adjustForKeyboard);
@@ -104,9 +99,6 @@ document.addEventListener("turbo:load", () => {
         inputField.removeEventListener("focus", adjustForKeyboard);
         inputField.removeEventListener("blur", adjustForKeyboard);
     });
-
-    // Прокрутка вниз при загрузке страницы
-    setTimeout(scrollToBottom, 200);
 });
 
 </script>
