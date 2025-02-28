@@ -63,9 +63,10 @@
 <script>
 document.addEventListener("turbo:load", () => {
     const msgDisplay = document.querySelector(".msg-display");
+    const messageWindow = document.querySelector(".message_window");
     const inputField = document.querySelector(".message_area");
 
-    if (!msgDisplay || !inputField || !window.visualViewport) return;
+    if (!msgDisplay || !messageWindow || !inputField || !window.visualViewport) return;
 
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -76,9 +77,10 @@ document.addEventListener("turbo:load", () => {
 
         const viewportHeight = window.visualViewport.height;
         const fullHeight = window.innerHeight;
+        const keyboardHeight = fullHeight - viewportHeight;
 
         if (document.activeElement === inputField) {
-            // Уменьшаем `msg-display`, оставляя место для поля ввода
+            // Уменьшаем `msg-display`, оставляя место только для окна сообщений и ввода
             msgDisplay.style.height = `${viewportHeight - 120}px`;
         } else {
             // Восстанавливаем высоту
