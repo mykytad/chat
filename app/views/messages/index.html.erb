@@ -77,8 +77,10 @@ function adjustMessageWindow() {
   if (keyboardHeight > 0) {
     messageWindow.style.height = `${window.visualViewport.height - 110}px`;
     
-    // Прокрутка вверх
-    msgDisplay.scrollTop = 0;
+    // Прокрутка вверх с ожиданием рендеринга
+    requestAnimationFrame(() => {
+      msgDisplay.scrollTop = 0;
+    });
   }
 }
 
