@@ -63,9 +63,10 @@
 <script>
 document.addEventListener("turbo:load", () => {
     const messageWindow = document.querySelector(".message_window");
+    const msgDisplay = document.querySelector(".msg-display");
     const inputField = document.querySelector(".message_area");
 
-    if (!messageWindow || !inputField || !window.visualViewport) return;
+    if (!messageWindow || !msgDisplay || !inputField || !window.visualViewport) return;
 
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -79,13 +80,18 @@ document.addEventListener("turbo:load", () => {
         if (!isMobileDevice()) return;
 
         const viewportHeight = window.visualViewport.height;
+        const keyboardHeight = window.innerHeight - viewportHeight;
 
         if (document.activeElement === inputField) {
+            // Уменьшаем высоту message_window и msg-display, чтобы они не выходили за экран
             messageWindow.style.height = `${viewportHeight - 120}px`;
-            setTimeout(scrollToBottom, 50); // Прокрутка вниз после изменения высоты
+            msgDisplay.style.maxHeight = `${viewportHeight - 160}px`;
+            setTimeout(scrollToBottom, 100);
         } else {
+            // Возвращаем исходные размеры
             messageWindow.style.height = "";
-            setTimeout(scrollToBottom, 50);
+            msgDisplay.style.maxHeight = "";
+            setTimeout(scrollToBottom, 100);
         }
     }
 
@@ -100,7 +106,7 @@ document.addEventListener("turbo:load", () => {
     });
 
     // Прокрутка вниз при загрузке страницы
-    setTimeout(scrollToBottom, 50);
+    setTimeout(scrollToBottom, 200);
 });
 
 </script>
