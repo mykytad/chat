@@ -3,7 +3,7 @@
     <%= render "dialogues/sidebar" %>
   </div>
 
-  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column vh-100">
+  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column h-100">
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
       <div class="container-fluid">
         <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
@@ -62,10 +62,10 @@
 
 <script>
 document.addEventListener("turbo:load", () => {
-    const messageWindow = document.querySelector(".message_window");
+    const msgDisplay = document.querySelector(".msg-display");
     const inputField = document.querySelector(".message_area");
 
-    if (!messageWindow || !inputField || !window.visualViewport) return;
+    if (!msgDisplay || !inputField || !window.visualViewport) return;
 
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -75,28 +75,25 @@ document.addEventListener("turbo:load", () => {
         if (!isMobileDevice()) return;
 
         const viewportHeight = window.visualViewport.height;
-        const navbarHeight = document.querySelector(".messages_recipient")?.offsetHeight || 0;
-        const inputHeight = document.querySelector(".text-muted")?.offsetHeight || 0;
-        const padding = 10; // небольшой отступ
+        const fullHeight = window.innerHeight;
 
         if (document.activeElement === inputField) {
-            // Уменьшаем только `.message_window`
-            const newHeight = viewportHeight - navbarHeight - inputHeight - padding;
-            messageWindow.style.height = `${newHeight}px`;
+            // Уменьшаем `msg-display`, оставляя место для поля ввода
+            msgDisplay.style.height = `${viewportHeight - 120}px`;
         } else {
-            // Восстанавливаем стандартную высоту
-            messageWindow.style.height = "";
+            // Восстанавливаем высоту
+            msgDisplay.style.height = "";
         }
     }
 
-    inputField.addEventListener("focusin", adjustForKeyboard);
-    inputField.addEventListener("focusout", adjustForKeyboard);
     window.visualViewport.addEventListener("resize", adjustForKeyboard);
+    inputField.addEventListener("focus", adjustForKeyboard);
+    inputField.addEventListener("blur", adjustForKeyboard);
 
     document.addEventListener("turbo:before-cache", () => {
         window.visualViewport.removeEventListener("resize", adjustForKeyboard);
-        inputField.removeEventListener("focusin", adjustForKeyboard);
-        inputField.removeEventListener("focusout", adjustForKeyboard);
+        inputField.removeEventListener("focus", adjustForKeyboard);
+        inputField.removeEventListener("blur", adjustForKeyboard);
     });
 });
 
