@@ -79,7 +79,7 @@ function adjustMessageWindow() {
     
     // Прокрутка вверх с ожиданием рендеринга
     requestAnimationFrame(() => {
-      msgDisplay.scrollTop = 0;
+      msgDisplay.scrollTo({ top: 0, behavior: "instant" });
     });
   }
 }
