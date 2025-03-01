@@ -62,39 +62,29 @@
 
 <script>
   document.addEventListener("turbo:load", () => {
-    const msgDisplay = document.querySelector(".msg-display");
     const messageWindow = document.querySelector(".message_window");
     const inputField = document.querySelector(".message_area");
-    const messagesRecipient = document.querySelector(".messages_recipient");
-    const messagesNew = document.querySelector(".text-muted");
+    const formHeight = 95; // Высота формы
 
-    if (!msgDisplay || !messageWindow || !inputField || !window.visualViewport) return;
+    if (!messageWindow || !inputField || !window.visualViewport) return;
 
     function isMobileDevice() {
-      return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
     function adjustForKeyboard() {
-      if (!isMobileDevice()) return;
+        if (!isMobileDevice()) return;
 
-      const viewportHeight = window.visualViewport.height;
-      const documentHeight = document.documentElement.clientHeight;
-      const keyboardHeight = documentHeight - viewportHeight;
+        const viewportHeight = window.visualViewport.height;
 
-      if (document.activeElement === inputField) {
-        // Keyboard open
-        const navHeight = messagesRecipient ? messagesRecipient.offsetHeight : 0;
-        const inputHeight = messagesNew ? messagesNew.offsetHeight : 0;
-        const newMsgDisplayHeight = viewportHeight;
-
-        msgDisplay.style.height = `${newMsgDisplayHeight}px`;
-        messageWindow.style.height = `${newMsgDisplayHeight - navHeight - inputHeight}px`;
-        messageWindow.scrollTop = messageWindow.scrollHeight; // Прокрутка вниз
-      } else {
-        // Keyboard closed
-        msgDisplay.style.height = "";
-        messageWindow.style.height = "";
-      }
+        if (document.activeElement === inputField) {
+            // Keyboard open
+            messageWindow.style.height = `${viewportHeight - formHeight}px`;
+            messageWindow.scrollTop = messageWindow.scrollHeight; // Прокрутка вниз
+        } else {
+            // Keyboard closed
+            messageWindow.style.height = "";
+        }
     }
 
     window.visualViewport.addEventListener("resize", adjustForKeyboard);
@@ -102,9 +92,9 @@
     inputField.addEventListener("blur", adjustForKeyboard);
 
     document.addEventListener("turbo:before-cache", () => {
-      window.visualViewport.removeEventListener("resize", adjustForKeyboard);
-      inputField.removeEventListener("focus", adjustForKeyboard);
-      inputField.removeEventListener("blur", adjustForKeyboard);
+        window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+        inputField.removeEventListener("focus", adjustForKeyboard);
+        inputField.removeEventListener("blur", adjustForKeyboard);
     });
   });
 </script>
