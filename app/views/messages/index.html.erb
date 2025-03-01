@@ -3,7 +3,7 @@
     <%= render "dialogues/sidebar" %>
   </div>
 
-  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column h-100">
+  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column">
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
       <div class="container-fluid">
         <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
@@ -61,39 +61,48 @@
 </div>
 
 <script>
-document.addEventListener("turbo:load", () => {
-    const messageWindow = document.querySelector(".message_window");
-    const inputField = document.querySelector(".message_area");
+  document.addEventListener('DOMContentLoaded', function() {
+    const msgDisplay = document.querySelector('.msg-display');
+    const messageWindow = document.querySelector('.message_window');
+    const originalMsgDisplayHeight = msgDisplay.offsetHeight;
+    const originalMessageWindowHeight = messageWindow.offsetHeight;
+    const bottomOffset = 80; // Дополнительный отступ
 
-    if (!messageWindow || !inputField || !window.visualViewport) return;
-
-    // Function for identifying a mobile device
-    function isMobileDevice() {
-        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    function adjustForKeyboard(keyboardHeight) {
+      if (keyboardHeight > 0) {
+        msgDisplay.style.height = `${window.innerHeight - keyboardHeight - bottomOffset}px`;
+        messageWindow.style.height = `${window.innerHeight - keyboardHeight - bottomOffset - document.querySelector('.messages_recipient').offsetHeight - document.querySelector('.text-muted').offsetHeight}px`;
+      } else {
+        msgDisplay.style.height = `${originalMsgDisplayHeight}px`;
+        messageWindow.style.height = `${originalMessageWindowHeight}px`;
+      }
     }
 
-    function adjustForKeyboard() {
-        if (!isMobileDevice()) return; // Interrupt execution on PC
-
-        const viewportHeight = window.visualViewport.height;
-
-        if (document.activeElement === inputField) {
-            // Keyboard open - reduce the height of the message window
-            messageWindow.style.height = `${viewportHeight - 120}px`;
-        } else {
-            // Keyboard closed - restore height
-            messageWindow.style.height = "";
+    // Обработчики для iOS
+    window.addEventListener('focusin', () => {
+      if (window.visualViewport) {
+        const keyboardHeight = window.innerHeight - window.visualViewport.height;
+        if (keyboardHeight > 100) {
+          adjustForKeyboard(keyboardHeight);
         }
-    }
+      }
+    });
 
-    window.visualViewport.addEventListener("resize", adjustForKeyboard);
-    inputField.addEventListener("focus", adjustForKeyboard);
-    inputField.addEventListener("blur", adjustForKeyboard);
+    window.addEventListener('focusout', () => {
+      adjustForKeyboard(0);
+    });
 
-    document.addEventListener("turbo:before-cache", () => {
-        window.visualViewport.removeEventListener("resize", adjustForKeyboard);
-        inputField.removeEventListener("focus", adjustForKeyboard);
-        inputField.removeEventListener("blur", adjustForKeyboard);
+    // Обработчики для Android
+    window.addEventListener('resize', () => {
+      const currentHeight = window.innerHeight;
+      const originalHeight = document.documentElement.clientHeight;
+      const heightDiff = originalHeight - currentHeight;
+
+      if (heightDiff > 100) {
+        adjustForKeyboard(heightDiff);
+      } else {
+        adjustForKeyboard(0);
+      }
     });
   });
 </script>
