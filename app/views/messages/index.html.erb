@@ -64,25 +64,24 @@
   document.addEventListener("turbo:load", () => {
     const messageWindow = document.querySelector(".message_window");
     const inputField = document.querySelector(".message_area");
-    const formHeight = 95; // Высота формы
 
     if (!messageWindow || !inputField || !window.visualViewport) return;
 
+    // Function for identifying a mobile device
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
     function adjustForKeyboard() {
-        if (!isMobileDevice()) return;
+        if (!isMobileDevice()) return; // Interrupt execution on PC
 
         const viewportHeight = window.visualViewport.height;
 
         if (document.activeElement === inputField) {
-            // Keyboard open
-            messageWindow.style.height = `${viewportHeight - formHeight}px`;
-            messageWindow.scrollTop = messageWindow.scrollHeight; // Прокрутка вниз
+            // Keyboard open - reduce the height of the message window
+            messageWindow.style.height = `${viewportHeight - 120}px`;
         } else {
-            // Keyboard closed
+            // Keyboard closed - restore height
             messageWindow.style.height = "";
         }
     }
