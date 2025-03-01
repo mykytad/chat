@@ -61,48 +61,50 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const msgDisplay = document.querySelector('.msg-display');
-    const messageWindow = document.querySelector('.message_window');
-    const originalMsgDisplayHeight = msgDisplay.offsetHeight;
-    const originalMessageWindowHeight = messageWindow.offsetHeight;
-    const bottomOffset = 80; // Дополнительный отступ
+  document.addEventListener('turbo:load', function() {
+  const msgDisplay = document.querySelector('.msg-display');
+  const messageWindow = document.querySelector('.message_window');
+  if (!msgDisplay || !messageWindow) return; // Проверка на наличие элементов
 
-    function adjustForKeyboard(keyboardHeight) {
-      if (keyboardHeight > 0) {
-        msgDisplay.style.height = `${window.innerHeight - keyboardHeight - bottomOffset}px`;
-        messageWindow.style.height = `${window.innerHeight - keyboardHeight - bottomOffset - document.querySelector('.messages_recipient').offsetHeight - document.querySelector('.text-muted').offsetHeight}px`;
-      } else {
-        msgDisplay.style.height = `${originalMsgDisplayHeight}px`;
-        messageWindow.style.height = `${originalMessageWindowHeight}px`;
+  const originalMsgDisplayHeight = msgDisplay.offsetHeight;
+  const originalMessageWindowHeight = messageWindow.offsetHeight;
+  const bottomOffset = 80; // Дополнительный отступ
+
+  function adjustForKeyboard(keyboardHeight) {
+    if (keyboardHeight > 0) {
+      msgDisplay.style.height = `${window.innerHeight - keyboardHeight - bottomOffset}px`;
+      messageWindow.style.height = `${window.innerHeight - keyboardHeight - bottomOffset - document.querySelector('.messages_recipient').offsetHeight - document.querySelector('.text-muted').offsetHeight}px`;
+    } else {
+      msgDisplay.style.height = `${originalMsgDisplayHeight}px`;
+      messageWindow.style.height = `${originalMessageWindowHeight}px`;
+    }
+  }
+
+  // Обработчики для iOS
+  window.addEventListener('focusin', () => {
+    if (window.visualViewport) {
+      const keyboardHeight = window.innerHeight - window.visualViewport.height;
+      if (keyboardHeight > 100) {
+        adjustForKeyboard(keyboardHeight);
       }
     }
-
-    // Обработчики для iOS
-    window.addEventListener('focusin', () => {
-      if (window.visualViewport) {
-        const keyboardHeight = window.innerHeight - window.visualViewport.height;
-        if (keyboardHeight > 100) {
-          adjustForKeyboard(keyboardHeight);
-        }
-      }
-    });
-
-    window.addEventListener('focusout', () => {
-      adjustForKeyboard(0);
-    });
-
-    // Обработчики для Android
-    window.addEventListener('resize', () => {
-      const currentHeight = window.innerHeight;
-      const originalHeight = document.documentElement.clientHeight;
-      const heightDiff = originalHeight - currentHeight;
-
-      if (heightDiff > 100) {
-        adjustForKeyboard(heightDiff);
-      } else {
-        adjustForKeyboard(0);
-      }
-    });
   });
+
+  window.addEventListener('focusout', () => {
+    adjustForKeyboard(0);
+  });
+
+  // Обработчики для Android
+  window.addEventListener('resize', () => {
+    const currentHeight = window.innerHeight;
+    const originalHeight = document.documentElement.clientHeight;
+    const heightDiff = originalHeight - currentHeight;
+
+    if (heightDiff > 100) {
+      adjustForKeyboard(heightDiff);
+    } else {
+      adjustForKeyboard(0);
+    }
+  });
+});
 </script>
