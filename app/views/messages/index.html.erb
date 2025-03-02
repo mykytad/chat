@@ -3,7 +3,7 @@
     <%= render "dialogues/sidebar" %>
   </div>
 
-  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column">
+  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column bg-body-secondary">
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
       <div class="container-fluid">
         <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
@@ -43,7 +43,7 @@
     </nav>
 
     <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-    <div class="message_window p-2 overflow-scroll d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
+    <div class="message_window bg-dark p-2 overflow-scroll d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
       <%= render @messages %>
       <span id="down-point d-flex flex-column"></span>
     </div>
