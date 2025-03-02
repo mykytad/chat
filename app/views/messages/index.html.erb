@@ -62,73 +62,38 @@
 
 <script>
   document.addEventListener("turbo:load", () => {
-  const messageWindow = document.querySelector(".message_window");
-  const inputField = document.querySelector(".message_area");
+    const messageWindow = document.querySelector(".message_window");
+    const inputField = document.querySelector(".message_area");
 
-  if (!messageWindow || !inputField) {
-    console.log("messageWindow or inputField not found");
-    return;
-  }
+    if (!messageWindow || !inputField || !window.visualViewport) return;
 
-  // Проверка доступности visualViewport
-  if (!window.visualViewport) {
-    console.log("visualViewport is not supported");
-    // Можно добавить альтернативный код здесь, если visualViewport не поддерживается
-    return;
-  }
-
-  function isMobileDevice() {
-    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  }
-
-  function adjustForKeyboard() {
-    console.log("adjustForKeyboard called");
-    if (!isMobileDevice()) {
-      console.log("Not a mobile device");
-      return;
+    // Function for identifying a mobile device
+    function isMobileDevice() {
+      return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
-    const viewportHeight = window.visualViewport.height;
-    console.log("viewportHeight:", viewportHeight);
+    function adjustForKeyboard() {
+      if (!isMobileDevice()) return; // Interrupt execution on PC
 
-    if (document.activeElement === inputField) {
-      console.log("Input focused");
-      // Добавляем !important для проверки CSS конфликтов
-      messageWindow.style.height = `${viewportHeight - 120}px !important`;
-      console.log("messageWindow height set to:", messageWindow.style.height);
-    } else {
-      console.log("Input blurred");
-      messageWindow.style.height = "";
-      if (document.querySelector(".message-window-height")) {
-        messageWindow.style.height = "auto";
+      const viewportHeight = window.visualViewport.height;
+
+      if (document.activeElement === inputField) {
+        // Keyboard open - reduce the height of the message window
+        messageWindow.style.height = `${viewportHeight - 120}px`;
+      } else {
+        // Keyboard closed - restore height
+        messageWindow.style.height = "";
       }
-      console.log("messageWindow height reset");
     }
-  }
 
-  // Проверка срабатывания событий
-  window.visualViewport.addEventListener("resize", () => {
-    console.log("visualViewport resized");
-    adjustForKeyboard();
+    window.visualViewport.addEventListener("resize", adjustForKeyboard);
+    inputField.addEventListener("focus", adjustForKeyboard);
+    inputField.addEventListener("blur", adjustForKeyboard);
+
+    document.addEventListener("turbo:before-cache", () => {
+      window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+      inputField.removeEventListener("focus", adjustForKeyboard);
+      inputField.removeEventListener("blur", adjustForKeyboard);
+    });
   });
-
-  inputField.addEventListener("focus", () => {
-    console.log("input focused");
-    adjustForKeyboard();
-  });
-
-  inputField.addEventListener("blur", () => {
-    console.log("input blurred");
-    adjustForKeyboard();
-  });
-
-  // Инициализация при загрузке страницы
-  adjustForKeyboard();
-
-  document.addEventListener("turbo:before-cache", () => {
-    window.visualViewport.removeEventListener("resize", adjustForKeyboard);
-    inputField.removeEventListener("focus", adjustForKeyboard);
-    inputField.removeEventListener("blur", adjustForKeyboard);
-  });
-});
 </script>
