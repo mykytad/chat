@@ -3,7 +3,7 @@
     <%= render "dialogues/sidebar" %>
   </div>
 
-  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column bg-body-secondary">
+  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column">
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
       <div class="container-fluid">
         <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
@@ -43,7 +43,7 @@
     </nav>
 
     <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-    <div class="message_window bg-dark p-2 overflow-scroll d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
+    <div class="message_window p-2 overflow-scroll d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
       <%= render @messages %>
       <span id="down-point d-flex flex-column"></span>
     </div>
@@ -64,25 +64,29 @@
   document.addEventListener("turbo:load", () => {
     const messageWindow = document.querySelector(".message_window");
     const inputField = document.querySelector(".message_area");
+    const messageDisplay = document.querySelector(".msg-display"); // Контейнер сообщений
 
-    if (!messageWindow || !inputField || !window.visualViewport) return;
+    if (!messageWindow || !inputField || !messageDisplay || !window.visualViewport) return;
 
-    // Function for identifying a mobile device
+    let initialHeight = window.innerHeight;
+
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
     function adjustForKeyboard() {
-        if (!isMobileDevice()) return; // Interrupt execution on PC
+        if (!isMobileDevice()) return;
 
-        const viewportHeight = window.visualViewport.height;
+        const currentHeight = window.innerHeight;
+        const keyboardHeight = initialHeight - currentHeight;
 
-        if (document.activeElement === inputField) {
-            // Keyboard open - reduce the height of the message window
-            messageWindow.style.height = `${viewportHeight - 120}px`;
+        if (keyboardHeight > 100) {
+            messageWindow.style.transform = `translateY(-${keyboardHeight}px)`;
+            setTimeout(() => {
+                messageDisplay.scrollTop = messageDisplay.scrollHeight; // Автопрокрутка вниз
+            }, 50);
         } else {
-            // Keyboard closed - restore height
-            messageWindow.style.height = "";
+            messageWindow.style.transform = "";
         }
     }
 
@@ -95,5 +99,11 @@
         inputField.removeEventListener("focus", adjustForKeyboard);
         inputField.removeEventListener("blur", adjustForKeyboard);
     });
-  });
+
+    // Дополнительно: всегда прокручивать вниз при загрузке страницы
+    setTimeout(() => {
+        messageDisplay.scrollTop = messageDisplay.scrollHeight;
+    }, 100);
+});
+
 </script>
