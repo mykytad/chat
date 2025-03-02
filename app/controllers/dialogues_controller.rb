@@ -11,15 +11,26 @@ class DialoguesController < ApplicationController
   end
 
   def create
-    @dialogue = Dialogue.new
-    @dialogue.sender_id = current_user.id
-    @dialogue.recipient_id = params[:recipient_id]
-    @dialogue.save
+    recipient = User.find(params[:recipient_id])
 
-    if @dialogue.save
+    @dialogue = Dialogue.between(current_user.id, recipient.id).first_or_create(
+      sender: current_user,
+      recipient: recipient
+    )
+
+    if @dialogue.persisted?
       redirect_to dialogue_messages_path(@dialogue)
     else
-      redirect_to dialogues_path, alert: "Something went wrong"
+      @dialogue = Dialogue.new
+      @dialogue.sender_id = current_user.id
+      @dialogue.recipient_id = params[:recipient_id]
+      @dialogue.save
+
+      if @dialogue.save
+        redirect_to dialogue_messages_path(@dialogue)
+      else
+        redirect_to dialogues_path, alert: "Something went wrong"
+      end
     end
   end
 

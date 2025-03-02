@@ -14,9 +14,12 @@
  *= require_self
  */
  @import "bootstrap";
+ body {
+  height: calc(var(--vh, 1vh) * 100);
+}
 
  .body_height{
-  height: 930px;
+  // height: 930px;
   margin-top: 10px;
   margin-bottom: 10px;
  }
@@ -53,9 +56,6 @@
  }
 
 .message_body_wrap{
-  display: flex;
-}
-.message_body{
   display: flex;
 }
 .reply{
@@ -178,6 +178,22 @@
 }
 
 /* sidebar */
+.sidebar{
+  height: 98%;
+
+  @media (max-width: 1024px) { // Планшеты
+    height: 92%;
+  }
+
+  @media (max-width: 768px) { // Маленькие планшеты
+    height: 90%;
+  }
+
+  @media (max-width: 480px) { // Мобильные устройства
+    height: 85%;
+  }
+}
+
 .sidebar_menu_header{
   background: #ced4da;
   /* height: 36px; */
@@ -190,7 +206,7 @@
 
 /* dialogues */
 .users_list_wrap{
-  height: 92%;
+  height: 95%;
 }
 .list_active_item{
   background:#198754;
@@ -213,103 +229,43 @@
 #sidebar-cross{
   cursor: pointer;
 }
-// .message_window{
-//   height: 805px;
-// }
+
+.msg-display{
+  height: 100%;
+}
+
+.message_window {
+  height: 87%;
+  transition: height 0.2s ease-in-out;
+
+  @media (max-width: 1024px) {
+    height: 84%;
+  }
+
+  @media (max-width: 768px) {
+    height: 79%;
+  }
+
+  @media (max-width: 480px) {
+    height: 74%;
+  }
+}
+
 .message-window-height{
-  height: calc(805px - 50px);
+  height: calc(87% - 50px);
 }
 
 @media (min-width: 300px) {
-  .user_edit_buttuns{
-    width: 205px;
-    margin: 0;
-  }.message_body_wrap {
+  .message_body_wrap {
     max-width: 85%;
-  }
-  .body_height{
-    height: 667px
-  }
-  .msg-display{
-    max-height: 667px;
-  }
-  .dialogues-display{
-    max-height: 667px;
-  }
-  .message_window{
-    height: 565px;
-  }
-  .message-window-height{
-    height: calc(565px - 50px);
-  }
-}
-@media (min-width: 375px) {
-  .user_edit_buttuns{
-    width: 263px;
-    margin: 0;
-  }
-}
-@media (min-width: 410px) {
-  .user_edit_buttuns{
-    width: 292px;
-    margin: 0;
-  }
-  .body_height{
-    height: 915px
-  }
-  // .sidebar{
-    // max-height: 850px;
-  // }
-  .msg-display{
-    max-height: 915px;
-  }
-  .dialogues-display{
-    max-height: 915px;
-  }
-  .message_window{
-    height: 755px;
-  }
-  .message-window-height{
-    height: calc(755px - 50px);
-  }
-}
-@media (min-width: 500px) {
-  .user_edit_buttuns{
-    width: 357px;
-    margin: 0;
-  }
-  .message_window{
-    height: 805px;
-  }
-  .message-window-height{
-    height: calc(805px - 50px);
-  }
-}
-@media (min-width: 575px) {
-  .message_body{
-    min-width: 75%;
-  }
-  .sidebar{
-    height: 915px;
-  //   width: 75%;
-  }
-  .user_edit_buttuns{
-    width: 373px;
-    margin: 0;
   }
 }
 @media (min-width: 768px) {
-  .message_body{
-    min-width: 55%;
-  }
   .message_body_wrap {
     max-width: 80%;
   }
 }
 @media (min-width: 992px) {
-  // .sidebar{
-    // width: 280px;
-  // }
   .message_body_wrap {
     max-width: 60%;
   }

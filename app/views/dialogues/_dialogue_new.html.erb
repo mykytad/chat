@@ -10,7 +10,7 @@
 
         <%= form_with url: dialogues_path do |form| %>
           <%= form.hidden_field(:recipient_id, :value => user.id) %>
-          <%= form.submit "Start", class:"btn btn-primary "%>
+          <%= form.submit "Start", class:"btn btn-success"%>
         <% end %>
       </li>
       <hr class="p-0 my-1">
