@@ -67,24 +67,22 @@
 
     if (!messageWindow || !inputField || !window.visualViewport) return;
 
-    let initialHeight = window.innerHeight; // Запоминаем начальную высоту экрана
-
+    // Function for identifying a mobile device
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
     function adjustForKeyboard() {
-        if (!isMobileDevice()) return;
+        if (!isMobileDevice()) return; // Interrupt execution on PC
 
-        const currentHeight = window.innerHeight; // Текущая высота экрана
-        const keyboardHeight = initialHeight - currentHeight; // Высота клавиатуры
+        const viewportHeight = window.visualViewport.height;
 
-        if (keyboardHeight > 100) { 
-            // Если клавиатура открыта
-            messageWindow.style.transform = `translateY(-${keyboardHeight}px)`;
+        if (document.activeElement === inputField) {
+            // Keyboard open - reduce the height of the message window
+            messageWindow.style.height = `${viewportHeight - 120}px`;
         } else {
-            // Если клавиатура закрыта
-            messageWindow.style.transform = "";
+            // Keyboard closed - restore height
+            messageWindow.style.height = "";
         }
     }
 
@@ -97,6 +95,5 @@
         inputField.removeEventListener("focus", adjustForKeyboard);
         inputField.removeEventListener("blur", adjustForKeyboard);
     });
-});
-
+  });
 </script>
