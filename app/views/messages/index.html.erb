@@ -64,26 +64,32 @@
   document.addEventListener("turbo:load", () => {
     const messageWindow = document.querySelector(".message_window");
     const inputField = document.querySelector(".message_area");
+    const messageDisplay = document.querySelector(".msg-display"); // Контейнер сообщений
 
-    if (!messageWindow || !inputField || !window.visualViewport) return;
+    if (!messageWindow || !inputField || !messageDisplay || !window.visualViewport) return;
 
-    // Function for identifying a mobile device
+    let defaultHeight = messageWindow.offsetHeight; // Запоминаем изначальную высоту
+
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
+    function scrollToBottom() {
+        messageDisplay.scrollTop = messageDisplay.scrollHeight;
+    }
+
     function adjustForKeyboard() {
-        if (!isMobileDevice()) return; // Interrupt execution on PC
+        if (!isMobileDevice()) return;
 
         const viewportHeight = window.visualViewport.height;
 
         if (document.activeElement === inputField) {
-            // Keyboard open - reduce the height of the message window
             messageWindow.style.height = `${viewportHeight - 120}px`;
         } else {
-            // Keyboard closed - restore height
-            messageWindow.style.height = "";
+            messageWindow.style.height = `${defaultHeight}px`;
         }
+
+        setTimeout(scrollToBottom, 100); // Принудительно скроллим вниз
     }
 
     window.visualViewport.addEventListener("resize", adjustForKeyboard);
@@ -95,5 +101,6 @@
         inputField.removeEventListener("focus", adjustForKeyboard);
         inputField.removeEventListener("blur", adjustForKeyboard);
     });
-  });
+});
+
 </script>
