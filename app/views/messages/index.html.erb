@@ -62,43 +62,39 @@
 
 <script>
   document.addEventListener("turbo:load", () => {
-  const messageWindow = document.querySelector(".message_window");
-  const inputField = document.querySelector(".message_area");
+    const messageWindow = document.querySelector(".message_window");
+    const inputField = document.querySelector(".message_area");
+    const formHeight = 95; // Высота формы
 
-  if (!messageWindow || !inputField || !window.visualViewport) return;
+    if (!messageWindow || !inputField || !window.visualViewport) return;
 
-  function isMobileDevice() {
-    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  }
-
-  function adjustForKeyboard() {
-    if (!isMobileDevice()) return;
-
-    const viewportHeight = window.visualViewport.height;
-
-    if (document.activeElement === inputField) {
-      // Keyboard open - reduce the height of the message window
-      // Уменьшаем высоту messageWindow на высоту клавиатуры (примерно 120px)
-      messageWindow.style.height = `${viewportHeight - 120}px`;
-    } else {
-      // Keyboard closed - restore height
-      // Восстанавливаем оригинальную высоту messageWindow
-      messageWindow.style.height = "";
-      // Добавляем проверку, чтобы не сбрасывать высоту, если задано message-window-height
-      if (document.querySelector(".message-window-height")) {
-        messageWindow.style.height = "auto";
-      }
+    function isMobileDevice() {
+        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
-  }
 
-  window.visualViewport.addEventListener("resize", adjustForKeyboard);
-  inputField.addEventListener("focus", adjustForKeyboard);
-  inputField.addEventListener("blur", adjustForKeyboard);
+    function adjustForKeyboard() {
+        if (!isMobileDevice()) return;
 
-  document.addEventListener("turbo:before-cache", () => {
-    window.visualViewport.removeEventListener("resize", adjustForKeyboard);
-    inputField.removeEventListener("focus", adjustForKeyboard);
-    inputField.removeEventListener("blur", adjustForKeyboard);
-  });
+        const viewportHeight = window.visualViewport.height;
+
+        if (document.activeElement === inputField) {
+            // Keyboard open
+            messageWindow.style.height = `${viewportHeight - formHeight}px`;
+            messageWindow.scrollTop = messageWindow.scrollHeight; // Прокрутка вниз
+        } else {
+            // Keyboard closed
+            messageWindow.style.height = "";
+        }
+    }
+
+    window.visualViewport.addEventListener("resize", adjustForKeyboard);
+    inputField.addEventListener("focus", adjustForKeyboard);
+    inputField.addEventListener("blur", adjustForKeyboard);
+
+    document.addEventListener("turbo:before-cache", () => {
+        window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+        inputField.removeEventListener("focus", adjustForKeyboard);
+        inputField.removeEventListener("blur", adjustForKeyboard);
+    });
 });
 </script>
