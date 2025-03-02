@@ -65,7 +65,7 @@
   const messageWindow = document.querySelector(".message_window");
   const inputField = document.querySelector(".message_area");
 
-  if (!messageWindow || !inputField || !window.visualViewport) return;
+  if (!messageWindow || !inputField) return;
 
   function isMobileDevice() {
     return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -74,27 +74,28 @@
   function adjustForKeyboard() {
     if (!isMobileDevice()) return;
 
-    requestAnimationFrame(() => {
-      const viewportHeight = window.visualViewport.height;
-      document.documentElement.style.setProperty("--viewport-height", `${viewportHeight}px`);
+    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    const screenHeight = window.innerHeight;
 
-      if (document.activeElement === inputField) {
-        messageWindow.style.height = `calc(var(--viewport-height) - 120px)`;
-      } else {
-        messageWindow.style.height = "";
-      }
-    });
+    if (viewportHeight < screenHeight) {
+      // Открыта клавиатура
+      messageWindow.style.height = `calc(${viewportHeight}px - 120px)`;
+    } else {
+      // Клавиатура закрыта
+      messageWindow.style.height = "";
+    }
   }
 
-  window.visualViewport.addEventListener("resize", adjustForKeyboard);
+  window.addEventListener("resize", adjustForKeyboard);
   inputField.addEventListener("focus", adjustForKeyboard);
   inputField.addEventListener("blur", adjustForKeyboard);
 
   document.addEventListener("turbo:before-cache", () => {
-    window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+    window.removeEventListener("resize", adjustForKeyboard);
     inputField.removeEventListener("focus", adjustForKeyboard);
     inputField.removeEventListener("blur", adjustForKeyboard);
   });
 });
+
 
 </script>
