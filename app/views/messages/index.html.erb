@@ -65,8 +65,9 @@
     const messageWindow = document.querySelector(".message_window");
     const inputField = document.querySelector(".message_area");
     const messageDisplay = document.querySelector(".msg-display"); // Контейнер сообщений
+    const formContainer = document.querySelector(".text-muted"); // Контейнер формы
 
-    if (!messageWindow || !inputField || !messageDisplay || !window.visualViewport) return;
+    if (!messageWindow || !inputField || !messageDisplay || !formContainer || !window.visualViewport) return;
 
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -74,7 +75,7 @@
 
     function scrollToBottom() {
         requestAnimationFrame(() => {
-            messageDisplay.scrollTop = messageDisplay.scrollHeight;
+            messageWindow.scrollTop = messageWindow.scrollHeight;
         });
     }
 
@@ -82,12 +83,15 @@
         if (!isMobileDevice()) return;
 
         const viewportHeight = window.visualViewport.height;
-        const keyboardHeight = window.innerHeight - viewportHeight;
+        const formHeight = formContainer.offsetHeight; // Высота формы
+        const availableHeight = viewportHeight - formHeight - 10; // Оставшееся место
 
         if (document.activeElement === inputField) {
-            messageWindow.style.height = `${viewportHeight - 120}px`;
+            messageWindow.style.height = `${availableHeight}px`;
+            messageDisplay.style.paddingBottom = `${formHeight}px`; // Оставляем место для формы
         } else {
             messageWindow.style.height = "";
+            messageDisplay.style.paddingBottom = "";
         }
 
         setTimeout(scrollToBottom, 50); // Принудительный скролл вниз
@@ -102,6 +106,8 @@
         inputField.removeEventListener("focus", adjustForKeyboard);
         inputField.removeEventListener("blur", adjustForKeyboard);
     });
+
+    scrollToBottom(); // Скролл вниз при загрузке
 });
 
 </script>
