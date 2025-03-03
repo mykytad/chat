@@ -62,39 +62,27 @@
 
 <script>
   document.addEventListener("turbo:load", () => {
-    const messageWindow = document.querySelector(".message_window");
+    const container = document.querySelector(".container");
     const inputField = document.querySelector(".message_area");
-    const messageDisplay = document.querySelector(".msg-display"); // Контейнер сообщений
-    const formContainer = document.querySelector(".text-muted"); // Контейнер формы
 
-    if (!messageWindow || !inputField || !messageDisplay || !formContainer || !window.visualViewport) return;
+    if (!container || !inputField || !window.visualViewport) return;
 
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
-
-    function scrollToBottom() {
-        requestAnimationFrame(() => {
-            messageWindow.scrollTop = messageWindow.scrollHeight;
-        });
     }
 
     function adjustForKeyboard() {
         if (!isMobileDevice()) return;
 
         const viewportHeight = window.visualViewport.height;
-        const formHeight = formContainer.offsetHeight; // Высота формы
-        const availableHeight = viewportHeight - formHeight - 10; // Оставшееся место
 
         if (document.activeElement === inputField) {
-            messageWindow.style.height = `${availableHeight}px`;
-            messageDisplay.style.paddingBottom = `${formHeight}px`; // Оставляем место для формы
+            // Клавиатура открыта → уменьшаем высоту контейнера
+            container.style.height = `${viewportHeight}px`;
         } else {
-            messageWindow.style.height = "";
-            messageDisplay.style.paddingBottom = "";
+            // Клавиатура закрыта → возвращаем 100vh
+            container.style.height = "100vh";
         }
-
-        setTimeout(scrollToBottom, 50); // Принудительный скролл вниз
     }
 
     window.visualViewport.addEventListener("resize", adjustForKeyboard);
@@ -106,8 +94,6 @@
         inputField.removeEventListener("focus", adjustForKeyboard);
         inputField.removeEventListener("blur", adjustForKeyboard);
     });
-
-    scrollToBottom(); // Скролл вниз при загрузке
 });
 
 </script>
