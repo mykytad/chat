@@ -61,5 +61,36 @@
 </div>
 
 <script>
-  
+  document.addEventListener("turbo:load", () => {
+    const container = document.querySelector(".container.vh-100");
+    const inputField = document.querySelector(".message_area");
+
+    if (!container || !inputField || !window.visualViewport) return;
+
+    function isMobileDevice() {
+        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    function adjustForKeyboard() {
+        if (!isMobileDevice()) return; // Только для мобильных устройств
+
+        const viewportHeight = window.visualViewport.height;
+        
+        if (document.activeElement === inputField) {
+            container.style.height = `${viewportHeight}px`; // Уменьшаем контейнер
+        } else {
+            container.style.height = ""; // Возвращаем стандартную высоту
+        }
+    }
+
+    window.visualViewport.addEventListener("resize", adjustForKeyboard);
+    inputField.addEventListener("focus", adjustForKeyboard);
+    inputField.addEventListener("blur", adjustForKeyboard);
+
+    document.addEventListener("turbo:before-cache", () => {
+        window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+        inputField.removeEventListener("focus", adjustForKeyboard);
+        inputField.removeEventListener("blur", adjustForKeyboard);
+    });
+});
 </script>
