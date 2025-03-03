@@ -61,54 +61,30 @@
 </div>
 
 <script>
-  document.addEventListener("turbo:load", () => {
-    const messageWindow = document.querySelector(".message_window");
-    const inputField = document.querySelector(".message_area");
-    const formContainer = document.querySelector(".text-muted"); // Контейнер формы
-
-    if (!messageWindow || !inputField || !formContainer || !window.visualViewport) return;
-
-    function isMobileDevice() {
-        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
-
-    function scrollToBottom() {
-        requestAnimationFrame(() => {
-            messageWindow.scrollTop = messageWindow.scrollHeight;
-        });
-    }
-
-    function adjustForKeyboard() {
-        if (!isMobileDevice()) return;
-
-        const viewportHeight = window.visualViewport.height;
-        const keyboardHeight = window.innerHeight - viewportHeight;
-
-        if (document.activeElement === inputField) {
-            // Уменьшаем `.message_window`, но не скрываем форму
-            const availableHeight = viewportHeight - formContainer.offsetHeight - 10;
-            messageWindow.style.height = `${availableHeight}px`;
-
-            // Прокрутка вниз
-            scrollToBottom();
-        } else {
-            messageWindow.style.height = "";
-        }
-
-        setTimeout(scrollToBottom, 50);
-    }
-
-    window.visualViewport.addEventListener("resize", adjustForKeyboard);
-    inputField.addEventListener("focus", adjustForKeyboard);
-    inputField.addEventListener("blur", adjustForKeyboard);
-
-    document.addEventListener("turbo:before-cache", () => {
-        window.visualViewport.removeEventListener("resize", adjustForKeyboard);
-        inputField.removeEventListener("focus", adjustForKeyboard);
-        inputField.removeEventListener("blur", adjustForKeyboard);
+  function scrollToBottom() {
+    requestAnimationFrame(() => {
+        messageWindow.scrollTop = messageWindow.scrollHeight;
     });
+}
 
-    scrollToBottom(); // Прокрутка вниз при загрузке
-});
+function adjustForKeyboard() {
+    if (!isMobileDevice()) return;
+
+    const viewportHeight = window.visualViewport.height;
+    const keyboardHeight = window.innerHeight - viewportHeight;
+
+    if (document.activeElement === inputField) {
+        // Уменьшаем `.message_window`, но не скрываем форму
+        const availableHeight = viewportHeight - formContainer.offsetHeight - 10;
+        messageWindow.style.height = `${availableHeight}px`;
+
+        // Принудительно скроллим вниз
+        scrollToBottom();
+    } else {
+        messageWindow.style.height = "";
+    }
+
+    setTimeout(scrollToBottom, 50); // На случай задержки
+}
 
 </script>
