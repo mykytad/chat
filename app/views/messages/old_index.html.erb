@@ -1,9 +1,8 @@
-<div class="col-12 row bg-light-subtle h-100">
-  <div class="col-12 col-lg-3 d-lg-flex flex-column py-1">
-    <%= render "dialogues/sidebar" %>
-  </div>
+<div class="col-12 row d-flex justify-content-evenly h-100">
 
-  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column flex-grow-1">
+  <%= render "dialogues/sidebar" %>
+
+  <div class="msg-display col-12 col-md-9 flex-column justify-content-around">
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
       <div class="container-fluid">
         <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
@@ -43,9 +42,9 @@
     </nav>
 
     <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-    <div class="message_window p-2 overflow-scroll d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
+    <div class="message_window overflow-scroll d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
       <%= render @messages %>
-      <span id="down-point d-flex flex-column"></span>
+      <span id="down-point"></span>
     </div>
 
     <span class="scrol-down-arrow d-none">
@@ -53,9 +52,44 @@
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
       </svg>
     </span>
-
-    <div class="text-muted d-flex justify-content-start align-items-center">
-      <%= render "messages/new" %>
-    </div>
+    <%= render "messages/new" %>
   </div>
 </div>
+
+<script>
+  document.addEventListener("turbo:load", () => {
+    const messageWindow = document.querySelector(".message_window");
+    const inputField = document.querySelector(".message_area");
+
+    if (!messageWindow || !inputField || !window.visualViewport) return;
+
+    // Function for identifying a mobile device
+    function isMobileDevice() {
+        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    function adjustForKeyboard() {
+        if (!isMobileDevice()) return; // Interrupt execution on PC
+
+        const viewportHeight = window.visualViewport.height;
+
+        if (document.activeElement === inputField) {
+            // Keyboard open - reduce the height of the message window
+            messageWindow.style.height = `${viewportHeight - 120}px`;
+        } else {
+            // Keyboard closed - restore height
+            messageWindow.style.height = "";
+        }
+    }
+
+    window.visualViewport.addEventListener("resize", adjustForKeyboard);
+    inputField.addEventListener("focus", adjustForKeyboard);
+    inputField.addEventListener("blur", adjustForKeyboard);
+
+    document.addEventListener("turbo:before-cache", () => {
+        window.visualViewport.removeEventListener("resize", adjustForKeyboard);
+        inputField.removeEventListener("focus", adjustForKeyboard);
+        inputField.removeEventListener("blur", adjustForKeyboard);
+    });
+  });
+</script>

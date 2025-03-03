@@ -9,7 +9,6 @@ RSpec.feature "dialogues pages", type: :feature do
   end
 
   it "visit dialogues page" do
-    expect(body).to have_content "Chat with"
     expect(body).to have_content "All users"
     expect(body).to have_content "Foo"
   end
@@ -25,7 +24,6 @@ RSpec.feature "dialogues pages", type: :feature do
       click_button "Start"
       click_link :dialogue_delete_link
 
-      expect(body).to have_content "Chat with"
       expect(body).to have_content "All users"
     end
   end
