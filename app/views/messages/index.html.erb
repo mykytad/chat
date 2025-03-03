@@ -3,7 +3,7 @@
     <%= render "dialogues/sidebar" %>
   </div>
 
-  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column">
+  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column flex-grow-1">
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
       <div class="container-fluid">
         <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
@@ -68,28 +68,29 @@
 
     if (!messageWindow || !inputField || !messageDisplay || !window.visualViewport) return;
 
-    let defaultHeight = messageWindow.offsetHeight; // Запоминаем изначальную высоту
-
     function isMobileDevice() {
         return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
     function scrollToBottom() {
-        messageDisplay.scrollTop = messageDisplay.scrollHeight;
+        requestAnimationFrame(() => {
+            messageDisplay.scrollTop = messageDisplay.scrollHeight;
+        });
     }
 
     function adjustForKeyboard() {
         if (!isMobileDevice()) return;
 
         const viewportHeight = window.visualViewport.height;
+        const keyboardHeight = window.innerHeight - viewportHeight;
 
         if (document.activeElement === inputField) {
             messageWindow.style.height = `${viewportHeight - 120}px`;
         } else {
-            messageWindow.style.height = `${defaultHeight}px`;
+            messageWindow.style.height = "";
         }
 
-        setTimeout(scrollToBottom, 100); // Принудительно скроллим вниз
+        setTimeout(scrollToBottom, 50); // Принудительный скролл вниз
     }
 
     window.visualViewport.addEventListener("resize", adjustForKeyboard);
