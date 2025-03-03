@@ -1,0 +1,20 @@
+<div class="container vh-100">
+  <div class="col-12 row  h-100">
+    <div class="col-12 col-lg-3 d-lg-flex flex-column py-1"> 
+      <div class="sidebar d-none col-12 col-md-12 d-lg-flex flex-column overflow-scroll mb-4 bg-body-tertiary p-0 h-10">
+        sidebar
+      </div> 
+    </div>
+    <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column flex-g bg-warning">
+      <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
+      </nav>
+      <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
+      <div class="message_window p-2 overflow-scroll d-flex flex-column bg-secondary" id="messages">
+        messages
+      </div>
+      <div class="text-muted d-flex justify-content-start align-items-center">
+        <%= render "messages/new" %>
+      </div>
+    </div>
+  </div>
+</div>
