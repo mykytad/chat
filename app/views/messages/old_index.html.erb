@@ -3,8 +3,8 @@
     <%= render "dialogues/sidebar" %>
   </div>
 
-  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column vh-100"> <!--.container-->
-    <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient"> <!--.header-->
+  <div class="msg-display col-12 col-lg-9 py-1 d-flex flex-column flex-grow-1">
+    <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
       <div class="container-fluid">
         <span id="back-arrow" class="d-inline d-lg-none text-dark-emphasis">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -43,8 +43,7 @@
     </nav>
 
     <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-    <!--.chat-content-->
-    <div class="message_window flex-grow-1 p-2 overflow-scroll d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
+    <div class="message_window p-2 overflow-scroll d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
       <%= render @messages %>
       <span id="down-point d-flex flex-column"></span>
     </div>
@@ -55,7 +54,7 @@
       </svg>
     </span>
 
-    <div class="text-muted d-flex justify-content-start align-items-center"> <!--.input-area-->
+    <div class="text-muted d-flex justify-content-start align-items-center">
       <%= render "messages/new" %>
     </div>
   </div>
