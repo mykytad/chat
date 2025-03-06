@@ -14,17 +14,18 @@
  *= require_self
  */
  @import "bootstrap";
- html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
+
+//  html, body {
+//       margin: 0;
+//       padding: 0;
+//       height: 100%;
+//     }
 /* Flex container to structure header, content, and input */
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
+// .container {
+//   display: flex;
+//   flex-direction: column;
+//   height: 100vh;
+// }
 /* Header styles */
 .header {
   background-color: #f1f1f1;
@@ -54,6 +55,8 @@
   padding: 10px 15px;
   font-size: 16px;
 }
+
+// -----------
 /* user show */
  .pencil_icon{
   margin-left: 10px;

@@ -1,13 +1,22 @@
-  <div class="container d-flex flex-column vh-100">
-    <div class="header border-bottom">
-      Chat Header
-    </div>
-    <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-    <div class="chat-content message_window flex-grow-1 overflow-y-auto p-2 d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
-      <!-- Chat messages will appear here -->
-      <%= render @messages %>
-    </div>
-    <div class="input-area">
-      <%= render "messages/new" %>
+<div class="d-flex col-12">
+  <div class="col-3">
+    sidebar
+  </div>
+
+  <div class="col-9">
+    <div class="container d-flex flex-column vh-100"> <!--container-->
+      <div class="header"> <!--header-->
+        Recipient name
+      </div>
+
+      <!-- chat messages will appear here -->
+      <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
+      <div class="chat-content" id="messages"> <!--chat-content-->
+        <%= render @messages %>
+      </div>
+      <div class="input-area">
+        <%= render "messages/new" %>
+      </div>
     </div>
   </div>
+</div>
