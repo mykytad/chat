@@ -1,6 +1,6 @@
 <div class="d-flex col-12">
-  <div class="col-3">
-    sidebar
+  <div class="col-md-3 vh-100">
+    <%= render "dialogues/sidebar" %>
   </div>
 
   <div class="col-9 d-flex flex-column vh-100"> <!--container-->
@@ -10,7 +10,7 @@
 
     <!-- chat messages will appear here -->
     <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-    <div class="chat-content d-flex flex-grow-1 flex-shrink-1 overflow-y-auto p-1 flex-column" id="messages"> <!--chat-content-->
+    <div class="message_window chat-content d-flex flex-grow-1 flex-shrink-1 overflow-y-auto p-1 flex-column" id="messages"> <!--chat-content-->
       <%= render @messages %>
     </div>
 
