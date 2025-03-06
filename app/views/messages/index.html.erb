@@ -3,20 +3,20 @@
     sidebar
   </div>
 
-  <div class="col-9">
-    <div class="container d-flex flex-column vh-100"> <!--container-->
-      <div class="header"> <!--header-->
-        Recipient name
-      </div>
 
-      <!-- chat messages will appear here -->
-      <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-      <div class="chat-content" id="messages"> <!--chat-content-->
-        <%= render @messages %>
-      </div>
-      <div class="input-area">
-        <%= render "messages/new" %>
-      </div>
+  <div class="col-9 d-flex flex-column vh-100"> <!--container-->
+    <div class="header border-bottom p-1"> <!--header-->
+      Recipient name
+    </div>
+
+    <!-- chat messages will appear here -->
+    <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
+    <div class="chat-content flex-grow-1 overflow-y-auto p-1 " id="messages"> <!--chat-content-->
+      <%= render @messages %>
+    </div>
+
+    <div class="input-area">
+      <%= render "messages/new" %>
     </div>
   </div>
 </div>
