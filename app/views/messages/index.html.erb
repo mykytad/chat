@@ -1,21 +1,143 @@
-<div class="d-flex col-12">
-  <div class="col-md-3 vh-100">
-    <%= render "dialogues/sidebar" %>
+<div class="row vh-100">
+  <div class="col-12 col-lg-3 d-none d-lg-flex flex-column p-2 h-100 text-white bg-dark">
+    <div>Header</div>
+    <ul class="flex-grow-1 flex-shrink-1 overflow-y-auto">
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+      <li class="p-1">
+        <a href="#">dialogue</a>
+      </li>
+    </ul>
+    <div>
+      Footer
+    </div>
   </div>
-
-  <div class="col-9 d-flex flex-column vh-100"> <!--container-->
-    <div class="header border-bottom p-1"> <!--header-->
-      Recipient name
+  <div class="d-flex col-12 col-lg-9 flex-column h-100 p-2 bg-secondary text-white">
+    <div class="pb-2 border-bottom border-white">
+      Chat-header
+    </div>
+    <div class="flex-grow-1 flex-shrink-1 overflow-y-auto">
+      <p>Feel free to send a message.</p>
+      <p>Hello! Welcome to the chat.</p>
+      <p>Feel free to send a message.</p>
+      <p>Hello! Welcome to the chat.</p>
+      <p>Feel free to send a message.</p>
+      <p>Hello! Welcome to the chat.</p>
+      <p>Feel free to send a message.</p>
+      <p>Hello! Welcome to the chat.</p>
+      <p>Feel free to send a message.</p>
+      <p>Hello! Welcome to the chat.</p>
+      <p>Feel free to send a message.</p>
+      <p>Hello! Welcome to the chat.</p>
+      <p>Feel free to send a message.</p>
+      <p>Hello! Welcome to the chat.</p>
+      <p>Feel free to send a message.</p>
+      <p>Hello! Welcome to the chat.</p>
+      <p>Feel free to send a message.</p>
+      <p>Hello! Welcome to the chat.</p>
+      <p>Feel free to send a message.</p>
+      <p>Hello! Welcome to the chat.</p>
+      <p>Feel free to send a message.</p>
+      <p>Hello! Welcome to the chat.</p>
+      <p>Feel free to send a message.</p>
+      <p>Hello! Welcome to the chat.</p>
     </div>
 
-    <!-- chat messages will appear here -->
-    <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-    <div class="message_window chat-content d-flex flex-grow-1 flex-shrink-1 overflow-y-auto p-1 flex-column" id="messages"> <!--chat-content-->
-      <%= render @messages %>
-    </div>
-
-    <div class="input-area">
-      <%= render "messages/new" %>
+    <div class="p-2 d-flex align-items-center justify-content-around">
+      <input type="text" class="form-control w-75">
+      <span class="">img</span>
+      <button class="btn btn-light">Send</button>
     </div>
   </div>
 </div>
