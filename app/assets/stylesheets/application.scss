@@ -228,8 +228,14 @@ html, body {
 }
 
 /* dialogues */
+.dialogues-display{
+  flex: 1px;
+}
+.dialogues-list{
+  flex: 1;
+}
 .users_list_wrap{
-  height: 95%;
+  // height: 100%;
 }
 .list_active_item{
   background:#198754;

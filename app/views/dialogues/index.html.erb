@@ -3,7 +3,7 @@
     <%= render "dialogues/sidebar" %>
   <!--</div>-->
 
-  <div class="dialogues-display col-12 col-lg-9 h-100 py-1">
+  <div class="dialogues-display col-12 col-lg-9 h-100 ">
 
     <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient mb-2">
       <div class="container-fluid">
@@ -18,7 +18,7 @@
       </div>
     </nav>
     <!--message_window p-2 overflow-scroll d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>-->
-    <div class="overflow-scroll d-flex flex-column users_list_wrap">
+    <div class="overflow-auto d-flex flex-column users_list_wrap">
       <%= form_with method: :get do |form|%>
         <div class="mb-3 d-flex justify-content-between align-items-center">
           <%= form.text_field :search, placeholder:"search user", class:"form-control me-2" %>
