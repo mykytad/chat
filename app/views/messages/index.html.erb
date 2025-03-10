@@ -1,6 +1,6 @@
 <div class="col-12 row">
 
-  <div class="container">
+  <div class="container col-12 col-md-9 d-flex flex-column vh-100">
     <div class="header">
       <nav class="navbar navbar-expand-lg fixed py-0 messages_recipient">
         <div class="container-fluid">
@@ -42,7 +42,7 @@
     </div>
 
     <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-    <div class="chat-content" id="messages">
+    <div class="chat-content d-flex flex-column" id="messages">
       <!-- Chat messages will appear here -->
       <%= render @messages %>
       <span id="down-point d-flex flex-column"></span>
