@@ -201,21 +201,21 @@ html, body {
 }
 
 /* sidebar */
-.sidebar{
-  height: 98%;
+// .sidebar{
+//   height: 98%;
 
-  @media (max-width: 1024px) { // Планшеты
-    height: 92%;
-  }
+//   @media (max-width: 1024px) {
+//     height: 92%;
+//   }
 
-  @media (max-width: 768px) { // Маленькие планшеты
-    height: 90%;
-  }
+//   @media (max-width: 768px) { 
+//     height: 90%;
+//   }
 
-  @media (max-width: 480px) { // Мобильные устройства
-    height: 85%;
-  }
-}
+//   @media (max-width: 480px) { 
+//     height: 85%;
+//   }
+// }
 
 .sidebar_menu_header{
   background: #ced4da;
@@ -253,9 +253,9 @@ html, body {
   cursor: pointer;
 }
 
-.msg-display{
-  height: 100%;
-}
+// .msg-display{
+//   height: 100%;
+// }
 
 .message_window {
   flex: 1;
