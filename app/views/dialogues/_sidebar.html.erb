@@ -1,4 +1,4 @@
-<div class="sidebar d-none col-12 col-md-12 d-lg-flex flex-column overflow-scroll mb-4 bg-body-tertiary p-0 h-10"> <!-- .sidebar -->
+<div class="sidebar d-none col-12 col-md-12 d-lg-flex flex-column overflow-scroll mb-4 bg-body-tertiary p-0"> <!-- .sidebar -->
   <div class="sticky-top mb-2 sidebar_menu_header d-flex align-items-center justify-content-between">
     <a href="<%= root_path %>" class="px-3 align-items-center mb-md-0 me-md-auto text-decoration-none text-dark-emphasis">
       <span class="fs-4">MyChat</span>
@@ -11,7 +11,7 @@
   </div>
 
   <%= turbo_stream_from "dialogues" %>
-  <ul class="dialogues-list nav nav-pills flex-column h-100"
+  <ul class="dialogues-list nav nav-pills flex-column"
       data-params-dialogue="<%= params[:dialogue_id] %>">
     <%= render @dialogues %>
   </ul>
