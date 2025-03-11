@@ -67,7 +67,7 @@ html, body {
 }
 
  .messages_recipient{
-  height: 35px;
+  // height: 35px;
   background: #ced4da;
   color:#6c757d;
   box-shadow: 0 6px 8px -2px rgba(0, 0, 0, 0.2);
@@ -235,7 +235,7 @@ html, body {
   flex: 1;
 }
 .users_list_wrap{
-  // height: 100%;
+  height: 95%;
 }
 .list_active_item{
   background:#198754;

@@ -123,6 +123,10 @@
         // Scroll to the bottom of the chat content area
         chatContent.scrollTop = chatContent.scrollHeight;
       }
+      window.addEventListener('resize', () => {
+        const chatContent = document.querySelector('.chat-content');
+        chatContent.style.height = `${window.innerHeight - 100}px`; // 100px - примерная высота header + input
+      });
     }
   </script>
 </body>
