@@ -124,22 +124,6 @@
         chatContent.scrollTop = chatContent.scrollHeight;
       }
     }
-    const inputField = document.getElementById('chat-input');
-    const chatContent = document.querySelector('.chat-content');
-    const inputArea = document.querySelector('.input-area');
-
-    function adjustForKeyboard() {
-      setTimeout(() => {
-        const screenHeight = window.innerHeight;
-        chatContent.style.height = `${screenHeight - inputArea.offsetHeight - 20}px`;
-      }, 50); // Небольшая задержка для корректного расчета
-    }
-
-    // При фокусе (клавиатура открывается)
-    inputField.addEventListener('focus', adjustForKeyboard);
-
-    // При изменении размера окна (например, когда клавиатура закрывается)
-    window.addEventListener('resize', adjustForKeyboard);
   </script>
 </body>
 </html>
