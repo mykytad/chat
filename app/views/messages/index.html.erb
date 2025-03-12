@@ -59,35 +59,31 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const messageWindow = document.querySelector(".message_window");
-  if (!messageWindow) return;
+  document.addEventListener("DOMContentLoaded", function () {
+    let keyboardHeight = 0;
+    const msgForm = document.querySelector(".msg_form");
+    const messageWindow = document.querySelector(".message_window");
 
-  let initialWindowHeight = window.innerHeight; // Исходная высота экрана
+    if (!msgForm || !messageWindow) return;
 
-  function adjustForKeyboard() {
-    const currentWindowHeight = window.innerHeight;
-    const keyboardHeight = initialWindowHeight - currentWindowHeight;
+    const updateMessageWindowHeight = () => {
+      const msgFormHeight = msgForm.offsetHeight;
+      const newHeight = window.innerHeight - msgFormHeight - keyboardHeight;
+      messageWindow.style.height = `${newHeight}px`;
+    };
 
-    if (keyboardHeight > 150) { // Проверяем, что клавиатура действительно открылась
-      messageWindow.style.height = `${currentWindowHeight - 100}px`;
-    } else {
-      messageWindow.style.height = "calc(100vh - 100px)";
-    }
-  }
+    window.addEventListener("resize", () => {
+      const newHeight = window.innerHeight;
+      
+      if (newHeight < screen.height * 0.7) { // Открылась клавиатура
+        keyboardHeight = screen.height - newHeight;
+      } else { // Закрылась клавиатура
+        keyboardHeight = 0;
+      }
 
-  // Отслеживание изменения размеров экрана (работает на мобильных устройствах)
-  window.addEventListener("resize", adjustForKeyboard);
-
-  // Убираем высоту при закрытии клавиатуры
-  document.querySelectorAll("textarea, input").forEach((el) => {
-    el.addEventListener("blur", () => {
-      setTimeout(() => {
-        messageWindow.style.height = "calc(100vh - 100px)";
-      }, 100); // Даем браузеру время обработать событие
+      updateMessageWindowHeight();
     });
+
+    updateMessageWindowHeight();
   });
-});
-
-
 </script>
