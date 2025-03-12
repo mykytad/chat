@@ -59,32 +59,35 @@
 </div>
 
 <script>
- document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const messageWindow = document.querySelector(".message_window");
-
   if (!messageWindow) return;
 
-  let initialWindowHeight = window.innerHeight; // Запоминаем исходную высоту окна
+  let initialWindowHeight = window.innerHeight; // Исходная высота экрана
 
   function adjustForKeyboard() {
     const currentWindowHeight = window.innerHeight;
     const keyboardHeight = initialWindowHeight - currentWindowHeight;
 
-    if (keyboardHeight > 0) {
-      messageWindow.style.height = `calc(100vh - ${keyboardHeight + 100}px)`;
+    if (keyboardHeight > 150) { // Проверяем, что клавиатура действительно открылась
+      messageWindow.style.height = `${currentWindowHeight - 100}px`;
     } else {
       messageWindow.style.height = "calc(100vh - 100px)";
     }
   }
 
+  // Отслеживание изменения размеров экрана (работает на мобильных устройствах)
   window.addEventListener("resize", adjustForKeyboard);
 
+  // Убираем высоту при закрытии клавиатуры
   document.querySelectorAll("textarea, input").forEach((el) => {
-    el.addEventListener("focus", adjustForKeyboard);
     el.addEventListener("blur", () => {
-      messageWindow.style.height = "calc(100vh - 100px)";
+      setTimeout(() => {
+        messageWindow.style.height = "calc(100vh - 100px)";
+      }, 100); // Даем браузеру время обработать событие
     });
   });
 });
+
 
 </script>
