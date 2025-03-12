@@ -41,7 +41,7 @@
     </nav>
 
     <%= turbo_stream_from "dialogue_#{@dialogue.id}_messages" %>
-    <div class="message_window p-2 overflow-y-auto d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
+    <div class="message_window px-2 overflow-y-auto d-flex flex-column <%= params[:replied_to_id].present? ? 'message-window-height' : '' %>" id="messages">
       <%= render @messages %>
       <span id="down-point d-flex flex-column"></span>
     </div>
