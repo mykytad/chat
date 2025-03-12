@@ -57,33 +57,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    let keyboardHeight = 0;
-    const msgForm = document.querySelector(".msg_form");
-    const messageWindow = document.querySelector(".message_window");
-
-    if (!msgForm || !messageWindow) return;
-
-    const updateMessageWindowHeight = () => {
-      const msgFormHeight = msgForm.offsetHeight;
-      const newHeight = window.innerHeight - msgFormHeight - keyboardHeight;
-      messageWindow.style.height = `${newHeight}px`;
-    };
-
-    window.addEventListener("resize", () => {
-      const newHeight = window.innerHeight;
-      
-      if (newHeight < screen.height * 0.7) { // Открылась клавиатура
-        keyboardHeight = screen.height - newHeight;
-      } else { // Закрылась клавиатура
-        keyboardHeight = 0;
-      }
-
-      updateMessageWindowHeight();
-    });
-
-    updateMessageWindowHeight();
-  });
-</script>
