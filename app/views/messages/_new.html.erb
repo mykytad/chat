@@ -1,4 +1,4 @@
-<%= form_for :message, class:"msg_form input-group row g-3 col-12 d-flex flex-wrap align-items-center justify-content-center message-form-container" do |form| %>
+<%= form_for :message, class:"msg_form row g-3 col-12 d-flex flex-wrap align-items-center justify-content-center message-form-container" do |form| %>
   <%= form.hidden_field :replied_to_id, value: params[:replied_to_id] if params[:replied_to_id].present? %>
   <%if params[:replied_to_id].present?%>
     <div class="reply_new message_content col-11 rounded-end1 m-2 text-white d-flex justify-content-between">
