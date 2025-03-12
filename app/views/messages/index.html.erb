@@ -59,30 +59,32 @@
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+ document.addEventListener("DOMContentLoaded", function () {
   const messageWindow = document.querySelector(".message_window");
 
   if (!messageWindow) return;
 
-  function adjustForKeyboard() {
-    if (window.visualViewport) {
-      const keyboardHeight = window.innerHeight - window.visualViewport.height;
+  let initialWindowHeight = window.innerHeight; // Запоминаем исходную высоту окна
 
-      if (keyboardHeight > 0) {
-        messageWindow.style.height = `calc(100vh - ${keyboardHeight + 100}px)`;
-      } else {
-        messageWindow.style.height = "calc(100vh - 100px)";
-      }
+  function adjustForKeyboard() {
+    const currentWindowHeight = window.innerHeight;
+    const keyboardHeight = initialWindowHeight - currentWindowHeight;
+
+    if (keyboardHeight > 0) {
+      messageWindow.style.height = `calc(100vh - ${keyboardHeight + 100}px)`;
+    } else {
+      messageWindow.style.height = "calc(100vh - 100px)";
     }
   }
 
-  // Отслеживание изменений размеров экрана (работает на Android и iOS)
-  window.visualViewport.addEventListener("resize", adjustForKeyboard);
+  window.addEventListener("resize", adjustForKeyboard);
 
-  // На некоторых устройствах iOS `resize` может не срабатывать — отслеживаем `focus`
-  document.querySelector("textarea, input").addEventListener("focus", adjustForKeyboard);
-  document.querySelector("textarea, input").addEventListener("blur", () => {
-    messageWindow.style.height = "calc(100vh - 100px)";
+  document.querySelectorAll("textarea, input").forEach((el) => {
+    el.addEventListener("focus", adjustForKeyboard);
+    el.addEventListener("blur", () => {
+      messageWindow.style.height = "calc(100vh - 100px)";
+    });
   });
 });
+
 </script>
