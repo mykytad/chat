@@ -57,3 +57,11 @@
     </div>
   </div>
 </div>
+<script>
+  function updateChatHeight() {
+    document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
+  }
+
+  window.addEventListener('resize', updateChatHeight);
+  updateChatHeight();
+</script>

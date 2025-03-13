@@ -259,12 +259,38 @@ html, body {
   cursor: pointer;
 }
 
+:root {
+  --app-height: 100vh;
+}
+
+.container {
+  height: var(--app-height);
+}
+
+.msg-display {
+  height: 100%;
+}
+
+.message_window {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  transition: height 0.2s ease-in-out;
+}
+
+/* Учитываем открытие клавиатуры */
+@media (max-width: 991px) {
+  .text-muted {
+    flex-shrink: 0;
+  }
+}
+
 // .msg-display{
 //   height: 100%;
 // }
 
-.message_window {
-  flex: 1;
+// .message_window {
+  // flex: 1;
 //   height: 87%;
 //   transition: height 0.2s ease-in-out;
 
@@ -283,7 +309,7 @@ html, body {
 
 // .message-window-height{
 //   height: calc(87% - 50px);
-}
+// }
 
 @media (min-width: 300px) {
   .message_body_wrap {
