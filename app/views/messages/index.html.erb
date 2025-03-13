@@ -60,40 +60,26 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const msgForm = document.querySelector(".msg_form");
-    const messageWindow = document.querySelector(".message_window");
-    const inputField = msgForm ? msgForm.querySelector("input, textarea") : null;
+  const msgForm = document.querySelector(".msg_form");
+  const messageWindow = document.querySelector(".message_window");
 
-    if (!msgForm || !messageWindow || !inputField) return;
+  if (!msgForm || !messageWindow) return;
 
-    let defaultHeight = window.innerHeight;
+  let defaultHeight = window.innerHeight;
 
-    const adjustMessageWindow = () => {
-      const msgFormHeight = msgForm.offsetHeight;
-      const newHeight = window.innerHeight - msgFormHeight;
-      messageWindow.style.height = `${newHeight}px`;
-    };
+  const adjustMessageWindow = () => {
+    const msgFormHeight = msgForm.offsetHeight;
+    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    const newHeight = viewportHeight - msgFormHeight;
+    messageWindow.style.height = `${newHeight}px`;
+  };
 
-    inputField.addEventListener("focus", () => {
-      setTimeout(() => {
-        adjustMessageWindow();
-      }, 300); // Задержка для корректного вычисления высоты
-    });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", adjustMessageWindow);
+  } else {
+    window.addEventListener("resize", adjustMessageWindow);
+  }
 
-    inputField.addEventListener("blur", () => {
-      setTimeout(() => {
-        messageWindow.style.height = `${defaultHeight - msgForm.offsetHeight}px`;
-      }, 300);
-    });
-
-    window.addEventListener("resize", () => {
-      if (window.innerHeight < defaultHeight * 0.8) {
-        adjustMessageWindow();
-      } else {
-        messageWindow.style.height = `${defaultHeight - msgForm.offsetHeight}px`;
-      }
-    });
-
-    adjustMessageWindow();
-  });
+  adjustMessageWindow();
+});
 </script>
