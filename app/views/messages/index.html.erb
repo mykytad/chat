@@ -60,33 +60,40 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    let keyboardHeight = 0;
     const msgForm = document.querySelector(".msg_form");
     const messageWindow = document.querySelector(".message_window");
+    const inputField = msgForm ? msgForm.querySelector("input, textarea") : null;
 
-    if (!msgForm || !messageWindow) return;
+    if (!msgForm || !messageWindow || !inputField) return;
 
-    const updateMessageWindowHeight = () => {
+    let defaultHeight = window.innerHeight;
+
+    const adjustMessageWindow = () => {
       const msgFormHeight = msgForm.offsetHeight;
-      const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-      const newHeight = viewportHeight - msgFormHeight;
-
+      const newHeight = window.innerHeight - msgFormHeight;
       messageWindow.style.height = `${newHeight}px`;
     };
 
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", () => {
-        keyboardHeight = screen.height - window.visualViewport.height;
-        requestAnimationFrame(updateMessageWindowHeight);
-      });
-    } else {
-      window.addEventListener("resize", () => {
-        keyboardHeight = screen.height - window.innerHeight;
-        requestAnimationFrame(updateMessageWindowHeight);
-      });
-    }
+    inputField.addEventListener("focus", () => {
+      setTimeout(() => {
+        adjustMessageWindow();
+      }, 300); // Задержка для корректного вычисления высоты
+    });
 
-    updateMessageWindowHeight();
+    inputField.addEventListener("blur", () => {
+      setTimeout(() => {
+        messageWindow.style.height = `${defaultHeight - msgForm.offsetHeight}px`;
+      }, 300);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerHeight < defaultHeight * 0.8) {
+        adjustMessageWindow();
+      } else {
+        messageWindow.style.height = `${defaultHeight - msgForm.offsetHeight}px`;
+      }
+    });
+
+    adjustMessageWindow();
   });
-
 </script>
