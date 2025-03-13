@@ -57,29 +57,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-  const msgForm = document.querySelector(".msg_form");
-  const messageWindow = document.querySelector(".message_window");
-
-  if (!msgForm || !messageWindow) return;
-
-  let defaultHeight = window.innerHeight;
-
-  const adjustMessageWindow = () => {
-    const msgFormHeight = msgForm.offsetHeight;
-    const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    const newHeight = viewportHeight - msgFormHeight;
-    messageWindow.style.height = `${newHeight}px`;
-  };
-
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener("resize", adjustMessageWindow);
-  } else {
-    window.addEventListener("resize", adjustMessageWindow);
-  }
-
-  adjustMessageWindow();
-});
-</script>
