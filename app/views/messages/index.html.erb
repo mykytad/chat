@@ -69,20 +69,20 @@
     const updateMessageWindowHeight = () => {
       const msgFormHeight = msgForm.offsetHeight;
       const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-      const newHeight = viewportHeight - msgFormHeight - keyboardHeight;
-      
+      const newHeight = viewportHeight - msgFormHeight;
+
       messageWindow.style.height = `${newHeight}px`;
     };
 
     if (window.visualViewport) {
       window.visualViewport.addEventListener("resize", () => {
         keyboardHeight = screen.height - window.visualViewport.height;
-        updateMessageWindowHeight();
+        requestAnimationFrame(updateMessageWindowHeight);
       });
     } else {
       window.addEventListener("resize", () => {
         keyboardHeight = screen.height - window.innerHeight;
-        updateMessageWindowHeight();
+        requestAnimationFrame(updateMessageWindowHeight);
       });
     }
 
