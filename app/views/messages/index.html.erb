@@ -59,9 +59,24 @@
 </div>
 <script>
   function updateChatHeight() {
-    document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
+    const appHeight = window.innerHeight;
+    document.documentElement.style.setProperty('--app-height', `${appHeight}px`);
+
+    // Корректируем высоту message_window
+    const msgDisplay = document.querySelector('.msg-display');
+    const header = document.querySelector('.navbar');
+    const inputField = document.querySelector('.text-muted');
+    const messageWindow = document.querySelector('.message_window');
+
+    if (msgDisplay && header && inputField && messageWindow) {
+      const availableHeight = appHeight - header.offsetHeight - inputField.offsetHeight;
+      messageWindow.style.height = `${availableHeight}px`;
+    }
   }
 
+  // Вызываем при загрузке и изменении размера экрана
   window.addEventListener('resize', updateChatHeight);
+  window.addEventListener('orientationchange', updateChatHeight);
   updateChatHeight();
+
 </script>
