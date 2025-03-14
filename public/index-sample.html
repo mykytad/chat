@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Window</title>
+  <style>
+    /* Reset margins and ensure full height */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    /* Flex container to structure header, content, and input */
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    /* Header styles */
+    .header {
+      background-color: #f1f1f1;
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+    /* Chat content takes available space and scrolls if needed */
+    .chat-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      background-color: #fff;
+    }
+    /* Input area at the bottom */
+    .input-area {
+      padding: 10px;
+      border-top: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+    .input-area input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .input-area button {
+      padding: 10px 15px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      Chat Header
+    </div>
+    <div class="chat-content" id="chat-content">
+      <!-- Chat messages will appear here -->
+      <p>Hello! Welcome to the chat.1</p>
+      <p>Feel free to send a message.2</p>
+      <p>Hello! Welcome to the chat3.</p>
+      <p>Feel free to send a message4.</p>
+      <p>Hello! Welcome to the chat5.</p>
+      <p>Feel free to send a message6.</p>
+      <p>Hello! Welcome to the chat7.</p>
+      <p>Feel free to send a message8.</p>
+      <p>Hello! Welcome to the chat9.</p>
+      <p>Feel free to send a message10.</p>
+      <p>Hello! Welcome to the chat.11</p>
+      <p>Feel free to send a message12.</p>
+      <p>Hello! Welcome to the chat13.</p>
+      <p>Feel free to send a message14.</p>
+      <p>Hello! Welcome to the chat15.</p>
+      <p>Feel free to send a message16.</p>
+      <p>Hello! Welcome to the chat17.</p>
+      <p>Feel free to send a message18.</p>
+      <p>Hello! Welcome to the chat19.</p>
+      <p>Feel free to send a message20.</p>
+      <p>Hello! Welcome to the chat21.</p>
+      <p>Feel free to send a message22.</p>
+      <p>Hello! Welcome to the chat23.</p>
+      <p>Feel free to send a message24.</p>
+      <p>Hello! Welcome to the chat25.</p>
+      <p>Feel free to send a message26.</p>
+      <p>Hello! Welcome to the chat27.</p>
+      <p>Feel free to send a message28.</p>
+      <p>Hello! Welcome to the chat29.</p>
+      <p>Feel free to send a message30.</p>
+      <p>Hello! Welcome to the chat.31</p>
+      <p>Feel free to send a message32.</p>
+      <p>Hello! Welcome to the chat.33</p>
+      <p>Feel free to send a message34.</p>
+      <p>Hello! Welcome to the chat35.</p>
+      <p>Feel free to send a message36.</p>
+      <p>Hello! Welcome to the chat.37</p>
+      <p>Feel free to send a message38.</p>
+      <p>Hello! Welcome to the chat.39</p>
+      <p>Feel free to send a message40.</p>
+      <p>Hello! Welcome to the chat.41</p>
+      <p>Feel free to send a message42.</p>
+      <p>Hello! Welcome to the chat43.</p>
+      <p>Feel free to send a message44.</p>
+      <p>Hello! Welcome to the chat.45</p>
+      <p>111 Feel free to send a message.</p>
+    </div>
+    <div class="input-area">
+      <input type="text" id="chat-input" placeholder="Type your message here..." />
+      <button type="button" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // Function to add a new message to the chat content
+    function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const chatContent = document.getElementById('chat-content');
+
+      if (input.value.trim() !== '') {
+        const newMessage = document.createElement('p');
+        newMessage.textContent = input.value;
+        chatContent.appendChild(newMessage);
+        input.value = '';
+
+        // Scroll to the bottom of the chat content area
+        chatContent.scrollTop = chatContent.scrollHeight;
+      }
+    }
+  </script>
+</body>
+</html>
+

@@ -14,9 +14,32 @@
  *= require_self
  */
  @import "bootstrap";
- body {
-  height: calc(var(--vh, 1vh) * 100);
+/* Chat content takes available space and scrolls if needed */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
+/* Flex container to structure header, content, and input */
+// .container {
+//   display: flex;
+//   flex-direction: column;
+//   height: 100vh;
+// }
+/* Header styles */
+.header {
+  padding: 10px;
+  text-align: center;
+}
+/* Chat content takes available space and scrolls if needed */
+.chat-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #fff;
+}
+
+// ----------------------------------
 
  .body_height{
   // height: 930px;
@@ -36,6 +59,7 @@
   padding: 6px 12px; 
 } */
  /* messages index */
+
 .message_content {
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -44,7 +68,7 @@
 }
 
  .messages_recipient{
-  height: 35px;
+  // height: 35px;
   background: #ced4da;
   color:#6c757d;
   box-shadow: 0 6px 8px -2px rgba(0, 0, 0, 0.2);
@@ -178,21 +202,21 @@
 }
 
 /* sidebar */
-.sidebar{
-  height: 98%;
+// .sidebar{
+//   height: 98%;
 
-  @media (max-width: 1024px) { // Планшеты
-    height: 92%;
-  }
+//   @media (max-width: 1024px) {
+//     height: 92%;
+//   }
 
-  @media (max-width: 768px) { // Маленькие планшеты
-    height: 90%;
-  }
+//   @media (max-width: 768px) { 
+//     height: 90%;
+//   }
 
-  @media (max-width: 480px) { // Мобильные устройства
-    height: 85%;
-  }
-}
+//   @media (max-width: 480px) { 
+//     height: 85%;
+//   }
+// }
 
 .sidebar_menu_header{
   background: #ced4da;
@@ -205,6 +229,12 @@
 }
 
 /* dialogues */
+.dialogues-display{
+  flex: 1px;
+}
+.dialogues-list{
+  flex: 1;
+}
 .users_list_wrap{
   height: 95%;
 }
@@ -230,30 +260,17 @@
   cursor: pointer;
 }
 
-.msg-display{
-  height: 100%;
-}
+// .msg-display{
+//   height: 100%;
+// }
 
 .message_window {
-  height: 87%;
-  transition: height 0.2s ease-in-out;
-
-  @media (max-width: 1024px) {
-    height: 84%;
-  }
-
-  @media (max-width: 768px) {
-    height: 79%;
-  }
-
-  @media (max-width: 480px) {
-    height: 74%;
-  }
+  flex: 1;
 }
 
-.message-window-height{
-  height: calc(87% - 50px);
-}
+// .message-window-height{
+//   height: calc(87% - 50px);
+// }
 
 @media (min-width: 300px) {
   .message_body_wrap {
